@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, width=device-width" name="viewport">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+        <link href="css/style.css" rel="stylesheet" type="text/css"/>
+		<script type="text/javascript" src="js/rem.js" ></script>
+		<script type="text/javascript" src="js/jquery-1.11.1.min.js" ></script>
+		<script type="text/javascript">
+			$(function(){
+				$('.tab_box a').click(function(){
+					var i = $(this).index();
+					$(this).addClass('active').siblings().removeClass('active');
+					$('.scoreDetails_list').hide()&&$('.scoreDetails_list.list_box'+i).show();
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<header>
+			<a class="back_index" href="javascript:history.go(-1)"><img src="img/back.png" /></a><span>积分详情</span><a class="top_btn" href="rule.html">规则</a>
+		</header>
+		<div class="main">
+			<section class="score_text">
+				<h4>我的积分：</h4><span>800分</span>
+			</section>
+			<section class="tab_box scoretab">
+				<a class="active">全部</a><a>收入</a><a>支出</a>
+			</section>
+			<section class="scoreDetails_list list_box0">
+				<ul>
+					<li>
+						<h4 class="income"></h4>
+						<span class="tag">收入</span>
+						<p>任务一：简洁的表达你的想法</p>
+						<p>分享朋友圈<span>+1</span></p>
+						<p>时间：2016-3-21 10:12:21</p>
+						<em>剩余积分：800</em>
+					</li>
+					<li>
+						<h4 class="expenditure"></h4>
+						<span class="tag">支出</span>
+						<p>100M流量兑换</p>
+						<p>-100</p>
+						<p>时间：2016-3-21 10:12:21</p>
+						<em>剩余积分：800</em>
+					</li>
+					<li>
+						<h4 class="income"></h4>
+						<span class="tag">收入</span>
+						<p>任务一：简洁的表达你的想法</p>
+						<p>分享朋友圈<span>+1</span></p>
+						<p>时间：2016-3-21 10:12:21</p>
+						<em>剩余积分：800</em>
+					</li>
+					<li>
+						<h4 class="expenditure"></h4>
+						<span class="tag">支出</span>
+						<p>100M流量兑换</p>
+						<p>-100</p>
+						<p>时间：2016-3-21 10:12:21</p>
+						<em>剩余积分：800</em>
+					</li>
+				</ul>
+			</section>
+			<section class="scoreDetails_list list_box1" style="display: none;">
+				<ul>
+					<li>
+						<h4 class="income"></h4>
+						<span class="tag">收入</span>
+						<p>任务一：简洁的表达你的想法</p>
+						<p>分享朋友圈<span>+1</span></p>
+						<p>时间：2016-3-21 10:12:21</p>
+						<em>剩余积分：800</em>
+					</li>
+					<li>
+						<h4 class="income"></h4>
+						<span class="tag">收入</span>
+						<p>任务一：简洁的表达你的想法</p>
+						<p>分享朋友圈<span>+1</span></p>
+						<p>时间：2016-3-21 10:12:21</p>
+						<em>剩余积分：800</em>
+					</li>
+				</ul>
+			</section>
+			<section class="scoreDetails_list list_box2" style="display: none;">
+				<ul>
+					<li>
+						<h4 class="expenditure"></h4>
+						<span class="tag">支出</span>
+						<p>100M流量兑换</p>
+						<p>-100</p>
+						<p>时间：2016-3-21 10:12:21</p>
+						<em>剩余积分：800</em>
+					</li>
+					<li>
+						<h4 class="expenditure"></h4>
+						<span class="tag">支出</span>
+						<p>100M流量兑换</p>
+						<p>-100</p>
+						<p>时间：2016-3-21 10:12:21</p>
+						<em>剩余积分：800</em>
+					</li>
+				</ul>
+			</section>
+		</article>
+		<div class="footer">
+			<ul>
+				<li><a href="index.html" class="a1"><span>任务列表</span></a></li>
+				<li><a href="myTask.html" class="a2"><span>我的任务</span></a></li>
+				<li class="active"><a href="score.html" class="a3"><span>积分商城</span></a></li>
+			</ul>			
+		</div>
+	</body>
+</html>

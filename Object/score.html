@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, width=device-width" name="viewport">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+        <link href="css/style.css" rel="stylesheet" type="text/css"/>
+		<script type="text/javascript" src="js/rem.js" ></script>
+	</head>
+	<body>
+		<header>
+			<span>积分商城</span><a class="top_btn" href="rule.html">规则</a>
+		</header>
+		<div class="main">
+			<section class="score_text">
+				<h4>我的积分：</h4><span>800分</span><a href="exchangeList.html">兑换记录</a><a href="scoreDetails.html" class="score_query">详情</a>
+			</section>
+			<section class="score_list">
+				<ul>
+					<li>
+						<img src="img/pic.png" /><p>如果你无法简洁的表达你的想法</p><a class="exchangeBtn">兑换</a>
+					</li>
+					<li>
+						<img src="img/pic.png" /><p>如果你无法简洁的表达你的想法</p><a class="exchangeBtn">兑换</a>
+					</li>
+					<li>
+						<img src="img/pic.png" /><p>如果你无法简洁的表达你的想法</p><a class="exchangeBtn">兑换</a>
+					</li>
+					<li>
+						<img src="img/pic.png" /><p>如果你无法简洁的表达你的想法</p><a class="exchangeBtn">兑换</a>
+					</li>
+					<li>
+						<img src="img/pic.png" /><p>如果你无法简洁的表达你的想法</p><a class="exchangeBtn">兑换</a>
+					</li>
+				</ul>
+			</section>
+		</div>
+		<div class="footer">
+			<ul>
+				<li><a href="index.html" class="a1"><span>任务列表</span></a></li>
+				<li><a href="myTask.html" class="a2"><span>我的任务</span></a></li>
+				<li class="active"><a href="score.html" class="a3"><span>积分商城</span></a></li>
+			</ul>			
+		</div>
+		
+		<div class="fade" id="exchangeResults">
+			<div class="fade_bj"></div>
+			<div class="fade_con">
+				<img src="img/gou.png" class="gou"/>
+				<h4>兑换成功</h4>
+				<div class="btn_box">
+					<a class="cancle" onClick="hideTc('exchangeResults')">取消</a>
+					<a onClick="hideTc('exchangeResults')">确定</a>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="js/jquery-1.11.1.min.js" ></script>
+		<script type="text/javascript">
+			$(function(){
+				$('.exchangeBtn').click(function(){
+					//判断是否兑换成功
+					var flag = 0;
+					if(flag==0){
+						//成功
+						$('.gou').attr('src','img/gou.png');
+						$('#exchangeResults h4').html('兑换成功');
+					}else{
+						//失败
+						$('.gou').attr('src','img/cha.png');	
+						$('#exchangeResults h4').html('兑换失败');
+					}
+					$('#exchangeResults').show();
+				});
+			});
+			function hideTc(div){
+				document.getElementById(div).style.display='none';
+			}
+		</script>
+	</body>
+</html>
