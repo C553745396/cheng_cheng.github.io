@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, width=device-width" name="viewport">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+        <link href="css/style.css" rel="stylesheet" type="text/css"/>
+        <script type="text/javascript" src="js/rem.js" ></script>
+		<title></title>
+	</head>
+	<body>
+		<div class="wrap">
+			<!--banner轮播-->
+			<div class="main_visual detailPic">				
+				<div class="flicking_con">
+					<a href="#">1</a>
+					<a href="#">2</a>
+					<a href="#">3</a>
+				</div>
+				<div class="main_image">
+					<ul>
+						<li><a href=""><img src="img/pic1.jpg" /></a></li>
+						<li><a href=""><img src="img/pic2.jpg" /></a></li>
+						<li><a href=""><img src="img/pic3.jpg" /></a></li>
+					</ul>
+					<a id="btn_prev"></a>
+					<a id="btn_next"></a>
+				</div>	
+			</div>
+			<div class="detailText">
+				<h4><p>Apple iPhone6s Plus 16G</p><span>颜色随机</span></h4>
+				<span>期号：100005</span>
+				<div class="bar"><span style="width: 60%;"></span></div>
+				<div class="sy">
+					<span>总需600人次</span>
+					<em>剩余420</em>
+				</div>
+				<span class="srartTime">开奖时间：2016-08-29 9:00:00</span>
+				<span class="endTime">截止购买时间：2016-08-28 9:00:00</span>
+			</div>
+			<div class="cyList">
+				<div class="tagTitle">
+					<a class="active"><span>参与记录</span></a>
+					<a><span>图文详情</span></a>
+				</div>
+				<div class="timeT">自2016-7-21 16:47:48开始</div>
+				<div class="listcon" id="listcon0">
+					<ul>
+						<li>
+							<a class="photo" href="user.html"><img src="img/photo.png" /></a>
+							<p><a href="user.html">我是666</a>参与了2人次 2016-7-21 17:24:12:195</p>
+						</li>
+						<li>
+							<a class="photo" href="user.html"><img src="img/photo.png" /></a>
+							<p><a href="user.html">我是666</a>参与了2人次 2016-7-21 17:24:12:195</p>
+						</li>
+						<li>
+							<a class="photo" href="user.html"><img src="img/photo.png" /></a>
+							<p><a href="user.html">我是666</a>参与了2人次 2016-7-21 17:24:12:195</p>
+						</li>
+						<li>
+							<a class="photo" href="user.html"><img src="img/photo.png" /></a>
+							<p><a href="user.html">我是666</a>参与了2人次 2016-7-21 17:24:12:195</p>
+						</li>
+						<li>
+							<a class="photo" href="user.html"><img src="img/photo.png" /></a>
+							<p><a href="user.html">我是666</a>参与了2人次 2016-7-21 17:24:12:195</p>
+						</li>
+						<li>
+							<a class="photo" href="user.html"><img src="img/photo.png" /></a>
+							<p><a href="user.html">我是666</a>参与了2人次 2016-7-21 17:24:12:195</p>
+						</li>
+						
+					</ul>
+				</div>
+				<div class="listcon" id="listcon1" style="display: none;">
+					<img src="img/tw.jpg" class="tw"/>
+					<div class="twText">重要说明：<br />1.以上详情页面展示信息仅供参考，商品以实物为准；<br />2.如快递无法配送至获得者提供的送货地址，将默认送至距离最近的送货地，由获得者本人自提。</div>
+				</div>
+				<a class="loadUp">上划加载更多</a>
+			</div>			
+			<!--底部浮动-->
+			<div class="btnLine"></div>
+			<div class="footerBox">
+				<a class="active" onclick="show('inserBox')"><img src="img/icon1_on.png" /><span>立即购买</span></a>
+				<a onclick="show('textBox')"><img src="img/icon2_on.png" /><span>加入清单</span></a>
+			</div>
+		</div>
+		<div class="fade" id="inserBox">
+			<div class="fadeBj"></div>
+			<div class="fade_con">
+				<img src="img/close.png" class="close" onclick="hide('inserBox')">
+				<h3>请填写身份信息</h3>
+				<input type="text" value="" placeholder="请输入姓名"/>
+				<input type="text" value="" placeholder="请输入联系方式" />
+				<p>填写身份信息以便于客服人员与您联系</p>
+				<a class="btna" onclick="hide('inserBox')">确认</a>
+			</div>
+		</div>
+		<div class="fade" id="textBox">
+			<div class="fadeBj"></div>
+			<div class="fade_con">
+				<img src="img/close.png" class="close" onclick="hide('textBox')">
+				<h4>已成功添加至清单！</h4>
+				<div class="btnBox">
+					<a onclick="hide('textBox')">再逛一逛</a>
+					<a href="orderlist.html" class="a1">查看清单</a>
+				</div>	
+			</div>
+		</div>
+		<script type="text/javascript" src="js/jquery-1.11.1.min.js" ></script>
+		<script type="text/javascript" src="js/jquery.event.drag-1.5.min.js" ></script>
+		<script type="text/javascript" src="js/jquery.touchSlider.js" ></script>
+		<script type="text/javascript">	
+				    
+			$(function(){
+				//切换
+				$('.tagTitle a').click(function(){
+					$(this).addClass('active').siblings().removeClass('active');
+					var i = $(this).index();
+					$('.listcon').hide()&&$('#listcon'+i).show();
+				});
+				
+				/*轮播--------------start*/
+				$dragBln = false;			
+				$(".main_image").touchSlider({
+					flexible : true,
+					speed : 200,
+					btn_prev : $("#btn_prev"),
+					btn_next : $("#btn_next"),
+					paging : $(".flicking_con a"),
+					counter : function (e){
+						$(".flicking_con a").removeClass("on").eq(e.current-1).addClass("on");
+					}
+				});
+				
+				$(".main_image").bind("mousedown", function() {
+					$dragBln = false;
+				});
+				
+				$(".main_image").bind("dragstart", function() {
+					$dragBln = true;
+				});
+				
+				$(".main_image a").click(function(){
+					if($dragBln) {
+						return false;
+					}
+				});
+				
+				timer = setInterval(function(){
+					$("#btn_next").click();
+				}, 5000);
+				
+				$(".main_visual").hover(function(){
+					clearInterval(timer);
+				},function(){
+					timer = setInterval(function(){
+						$("#btn_next").click();
+					},5000);
+				});
+				
+				$(".main_image").bind("touchstart",function(){
+					clearInterval(timer);
+				}).bind("touchend", function(){
+					timer = setInterval(function(){
+						$("#btn_next").click();
+					}, 5000);
+				});
+				/*轮播--------------end*/		        
+			});	
+
+		</script>
+
+	</body>
+</html>
