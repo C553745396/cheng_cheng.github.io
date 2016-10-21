@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, width=device-width" name="viewport">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+        <title>店铺优惠券</title>
+        <link rel="stylesheet" href="css/style.css">
+        
+	</head>
+	<body style="background: #fff;">
+		<div class="wrap">
+			<!--头部title-->
+			<div class="head"><a href="javascript:history.go(-1)" class="head_img"><img src="img/back.png" /></a>店铺优惠券</div>
+								 
+			<div class="tab_div">
+				<span class="active"><a class="span1">我的优惠券</a></span>
+				<span><a class="span2">可领优惠券</a></span>
+			</div>
+			<div class="coupons_box">
+				<div class="coupons" id="coupons0">
+					<img src="img/none.png" />
+					<p>还没有优惠券哦~</p>
+				</div>
+				<div class="coupons" id="coupons1" style="display: none;">
+					<a class="yhq" href="coupons_detail.html">
+						<img src="img/left_img.png" class="left_img1"/>
+						<div class="yhq_text">
+							<p>南京汇龙科技10元红包</p>
+							<em>使用期限 2016.3.6-2016.6.8</em>
+						</div>
+						<span>可领取</span>
+						<img src="img/right_img.png" class="right_img1"/>
+					</a>
+					<a class="yhq" href="coupons_detail.html">
+						<img src="img/left_img.png" class="left_img1"/>
+						<div class="yhq_text">
+							<p>南京汇龙科技10元红包</p>
+							<em>使用期限 2016.3.6-2016.6.8</em>
+						</div>
+						<span>未使用</span>
+						<img src="img/right_img.png" class="right_img1"/>
+					</a>
+					<a class="yhq" href="coupons_detail.html">
+						<img src="img/left_img.png" class="left_img1"/>
+						<div class="yhq_text">
+							<p>南京汇龙科技10元红包</p>
+							<em>使用期限 2016.3.6-2016.6.8</em>
+						</div>
+						<span class="gq">已过期</span>
+						<img src="img/right_img.png" class="right_img1"/>
+					</a>
+					<a class="yhq" href="coupons_detail.html">
+						<img src="img/left_img.png" class="left_img1"/>
+						<div class="yhq_text">
+							<p>南京汇龙科技10元红包</p>
+							<em>使用期限 2016.3.6-2016.6.8</em>
+						</div>
+						<span>可领取</span>
+						<img src="img/right_img.png" class="right_img1"/>
+					</a>
+					<a class="yhq" href="coupons_detail.html">
+						<img src="img/left_img.png" class="left_img1"/>
+						<div class="yhq_text">
+							<p>南京汇龙科技10元红包</p>
+							<em>使用期限 2016.3.6-2016.6.8</em>
+						</div>
+						<span>可领取</span>
+						<img src="img/right_img.png" class="right_img1"/>
+					</a>
+				</div>
+			</div>
+		</div>	
+		<script type="text/javascript" src="js/jquery-1.7.1.min.js" ></script>
+		<script type="text/javascript">
+			$(function(){
+				$('.tab_div span').click(function(){
+					$(this).addClass('active').siblings().removeClass('active');
+					var i = $(this).index();
+					$('.coupons_box .coupons').hide()&&$('#coupons'+i).show();
+				});
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, width=device-width" name="viewport">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+        <title>支付收银台</title>
+        <link rel="stylesheet" href="css/style.css">
+        
+	</head>
+	<body>
+		<div class="wrap">
+			<!--头部title-->
+			<div class="head"><a href="javascript:history.go(-1)" class="head_img"><img src="img/back.png" /></a>支付收银台</div>
+			<div class="my_text pay_div"><label>订单金额</label><span>¥20000.00</span></div>
+			
+			<a class="pay_btn">
+				<img src="img/wx_icon.jpg" />
+				<p>
+					<span>微信支付</span>
+					<em>微信安全支付</em>
+				</p>
+				<i>&gt;</i>
+			</a>
+		</div>	
+		<div class="fade_tc pay_result">
+			<div class="fade_bj"></div>
+			<div class="fade_con_confirm">
+				<p>支付成功！</p>
+				<a class="a1" href="order_list.html">我的订单</a>
+				<a href="index.html">返回首页</a>
+			</div>
+		</div>
+		<script type="text/javascript" src="js/jquery-1.7.1.min.js" ></script>
+		<script type="text/javascript">
+			$(function(){
+				/*支付成功*/
+				$('.pay_btn').click(function(){
+					$('.pay_result').fadeIn();
+				});
+			});
+		</script>
+	</body>
+</html>

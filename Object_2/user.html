@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, width=device-width" name="viewport">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+        <title>个人中心</title>
+        <link rel="stylesheet" href="css/style.css">
+        
+	</head>
+	<body>
+		<div class="wrap">
+			<div class="user_top">
+				<img src="img/photo.png" />
+				<span>地瓜的夏天</span>
+			</div>
+			<div class="my_yy botnone">
+				<img src="img/icon5.png" /><span>我的余额</span>
+				<a class="tx_btn">提现</a><a class="a2">充值</a><a class="a1" href="my_money.html">明细</a>
+			</div>
+			<div class="my_yy">
+				<img src="img/icon15.png" /><span>我的积分</span>
+				<a class="tx_btn" href="jfsc.html">积分商城</a><a class="a2">签到</a><a class="a1" href="my_jf.html">明细</a>
+			</div>
+			<div class="my_order">
+				<a class="order_link" href="order_list.html"><img src="img/icon6.png" /><span>我的订单</span><em>查看我的订单&gt;</em></a>
+				<ul>
+					<li><a href="order_list.html"><img src="img/icon11.png" />待付款</a></li>
+					<li><a href="order_list.html"><img src="img/icon12.png" />待发货</a></li>
+					<li><a href="order_list.html"><img src="img/icon13.png" />待收货<span>1</span></a></li>
+					<li><a href="order_list.html"><img src="img/icon14.png" />退款</a></li>
+				</ul>
+			</div>
+			<div class="list_edit">
+				<a href="my_message.html"><img src="img/icon7.png" /><span>我的资料</span><em>&gt;</em></a>
+				<a href="coupons.html"><img src="img/icon8.png" /><span>优惠券</span><em>&gt;</em></a>
+				<a href="cart.html"><img src="img/icon9.png" /><span>购物车</span><em>&gt;</em></a>
+				<a href="my_fx.html"><img src="img/icon10.png" /><span>我的分销</span><em>&gt;</em></a>
+				<a href="address_list.html"><img src="img/icon16.png" /><span>收货地址</span><em>&gt;</em></a>
+				<a href="index.html"><img src="img/icon17.png" /><span>我的店铺</span><em>&gt;</em></a>
+				<a href="shoucang.html"><img src="img/icon18.png" /><span>我的收藏</span><em>&gt;</em></a>
+			</div>
+			
+			<!--底部导航-->
+			<div class="footer_line"></div>
+			<footer class="footer_fx">
+	            <ul>
+	                <li class="li1"><a href="index.html"><div>首页</div></a></li>
+	                <li class="li2"><a href="type.html"><div>分类</div></a></li>
+	                <li class="li3"><a href="cart.html"><div>购物车</div></a></li>
+	                <li class="current li4"><a href="user.html"><div>个人中心</div></a></li>
+	            </ul>
+	        </footer>	
+		</div>
+		
+		<div class="fade_tc postal_tc">
+			<div class="con_fade">
+				<div class="fade_bj"></div>
+				<div class="postal_box">
+					<h4><span>请提现到</span><span><a>我的微信</a></span></h4>
+					<div class="tx_div">
+						<label>请输入提现金额</label>
+						<input type="text" value="" />
+					</div>
+					<div class="tx_div">
+						<label>请输入密码</label>
+						<input type="text" value="" />
+					</div>
+					<div class="btn_box">
+						<a class="a1 back_btn">返回</a>
+						<a class="a2">确定</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="js/jquery-1.7.1.min.js" ></script>
+		<script type="text/javascript">
+			$(function(){
+				/*提现窗口*/
+				$('.tx_btn').click(function(){
+					$('.postal_tc').fadeIn();
+				});
+				/*返回*/
+				$('.back_btn').click(function(){
+					$('.postal_tc').fadeOut();
+				});
+			});
+		</script>		
+	
+	</body>
+</html>
