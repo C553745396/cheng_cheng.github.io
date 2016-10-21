@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link href="css/content.css" rel="stylesheet" type="text/css" />
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript">
+	
+	var current = '';
+    function addArea(btn){
+		current = $('.money_box li').eq($(btn).parent().parent().index());
+        clearSelects();
+        $('#modal-areas').addClass('in').show();
+        var currents = getCurrents();
+        currents = currents.split(';');
+        var citystrs = "";
+		$('.city').each(function(){
+			var parentdisabled =false;
+			for(var i in currents){
+				if(currents[i]!='' && currents[i]==$(this).attr('city')){
+					$(this).attr('disabled',true);
+					$(this).parent().parent().parent().parent().find('.cityall').attr('disabled',true);
+				}
+			}
+		  
+		});
+		$('#btnSubmitArea').unbind('click').click(function(){
+			  $('.city:checked').each(function(){              
+				 citystrs+= $(this).attr('city') +";";
+			  });
+			 var cityshtml="<li><span class='cityshtml one'><p>"+citystrs+"</p><a href='javascript:;' onclick='editArea(this)'>编辑</a></span><span><input type='text' value=''/></span><span><input type='text' value=''/></span><span><input type='text' value=''/></span><span><input type='text' value=''/></span><a class='dele_li' onclick='dele_li(this)'>删除</a></li>";	
+			$('.money_box ul').append(cityshtml);
+			$('#modal-areas').removeClass('in').hide();
+		})
+       
+    }	
+	
+	function dele_li(obj){
+		$(obj).parents('li').remove();
+	}
+	
+	function clearSelects(){
+          $('.city').attr('checked',false).removeAttr('disabled');
+         $('.cityall').attr('checked',false).removeAttr('disabled');
+         $('.citycount').html('');
+    }
+	function editArea(btn){
+        current = $('.money_box li').eq($(btn).parent().parent().index());
+        clearSelects();
+        var old_citys = $(btn).prev().val().split(';');  
+        $('.city').each(function(){
+            var parentcheck = false;
+            for(var i in old_citys){
+                if(old_citys[i]==$(this).attr('city')){
+                    parentcheck = true;
+                    $(this).get(0).checked = true;
+                    break;
+                }
+            }
+            if(parentcheck){
+                $(this).parent().parent().parent().parent().find('.cityall').get(0).checked=  true;
+            }
+        });
+        $('#modal-areas').addClass('in').show();
+        var citystrs = '';
+        $('#btnSubmitArea').unbind('click').click(function(){
+             $('.city:checked').each(function(){              
+                 citystrs+= $(this).attr('city') +";";
+            });
+            current.find('.cityshtml p').html(citystrs);
+			$('#modal-areas').removeClass('in').hide();
+
+        })
+           var currents = getCurrents(current);
+			currents = currents.split(';');
+			var citys = "";
+			$('.city').each(function(){
+				var parentdisabled =false;
+				for(var i in currents){
+					if(currents[i]!='' && currents[i]==$(this).attr('city')){
+						$(this).attr('disabled',true);
+						$(this).parent().parent().parent().parent().find('.cityall').attr('disabled',true);
+					}
+				}
+			  
+			});
+    }
+ function getCurrents(withOutRandom){
+        var citys = "";
+        $('.citys').each(function(){
+             var crandom = $(this).prev().val();
+             if(withOutRandom && crandom==withOutRandom){
+                 return true;
+             }
+             citys+=$(this).val();
+        });
+        return citys;
+    }
+
+	$(function(){
+		$('.province').mouseover(function(){
+              $(this).find('ul').show();
+        }).mouseout(function(){
+              $(this).find('ul').hide();
+        });
+        
+        
+        $('.cityall').click(function(){
+            var checked = $(this).get(0).checked;
+            var citys = $(this).parent().parent().find('.city');
+            citys.each(function(){
+                $(this).get(0).checked = checked;
+            });
+            var count = 0;
+            if(checked){
+                count =  $(this).parent().parent().find('.city:checked').length;
+            }
+            if(count>0){
+               $(this).next().html("(" + count + ")")    ;
+            }
+            else{
+                $(this).next().html("");
+            }
+        });
+        $('.city').click(function(){
+            var checked = $(this).get(0).checked;
+            var cityall = $(this).parent().parent().parent().parent().find('.cityall');
+          
+            if(checked){
+                cityall.get(0).checked = true;
+            }
+            var count = cityall.parent().parent().find('.city:checked').length;
+            if(count>0){
+               cityall.next().html("(" + count + ")")    ;
+            }
+            else{
+                cityall.next().html("");
+            }
+        });    
+
+		$(".close_box").click(function(){
+			clearSelects();
+			$('#modal-areas').removeClass('in').hide();
+		});
+	})
+	
+
+    </script>
+    
+</head>
+<style type='text/css'>
+    .province { float:left; position:relative;width:150px; height:35px; line-height:35px;border:1px solid #fff;}
+    .province:hover { border:1px solid #f7e4a5;border-bottom:1px solid #fffec6; background:#fffec6;}
+    .province .cityall { margin-top:10px;}
+    .province ul { list-style: outside none none;position:absolute;padding:0;background:#fffec6;border:1px solid #f7e4a5;display:none;
+    width:auto; width:300px; z-index:999999;left:-1px;top:32px;}
+    .province ul li  { float:left;min-width:60px;margin-left:20px; height:30px;line-height:30px; }
+ </style>
+
+<body style=" background:#d9dcde;">
+	<div class="rightinfo">
+    	<div class="right_content">
+            <h1>物流公司管理</h1>
+            <form action="">
+                <table class="table_text">
+                    <tbody>
+                    	<tr>
+                            <td align="right">物流公司全称：</td>
+                            <td align="left"><input type="text" value="" name="" class="edit_text"/><span class="dw">限制2~20个字</span></td>            
+                        </tr> 
+                        <tr>
+                            <td align="right">排序：</td>
+                            <td align="left"><input type="text" value="" name="" class="edit_text"/><span class="dw">（数字小排在前）</span></td>            
+                        </tr> 
+                        <tr>
+                            <td align="right">收费标准：</td>
+                            <td align="left">
+                            	<div class="money_box">
+                                	<ul>
+                                    	<li class="title">
+                                        <span class="one">区域选择</span>
+                                        <span>首重(克)</span>
+                                        <span>首费(元)</span>
+                                        <span>续重(克)</span>
+                                        <span>续费(元)</span>
+                                        <span style="width:auto;">操作</span>
+                                      </li>
+                                    </ul>
+                                    <a class="btn btn-default" onClick="addArea(this)">新增配送区域</a>
+                                </div>                                
+                            </td>            
+                        </tr> 
+                        <tr>
+                            <td colspan="2"><input type="submit" value="提交" class="sub"/><a href="javascript:history.go(-1)" class="sub">返回</a></td>                
+                        </tr>
+                    </tbody>
+                </table>
+                  
+            </form>
+        </div>
+    </div>
+    <div id="modal-areas"  class="modal fade" tabindex="-1">
+        <div class="modal-dialog" style='width: 800px;'>
+            <div class="modal-content">
+                <div class="modal-header"><button class="close close_box" type="button">×</button><h3>选择区域</h3></div>
+                <div class="modal-body" style='height:280px;' ></div>
+                <div class="modal-footer">
+                    <a id='btnSubmitArea' class="btn btn-success" >确定</a>
+                    <a class="btn btn-default close_box">关闭</a>
+                </div>
+            </div>
+         </div>
+    </div>
+	<script src="js/area.js" type="text/javascript"></script>                    
+	<script type="text/javascript">s_province();</script> 
+</body>
+</html>

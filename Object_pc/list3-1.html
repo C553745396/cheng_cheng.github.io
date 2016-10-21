@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link href="css/content.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="js/webcalendar.js"></script>
+     <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript">
+    	$(function(){
+			$('.all_choose').click(function(){
+				$('.tablelist').find('.xz_check').attr('checked','checked');
+			});
+		});
+    </script>
+</head>
+
+<body style=" background:#d9dcde;">
+	<div class="rightinfo">
+    	<div class="right_content">
+            <h1>会员管理</h1>
+            <div class="form"> 
+                <form action="" method="post">
+                    <label>注册时间：</label>
+                    <input type="text" class="text_inp" name="" placeholder="年/月/日" onClick="SelectDate(this,'yyyy-MM-dd',80,0)" style="margin-right:0px;"/> 
+                    <div class="zhi">至</div>
+                    <input type="text" class="text_inp" name="" placeholder="年/月/日" onClick="SelectDate(this,'yyyy-MM-dd',80,0)"/>
+                    <label>用户ID：</label>
+                    <input type="text" class="text_inp" name="" >  
+                    <label>微信号：</label>
+                    <input type="text" class="text_inp" name="" > 
+                    <div class="clear"></div>
+                    <label>手机号码：</label>
+                    <input type="text" class="text_inp" name="" > 
+                    <input type="submit" class="daochu" value="查询">
+                </form>                
+            </div>
+            <table class="tablelist">
+            	<thead>
+                    <tr>
+                    	<th><label style=" color:#f00; cursor:pointer;" class="all_choose">全选</label></th>
+                    	<th>用户ID</th>
+                    	<th>微信号</th>
+                    	<th>姓名</th>
+                    	<th>注册时间</th>
+                        <th>联系电话</th>
+                        <th>积分</th>
+                        <th>余额</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    	<td><input type="checkbox" value="" class="xz_check"/></td>
+                        <td>2478</td>
+                        <td>145245</td>
+                        <td>张三</td>
+                        <td>2016-2-2 19：00：46</td>
+                        <td>18602345678</td>
+                        <td>0</td>
+                        <td>0</td>                        
+                    </tr>
+					<tr>
+                    	<td><input type="checkbox" value="" class="xz_check"/></td>
+                        <td>2478</td>
+                        <td>145245</td>
+                        <td>张三</td>
+                        <td>2016-2-2 19：00：46</td>
+                        <td>18602345678</td>
+                        <td>0</td>
+                        <td>0</td>                        
+                    </tr>
+                    <tr>
+                    	<td><input type="checkbox" value="" class="xz_check"/></td>
+                        <td>2478</td>
+                        <td>145245</td>
+                        <td>张三</td>
+                        <td>2016-2-2 19：00：46</td>
+                        <td>18602345678</td>
+                        <td>0</td>
+                        <td>0</td>                         
+                    </tr>
+					<tr>
+                    	<td><input type="checkbox" value="" class="xz_check"/></td>
+                        <td>2478</td>
+                        <td>145245</td>
+                        <td>张三</td>
+                        <td>2016-2-2 19：00：46</td>
+                        <td>18602345678</td>
+                        <td>0</td>
+                        <td>0</td>                          
+                    </tr>
+                    <tr>
+                        <td colspan="8" class="page"><div class="page_num_sum">
+                                <div class="page_sum">共<span>21</span>条记录,1/5页 </div>
+                                <a href="#" class="one">1</a>
+                                <a href="#">2</a>
+                                <a href="#">3</a>
+                                <a href="#">4</a>
+                                <a href="#">5</a>
+                                <div class="page_sum"><em>到第</em><form action="" class="num_form"><input type="text" value="5" name="" class="num_for"/></form><em>页</em></div>
+                                <a class="one" href="#">前往</a>
+                            </div></td>
+                    </tr>
+                </tbody>
+
+            </table>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

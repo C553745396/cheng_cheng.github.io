@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link href="css/content.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="js/webcalendar.js"></script>
+</head>
+
+<body style=" background:#d9dcde;">
+	<div class="rightinfo">
+    	<div class="right_content">
+            <h1>优惠券</h1>
+            <table class="table_text">
+                <tbody>
+                    <tr>
+                        <td class="td_left">优惠券名称：</td>
+                        <td class="td_right"><input type="text" class="edit_text" name="" /></td>
+                        <td class="td_left">每人限定领取张数：</td>
+                        <td class="td_right"><input type="text" class="edit_text" name="" /></td>            
+                    </tr> 
+                    <tr>
+                        <td class="td_left">使用条件：</td>
+                        <td class="td_right"><input type="text" class="edit_text" name="" placeholder="输入价格，0则为无条件" /></td>
+                        <td class="td_left">优惠方式：</td>
+                        <td class="td_right">
+                            <input type="radio" value="立减" name="radio" /><label>立减</label><input type="radio" value="折扣" name="radio" /><label>折扣</label><br>                            
+                            <input type="text" class="edit_text" name="" /><span class="dw">元/折</span>
+                        </td>            
+                    </tr> 
+                    <tr>                            
+                        <td class="td_left">库存：</td>
+                        <td class="td_right"><input type="text" class="edit_text" name="" /></td>            
+                        <td class="td_left">排序：</td>
+                        <td class="td_right"><input type="text" class="edit_text" name="" placeholder="数字越小，商品越靠前" /></td>                      
+                    </tr>                        
+                    <tr>
+                        <td class="td_left">状态：</td>
+                        <td class="td_right">
+                        	<div class="select_border">
+                                <div class="container">
+                                    <select name="" class="select">
+                                        <option>上架</option>
+                                        <option>下架</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </td>  
+                        <td class="td_left">有效期：</td>
+                        <td class="td_right">
+                        	<input type="text" class="edit_text" name="" placeholder="年/月/日" onClick="SelectDate(this,'yyyy-MM-dd',80,0)" style="margin-right:0px; width:130px;"/> 
+                            <div class="zhi" style="float: left;line-height: 30px;padding-left: 10px;">至</div>
+                            <input type="text" class="edit_text" name="" placeholder="年/月/日" onClick="SelectDate(this,'yyyy-MM-dd',80,0)" style="margin-right:0px; width:130px;"/> 
+                        </td>              
+                    </tr> 
+                    <tr>
+                        <td class="td_left">优惠券描述：</td>
+                        <td class="td_right" colspan="3"><textarea></textarea></td>            
+                    </tr> 
+                    <tr>
+                        <td class="td_left">优惠券图片：</td>
+                        <td class="td_right" colspan="3">
+                            
+                            <a class="file" style="float:none; padding-top:0px;">
+                            <img src="images/img_default.png" height="150" style=" height:150px; width:590px; float:none;"/>
+                            （点击上传和替换，建议尺寸590*150px）
+                                <input type="file" name="" id="">
+                            </a>  
+                        </td>                   
+                    </tr>
+                    <tr>
+                        <td colspan="4"><input type="submit" value="保存提交" class="sub"><a href="javascript:history.go(-1)" class="sub">返回</a></td>                
+                    </tr>                     
+                </tbody>
+            </table>
+
+
+        </div>
+        
+
+
+        
+    </div>
+
+</body>
+</html>

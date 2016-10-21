@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link href="css/content.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="js/webcalendar.js"></script>
+</head>
+
+<body style=" background:#d9dcde;">
+	<div class="rightinfo">
+    	<div class="right_content">
+            <h1>优惠券</h1>
+            <div class="form"> 
+                <form action="" method="post">
+                	<label>上传时间：</label>
+                    <input type="text" class="text_inp" name="" placeholder="年/月/日" onClick="SelectDate(this,'yyyy-MM-dd',80,0)" style="margin-right:0px;"/> 
+                    <div class="zhi">至</div>
+                    <input type="text" class="text_inp" name="" placeholder="年/月/日" onClick="SelectDate(this,'yyyy-MM-dd',80,0)" style="margin-right:15px;"/> 
+
+                	<label>优惠券名称：</label>
+                    <input type="text" class="text_inp" name="" /> 
+                	<label>状态：</label>
+                    <div class="select_border" style=" margin-right:15px;">
+                        <div class="container">
+                            <select name="" class="select">
+                                <option>上架</option>
+                                <option>下架</option>
+                            </select>
+                        </div>
+                    </div>   
+                                   
+                    <input type="submit" class="daochu" value="查询" />
+                </form>                
+            </div>
+            <div class="lb_btn_k"><a class="btn1" href="view_list5-1.html">添加优惠券</a></div>
+            <table class="tablelist">
+            	<thead>
+                    <tr>
+                    	<th>优惠券ID</th>
+                    	<th>名称</th>
+                    	<th>单价</th>
+                    	<th>库存</th>
+                        <th>上传时间</th>
+                    	<th>排序</th>
+                    	<th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>JX2013</td>
+                        <td>10元券</td>
+                        <td>10</td>
+                        <td>500</td>
+                        <td>2016-1-26 9:00:00</td>
+                        <td>1</td>
+                        <td><a class="up">上架</a></td>
+                        <td><a href="view_list5-1.html" class="a_hover1">编辑</a></td>                        
+                    </tr>
+					<tr>
+                        <td>JX2013</td>
+                        <td>10元券</td>
+                        <td>10</td>
+                        <td>500</td>
+                        <td>2016-1-26 9:00:00</td>
+                        <td>2</td>
+                        <td><a class="down">下架</a></td>
+                        <td><a href="view_list5-1.html" class="a_hover1">编辑</a></td>                        
+                    </tr>
+                    <tr>
+                        <td colspan="8" class="page"><div class="page_num_sum">
+                                <div class="page_sum">共<span>21</span>条记录,1/5页 </div>
+                                <a href="#" class="one">1</a>
+                                <a href="#">2</a>
+                                <a href="#">3</a>
+                                <a href="#">4</a>
+                                <a href="#">5</a>
+                                <div class="page_sum"><em>到第</em><form action="" class="num_form"><input type="text" value="5" name="" class="num_for"/></form><em>页</em></div>
+                                <a class="one" href="#">前往</a>
+                            </div></td>
+                    </tr>
+                </tbody>
+
+            </table>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

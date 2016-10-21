@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>江西微店分销平台-left</title>
+<link href="css/content.css" rel="stylesheet" type="text/css" />
+<script language="JavaScript" src="js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript">
+$(function(){	
+	//导航切换
+	$(".menuson li").click(function(){
+		$(".menuson li.active").removeClass("active")
+		$(this).addClass("active");
+	});
+	
+	$('.title').click(function(){
+		$(".leftmenu dd .title_bg").removeClass("title_bg")
+		$(this).addClass("title_bg");
+		var $ul = $(this).next('ul');
+		$('dd').find('ul').slideUp();
+		if($ul.is(':visible')){
+			$(this).next('ul').slideUp();
+		}else{
+			$(this).next('ul').slideDown();
+		}
+	});
+})	
+</script>
+</head>
+
+<body style="background:#3a3e42;">
+   
+    <dl class="leftmenu">
+    	<dd>
+            <div class="title title_bg"><span><img src="images/leftico04.png" /></span><a href="index.html" target="rightFrame">首页</a></div>
+        </dd> 
+        <dd>
+            <div class="title"><span><img src="images/leftico01.png" /></span><a href="list1-1.html" target="rightFrame">商城管理</a></div>
+            <ul class="menuson">
+                <li><a href="list1-1.html" target="rightFrame">商品列表</a></li>
+                <li><a href="list10-1.html" target="rightFrame">分销市场</a></li>
+                <li><a href="view_list1-5.html" target="rightFrame">商品分类</a></li>
+                <li><a href="view_list1-2.html" target="rightFrame">基本设置</a></li>
+                <li><a href="view_list1-3.html" target="rightFrame">轮播图管理</a></li>
+                <li><a href="view_list1-4.html" target="rightFrame">公告管理</a></li>
+            </ul> 
+        </dd>   
+        <dd>
+            <div class="title"><span><img src="images/leftico04.png" /></span><a href="list2-1.html" target="rightFrame">订单管理</a></div>
+            <ul class="menuson">
+                <li><a href="list2-2.html" target="rightFrame">退款管理</a></li>
+            </ul> 
+        </dd>  
+        <dd>
+            <div class="title"><span><img src="images/leftico06.png" /></span><a href="list3-1.html" target="rightFrame">会员管理</a></div>
+        </dd> 
+        <dd>
+            <div class="title"><span><img src="images/leftico06.png" /></span><a href="list4-1.html" target="rightFrame">用户管理</a></div>
+        </dd>  
+        <dd>
+            <div class="title"><span><img src="images/leftico05.png" /></span><a href="list5-1.html" target="rightFrame">优惠券</a></div>
+        </dd> 
+        <dd>
+            <div class="title"><span><img src="images/leftico01.png" /></span><a href="list6-1.html" target="rightFrame">提现申请</a></div>
+        </dd> 
+        <dd>
+            <div class="title"><span><img src="images/leftico05.png" /></span><a href="list7-1.html" target="rightFrame">分销审核</a></div>
+        </dd> 
+        <dd>
+            <div class="title"><span><img src="images/leftico04.png" /></span><a href="list8-1.html" target="rightFrame">销售统计</a></div>
+        </dd> 
+        <dd>
+            <div class="title"><span><img src="images/leftico02.png" /></span><a href="list9-1.html" target="rightFrame">系统设置</a></div>
+        </dd>  
+        <dd>
+            <div class="title"><span><img src="images/leftico02.png" /></span><a href="list11-1.html" target="rightFrame">运费模板</a></div>
+        </dd>  
+        <dd>
+            <div class="title"><span><img src="images/leftico02.png" /></span><a href="list12-1.html" target="rightFrame">物流公司列表</a></div>
+        </dd>  
+    </dl>
+    
+</body>
+</html>

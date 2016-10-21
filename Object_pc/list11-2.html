@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link href="css/content.css" rel="stylesheet" type="text/css" /> 
+</head>
+
+
+<body style=" background:#d9dcde;">
+	<div class="rightinfo">
+    	<div class="right_content">
+            <h1>运费模板</h1>
+            <form action="">
+                <table class="table_text">
+                    <tbody>
+                    	<tr>
+                            <td align="right">模板名称：</td>
+                            <td align="left"><input type="text" value="" name="" class="edit_text"/><span class="dw">限制2~20个字</span></td>            
+                        </tr> 
+                        <tr>
+                            <td align="right">发货地址：</td>
+                            <td align="left">
+                            	<div class="select_border">
+                                    <div class="container">
+                                        <select id="s_province" class="select"></select>
+                                    </div>
+                                </div>
+								<div class="select_border">
+                                    <div class="container">
+                                        <select id="s_city" class="select"></select>
+                                    </div>
+                                </div>
+                            </td>            
+                        </tr> 
+                        <tr>
+                            <td align="right">是否包邮：</td>
+                            <td align="left"><input type="radio" value="是" name="radio" /><label>是</label><input type="radio" value="否" name="radio" /><label>否</label></td>            
+                        </tr> 
+                        <tr>
+                            <td align="right">计件方式：</td>
+                            <td align="left"><input type="radio" value="按件计价" name="radio" /><label>按件计价</label></td>            
+                        </tr> 
+                        <tr>
+                            <td align="right">配送方式：</td>
+                            <td align="left">
+                                <input type="checkbox" value="中通快递" name="radio" /><label>中通快递</label>
+                                <input type="checkbox" value="申通快递" name="radio" /><label>申通快递</label>
+                                <input type="checkbox" value="韵达快递" name="radio" /><label>韵达快递</label>
+                                <input type="checkbox" value="上门自提" name="radio" /><label>上门自提</label>
+                            </td>            
+                        </tr> 
+                        <tr>
+                            <td align="right">状态：</td>
+                            <td align="left"><input type="radio" value="启用" name="radio" /><label>启用</label><input type="radio" value="禁用" name="radio" /><label>禁用</label></td>            
+                        </tr> 
+                        <tr>
+                            <td colspan="2"><input type="submit" value="提交" class="sub"/><a href="javascript:history.go(-1)" class="sub">返回</a></td>                
+                        </tr>
+                    </tbody>
+                </table>
+                <script src="js/area.js" type="text/javascript"></script>                    
+        <script type="text/javascript">_init_area();</script>   
+            </form>
+        </div>
+        
+
+
+        
+    </div>
+</body>
+</html>

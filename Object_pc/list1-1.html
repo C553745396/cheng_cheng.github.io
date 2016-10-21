@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link href="css/content.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="js/webcalendar.js"></script>
+</head>
+
+<body style=" background:#d9dcde;">
+	<div class="rightinfo">
+    	<div class="right_content">
+            <h1>商品列表</h1>
+            <div class="form"> 
+                <form action="" method="post">
+                	<label>上传时间：</label>
+                    <input type="text" class="text_inp" name="" placeholder="年/月/日" onClick="SelectDate(this,'yyyy-MM-dd',80,0)" style="margin-right:0px;"/> 
+                    <div class="zhi">至</div>
+                    <input type="text" class="text_inp" name="" placeholder="年/月/日" onClick="SelectDate(this,'yyyy-MM-dd',80,0)" style="margin-right:15px;"/> 
+                    <label>商家名称：</label>
+                    <div class="select_border">
+                        <div class="container">
+                            <select name="" class="select">
+                                <option>吉祥花店</option>
+                            </select>
+                        </div>
+                    </div>
+                    <label style=" margin-left:15px;">商品状态：</label>   
+                    <div class="select_border" style=" margin-right:15px;">
+                        <div class="container">
+                            <select name="" class="select">
+                            	<option>上架</option>
+                                <option>下架</option>
+                            </select>
+                        </div>
+                    </div>
+                     
+                    <div class="clear"></div> 
+                    <label>商品名称：</label>
+                    <input type="text" class="text_inp" name="" >    
+                    <label>是否分销：</label>
+                    <div class="select_border" style=" margin-right:15px;">
+                        <div class="container">
+                            <select name="" class="select">
+                                <option>是</option>
+                                <option>否</option>
+                            </select>
+                        </div>
+                    </div>
+                                        
+                    <input type="submit" class="daochu" value="查询">
+                </form>                
+            </div>
+           <div class="lb_btn_k"><a class="btn1" href="view_list1-1.html">添加商品</a></div>
+            <table class="tablelist">
+            	<thead>
+                    <tr>
+                    	<th>商品名称</th>
+                    	<th>商家名称</th>
+                    	<th>单价</th>
+                    	<th>库存</th>
+                    	<th>分销商佣金</th>
+                        <th>分销佣金</th>
+                        <th>上传时间</th>
+                        <th>排序</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                        <th width="150">审核状态</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    	<td>玫瑰花</td>
+                        <td>吉祥花店</td>
+                        <td>10</td>
+                        <td>500</td>
+                        <td>5</td>
+                        <td>4</td>
+                        <td>2016-1-26 9:00:00</td>
+                        <td>1</td>
+                        <td><a class="up">上架</a></td>
+                        <td><a href="view_list1-1.html" class="a_hover1">编辑</a></td>
+                        <td>
+                            <div class="select_border" style=" margin:0px 15px;">
+                                <div class="container">
+                                    <select name="" class="select">
+                                        <option>审核中</option>
+                                        <option>通过</option>
+                                        <option>不通过</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                    	<td>玫瑰花</td>
+                        <td>吉祥花店</td>
+                        <td>10</td>
+                        <td>500</td>
+                        <td>5</td>
+                        <td>4</td>
+                        <td>2016-1-26 9:00:00</td>
+                        <td>2</td>
+                        <td><a class="down">下架</a></td>
+                        <td><a href="view_list1-1.html" class="a_hover1">编辑</a></td>
+                        <td>
+                            <div class="select_border" style=" margin:0px 15px;">
+                                <div class="container">
+                                    <select name="" class="select">
+                                        <option>审核中</option>
+                                        <option>通过</option>
+                                        <option>不通过</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="11" class="page"><div class="page_num_sum">
+                                <div class="page_sum">共<span>21</span>条记录,1/5页 </div>
+                                <a href="#" class="one">1</a>
+                                <a href="#">2</a>
+                                <a href="#">3</a>
+                                <a href="#">4</a>
+                                <a href="#">5</a>
+                                <div class="page_sum"><em>到第</em><form action="" class="num_form"><input type="text" value="5" name="" class="num_for"/></form><em>页</em></div>
+                                <a class="one" href="#">前往</a>
+                            </div></td>
+                    </tr>
+                </tbody>
+
+            </table>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

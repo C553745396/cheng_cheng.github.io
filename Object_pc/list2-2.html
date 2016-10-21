@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link href="css/content.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="js/webcalendar.js"></script>
+</head>
+
+<body style=" background:#d9dcde;">
+	<div class="rightinfo">
+    	<div class="right_content">
+            <h1>退款管理</h1>
+            <div class="form"> 
+                <form action="" method="post">
+                	<label>下单时间：</label>
+                    <input type="text" class="text_inp" name="" onClick="SelectDate(this,'yyyy-MM-dd',80,0)" style=" text-align:center;margin-right:0px;">
+                    <div class="zhi">至</div>
+                    <input type="text" class="text_inp" name="" onClick="SelectDate(this,'yyyy-MM-dd',80,0)" style=" text-align:center;">
+                    <label>订单编号：</label>
+                    <input type="text" class="text_inp" name="" >
+                    <label>商品名称：</label>
+                    <input type="text" class="text_inp" name="" >  
+                	
+                    <div class="clear"></div> 
+                    <label>支付方式：</label>
+                    <div class="select_border" style=" margin-right:15px;">
+                        <div class="container">
+                            <select name="" class="select">
+                                <option>微信支付</option>
+                            </select>
+                        </div>
+                    </div>
+                    <label>订单状态：</label>
+                    <div class="select_border" style=" margin-right:15px;">
+                        <div class="container">
+                            <select name="" class="select">
+                                <option>已退款</option>
+                                <option>退款中</option>
+                                <option>拒绝退款</option>
+                            </select>
+                        </div>
+                    </div>
+                    <label>手机号码：</label>
+                    <input type="text" class="text_inp" name="" >  
+                    <label>分销：</label>
+                    <div class="select_border" style=" margin-right:15px;">
+                        <div class="container">
+                            <select name="" class="select">
+                                <option>全部</option>
+                                <option>分销商</option>
+                                <option>用户</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <input type="submit" class="daochu" value="查询">
+                </form>                
+            </div>
+            <div class="lb_btn_k"><a class="btn1">导出订单</a></div>
+            <table class="tablelist">
+            	<thead>
+                    <tr>
+                    	<th>订单编号</th>
+                    	<th>商品名称</th>
+                    	<th>订购数量</th>
+                    	<th>价格</th>
+                    	<th>分销</th>
+                        <th>手机号码</th>
+                        <th>支付方式</th>
+                        <th>订单状态</th> 
+                        <th>下单时间</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    	<td>CDKD001</td>
+                        <td>玫瑰花</td>
+                        <td>100</td>
+                        <td>1000</td>
+                        <td>分销商</td>
+                        <td>187****1234</td>
+                        <td>微信支付</td>  
+                        <td>已完成</td>                        
+                        <td>2016-1-26 9:00:00</td>
+                        <td><a href="view_list2-2.html" class="a_hover1">查看</a></td>                        
+                    </tr>
+					<tr>
+                    	<td>CDKD001</td>
+                        <td>玫瑰花</td>
+                        <td>100</td>
+                        <td>1000</td>
+                        <td>分销商</td>
+                        <td>187****1234</td>
+                        <td>微信支付</td>  
+                        <td>已完成</td>                        
+                        <td>2016-1-26 9:00:00</td>
+                        <td><a href="view_list2-2.html" class="a_hover1">查看</a></td>                        
+                    </tr>
+                    <tr>
+                        <td colspan="11" class="page"><div class="page_num_sum">
+                                <div class="page_sum">共<span>21</span>条记录,1/5页 </div>
+                                <a href="#" class="one">1</a>
+                                <a href="#">2</a>
+                                <a href="#">3</a>
+                                <a href="#">4</a>
+                                <a href="#">5</a>
+                                <div class="page_sum"><em>到第</em><form action="" class="num_form"><input type="text" value="5" name="" class="num_for"/></form><em>页</em></div>
+                                <a class="one" href="#">前往</a>
+                            </div></td>
+                    </tr>
+                </tbody>
+
+            </table>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link href="css/content.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="js/webcalendar.js"></script>
+</head>
+
+<body style=" background:#d9dcde;">
+	<div class="rightinfo">
+    	<div class="right_content">
+            <h1>分销审核</h1>
+            <div class="form"> 
+                <form action="" method="post">
+                	<label>申请时间：</label>
+                    <input type="text" class="text_inp" name="" placeholder="年/月/日" onClick="SelectDate(this,'yyyy-MM-dd',80,0)" style="margin-right:0px;"/> 
+                    <div class="zhi">至</div>
+                    <input type="text" class="text_inp" name="" placeholder="年/月/日" onClick="SelectDate(this,'yyyy-MM-dd',80,0)" style="margin-right:15px;"/> 
+                	<label>状态：</label>
+                    <div class="select_border" style=" margin-right:15px;">
+                        <div class="container">
+                            <select name="" class="select">
+                                <option>待审核</option>
+                                <option>已审核</option>
+                            </select>
+                        </div>
+                    </div>   
+                                   
+                    <input type="submit" class="daochu" value="查询" />
+                </form>                
+            </div>
+            <table class="tablelist">
+            	<thead>
+                    <tr>
+                    	<th>微信号</th>
+                    	<th>姓名</th>
+                    	<th>申请时间</th>
+                    	<th>银行卡号</th>
+                        <th>账户余额</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>                        
+                        <td><a href="view_list7-1.html" style="color:#f00;">187****1552</a></td>
+                        <td>张三</td>
+                        <td>2016-1-26 9:00:00</td>
+                        <td>111111111111111111111111111111111111</td>
+                        <td>10</td>
+                        <td><a class="up">待审核</a></td>
+                        <td>
+                            <div class="select_border sel_box">
+                                <div class="container">
+                                    <select name="" class="select">
+                                        <option>通过</option>
+                                        <option>不通过</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </td>                        
+                    </tr>
+					<tr>                        
+                        <td><a href="view_list7-1.html" style="color:#f00;">187****1552</a></td>
+                        <td>张三</td>
+                        <td>2016-1-26 9:00:00</td>
+                        <td>111111111111111111111111111111111111</td>
+                        <td>10</td>
+                        <td><a class="down">已审核</a></td>
+                        <td>
+                            <div class="select_border sel_box">
+                                <div class="container">
+                                    <select name="" class="select">
+                                        <option>通过</option>
+                                        <option>不通过</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </td>                        
+                    </tr>
+                    <tr>
+                        <td colspan="7" class="page"><div class="page_num_sum">
+                                <div class="page_sum">共<span>21</span>条记录,1/5页 </div>
+                                <a href="#" class="one">1</a>
+                                <a href="#">2</a>
+                                <a href="#">3</a>
+                                <a href="#">4</a>
+                                <a href="#">5</a>
+                                <div class="page_sum"><em>到第</em><form action="" class="num_form"><input type="text" value="5" name="" class="num_for"/></form><em>页</em></div>
+                                <a class="one" href="#">前往</a>
+                            </div></td>
+                    </tr>
+                </tbody>
+
+            </table>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

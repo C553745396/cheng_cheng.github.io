@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link href="css/content.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body style=" background:#d9dcde;">
+	<div class="rightinfo">
+    	<div class="right_content">
+            <h1>运费模板</h1>
+           <div class="lb_btn_k"><a class="btn4" href="list11-2.html">+ 添加模板</a></div>
+            <table class="tablelist">
+            	<thead>
+                    <tr>
+                    	<th>序号</th>
+                        <th>模板名称</th>
+                        <th>状态</th>
+                        <th colspan="3">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    	<td>1</td>
+                        <td>模板一</td>
+                        <td>启用中</td>
+                        <td><a class="a_hover1" href="list11-2.html">编辑</a></td>
+                        <td><a class="a_hover2" href="list11-2.html">查看</a></td>
+                        <td><a class="a_hover3" onClick="show_tc('del_box')">删除</a></td>
+                    </tr>
+                    <tr>
+                    	<td>2</td>
+                        <td>模板一</td>
+                        <td>禁用中</td>
+                        <td><a class="a_hover1" href="list11-2.html">编辑</a></td>
+                        <td><a class="a_hover2" href="list11-2.html">查看</a></td>
+                        <td><a class="a_hover3" onClick="show_tc('del_box')">删除</a></td>
+                    </tr>
+                    <tr>
+                        <td colspan="7" class="page"><div class="page_num_sum">
+                                <div class="page_sum">共<span>21</span>条记录,1/5页 </div>
+                                <a href="#" class="one">1</a>
+                                <a href="#">2</a>
+                                <a href="#">3</a>
+                                <a href="#">4</a>
+                                <a href="#">5</a>
+                                <div class="page_sum"><em>到第</em><form action="" class="num_form"><input type="text" value="5" name="" class="num_for"/></form><em>页</em></div>
+                                <a class="one" href="#">前往</a>
+                            </div></td>
+                    </tr>
+                </tbody>
+
+            </table>
+            </form>
+        </div>
+    </div>
+    <div class="fade" id="del_box">
+        <div class="fade_con">
+        	<p>确认要删除么？</p>
+            <div class="btn_box">
+            	<a class="cancle" onClick="hide_tc('del_box')">返回</a>
+                <a class="confim" onClick="hide_tc('del_box')">确定</a>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+    	function show_tc(id){
+			document.getElementById(id).style.display='block';
+		};
+		function hide_tc(id){
+			document.getElementById(id).style.display='none';
+		};
+    </script>
+
+</body>
+</html>

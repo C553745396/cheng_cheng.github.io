@@ -1,0 +1,292 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link href="css/content.css" rel="stylesheet" type="text/css" />
+    
+    <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript">
+    	$(function(){
+			//添加规格
+			$('.add_gtype').click(function(){
+				$('.g_type tbody').append("<tr><td class='td_left'>规格名称：</td><td class='td_left'><input type='text' value='' class='edit_text g_name'/></td><td class='td_left'>属性：</td><td class='Attribute_box'><div><input type='text' value='' class='edit_text'/><a title='删除属性' onclick='detele_attr(this)'>X</a></div></td><td align='center'><a class='a_hover1' onClick='addAttribute(this)'>添加属性</a></td><td align='center'><a class='a_hover2' onClick='detele_type(this)'>删除规格</a></td></tr>");
+
+			});
+			
+			/*
+			var name_td;
+			$('.refresh_btn').click(function(){
+				
+				$('.g_type tr').each(function(){
+					var $this = $(this);
+					var g_name = $(this).find('.g_name').val();
+					name_td=name_td+"<td>"+g_name+"</td>";
+				});
+				$('.add_table thead tr').prepend(name_td);
+				//$('.add_table tbody tr').prepend(name_td);
+			});
+			*/
+			
+		});
+		
+		function calc(){
+
+			window.optionchanged = false;
+			var html = '<table class="add_table"><thead><tr>';
+			var specs = [];
+        	if($('.g_type tr').length<=0){
+            	$(".add_table").html('<thead><tr><td>原价</td><td>现价</td><td>库存</td></tr></thead><tbody><tr><td><input type="text" value="" name="" class="edit_text"/></td><td><input type="text" value="" name="" class="edit_text"/></td><td><input type="text" value="" name="" class="edit_text"/></td></tbody>');
+            	return;
+        	}
+        		
+        	$('.g_type tr').each(function(i){
+				var _this = $(this);
+				var spec = {
+					title: _this.find(".g_name").val()
+				};
+			
+				var items = [];
+				_this.find(".Attribute_box div").each(function(){
+					var __this = $(this);
+					var item = {
+						title: __this.find("input").val(),
+					}
+					items.push(item);
+				});
+				spec.items = items;
+				specs.push(spec);
+			});
+			
+			specs.sort(function(x,y){
+				if (x.items.length > y.items.length){
+					return 1;
+				}
+				if (x.items.length < y.items.length) {
+					return -1;
+				}
+			});
+		
+			var len = specs.length;
+			var newlen = 1; 
+			var h = new Array(len); 
+			var rowspans = new Array(len); 
+			for(var i=0;i<len;i++){
+				html+="<td style='width:80px;'>" + specs[i].title + "</td>";
+				var itemlen = specs[i].items.length;
+				if(itemlen<=0) { itemlen = 1 };
+				newlen*=itemlen;
+				h[i] = new Array(newlen);
+				for(var j=0;j<newlen;j++){
+					h[i][j] = new Array();
+				}
+				var l = specs[i].items.length;
+				rowspans[i] = 1;
+				for(j=i+1;j<len;j++){
+					rowspans[i]*= specs[j].items.length;
+				}
+			}
+
+			html += '<td>原价</td><td>现价</td><td>库存</td></tr></thead>';
+			for(var m=0;m<len;m++){
+				var k = 0,kid = 0,n=0;
+				for(var j=0;j<newlen;j++){
+					var rowspan = rowspans[m]; 
+					if( j % rowspan==0){
+						h[m][j]={title: specs[m].items[kid].title, html: "<td rowspan='" +rowspan + "'>"+ specs[m].items[kid].title+"</td>\r\n"};
+						
+					}
+					else{
+						h[m][j]={title:specs[m].items[kid].title, html: ""};	
+					}
+					n++;
+					if(n==rowspan){
+					kid++; if(kid>specs[m].items.length-1) { kid=0; }
+					n=0;
+					}
+				}
+			}	
+			var hh = "";
+			for(var i=0;i<newlen;i++){
+				hh+="<tr>";
+				for(var j=0;j<len;j++){
+					hh+=h[j][i].html; 
+				}
+				hh += '<td><input type="text" value="" name="" class="edit_text"/></td><td><input type="text" value="" name="" class="edit_text"/></td><td><input type="text" value="" name="" class="edit_text"/></td>';
+				hh += "</tr>";
+			}
+			html+=hh;
+			html+="</table>";
+			$(".add_table").html(html);
+
+		}
+		//删除规格
+		function detele_type(obj){
+			$(obj).parent().parent().remove();	
+		}
+		
+		//添加属性
+		function addAttribute(obj){
+			$(obj).parent().parent().find('.Attribute_box').append("<div><input type='text' value='' class='edit_text'/><a title='删除属性' onclick='detele_attr(this)'>X</a></div>");	
+		}
+		
+		//删除属性		
+		function detele_attr(obj){
+			$(obj).parent().remove();	
+		}
+    </script>
+	<style>
+		.add_table tr .edit_text{ float:none; margin-left:0px; width:180px; text-align:center;}
+		.g_type input.edit_text{ width:100px; text-align:center; margin:5px 0px 5px 10px;}
+		.g_type td a.a_hover1,.g_type td a.a_hover2{border:1px solid #729fde; color:#464646; height:26px; line-height:26px; background:#fff; border-radius:5px;-webkit-border-radius: 5px;-moz-border-radius: 5px;-ms-border-radius: 5px;-o-border-radius: 5px; margin:0 auto; display:block; width:72px; margin:0px 5px;}
+		.g_type td a.a_hover1:hover{ color:#fff; background:#729fde;}
+		
+		.g_type td a.a_hover2{border:1px solid #e33;}
+		.g_type td a.a_hover2:hover{ color:#fff; background:#e33;}
+		
+		.Attribute_box div{ float:left; position:relative; width:115px; height:40px;}
+		.Attribute_box a{ position:absolute; width:20px; height:20px; background:#f00; top:0; right:0; display:block; color:#fff; text-align:center; font-size:15px; line-height:20px; -webkit-border-radius:100%; -moz-border-radius:100%; border-radius:100%; cursor:pointer;}
+		
+		.add_table thead tr{ background:#fff !important;}
+	</style>
+</head>
+
+<body style=" background:#d9dcde;">
+	<div class="rightinfo">
+    	<div class="right_content">
+            <h1>商城管理</h1>
+            <form action="">
+                <table class="table_text">
+                    <tbody>
+                    	<tr>                                        
+                            <td class="td_left">商品类别：</td>
+                            <td class="td_right"><input type="radio" value="实物商品" name="radio" /><label>实物商品</label><input type="radio" value="虚拟商品" name="radio" /><label>虚拟商品</label></td>
+                            <td class="td_left">商品编号：</td>
+                            <td class="td_right"><input type="text" value="" name="" class="edit_text"/></td>            
+                        </tr> 
+                    	<tr>
+                            <td class="td_left">商品名称：</td>
+                            <td class="td_right"><input type="text" value="" name="" class="edit_text"/></td> 
+                            <td class="td_left">商品分类：</td>
+                            <td class="td_right">
+                            	<div class="select_border">
+                                    <div class="container">
+                                        <select name="" class="select">
+                                            <option>手机数码</option>
+                                            <option>家电</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </td>            
+                        </tr> 
+                        <tr>
+                        	<td colspan="4">
+                            	<table class="add_table">
+                                    <thead>
+                                        <tr>
+                                            <td>原价</td><td>现价</td><td>库存</td>
+                                        </tr>
+                                    </thead>
+                                	<tbody>
+                                        <tr>
+                                            <td><input type="text" value="" name="" class="edit_text"/></td>
+                                            <td><input type="text" value="" name="" class="edit_text"/></td>
+                                            <td><input type="text" value="" name="" class="edit_text"/></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <a class="sub add_gtype">新增规格</a><a class="sub refresh_btn" onclick="calc()">刷新规格表</a>             
+                                <table class="g_type">
+                                	<tbody>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        
+                        <tr>                                    
+                            <td class="td_left">状态：</td>
+                            <td class="td_right">
+                            	<div class="select_border">
+                                    <div class="container">
+                                        <select name="" class="select">
+                                            <option>上架</option>
+                                            <option>下架</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="td_left">是否热销：</td>
+                            <td class="td_right"><input type="radio" value="是" name="radio" /><label>是</label><input type="radio" value="否" name="radio" /><label>否</label></td>                         
+                        </tr> 
+                        <tr>                            
+                            <td class="td_left">分销商佣金：</td>
+                            <td class="td_right">
+                            	<div class="select_border">
+                                    <div class="container">
+                                        <select name="" class="select">
+                                            <option>比例提成</option>
+                                            <option>固定提成</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <input type="text" value="" name="" class="edit_text"/>
+                            </td>            
+                            <td class="td_left">用户佣金：</td>
+                            <td class="td_right">
+                            	<div class="select_border">
+                                    <div class="container">
+                                        <select name="" class="select">
+                                            <option>比例提成</option>
+                                            <option>固定提成</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <input type="text" value="" name="" class="edit_text"/>
+                            </td>                      
+                        </tr>                       
+                        <tr>                             
+                            <td class="td_left">排序：</td>
+                            <td class="td_right"><input type="text" class="edit_text" name="" placeholder="数字越小，商品越靠前"/> </td>              
+                            <td class="td_left">是否加入分享市场：</td>
+                            <td class="td_right"><input type="radio" value="是" name="radio" /><label>是</label><input type="radio" value="否" name="radio" /><label>否</label></td>            
+                        </tr> 
+                        <tr>                                 
+                            <td class="td_left">分享语设置：</td>
+                            <td class="td_right"><input type="text" value="" name="" class="edit_text"/></td>
+                            <td class="td_left">运费模板：</td>
+                            <td class="td_right"><input type="text" value="" name="" class="edit_text"/></td>                      
+                        </tr> 
+                        <tr>
+                            <td class="td_left">商品描述：</td>
+                            <td class="td_right" colspan="3"><textarea></textarea></td>            
+                        </tr> 
+                        <tr>
+                            <td class="td_left">商品图片：</td>
+                            <td class="td_right" colspan="3">
+                            	<img src="images/img_default.png" width="220" height="140" style="width:220px; height:140px;"/>
+                                <a class="file">（*商品主图，点击上传和替换）
+                                    <input type="file" name="" id="">
+                                </a>  
+                            </td>                   
+                        </tr>
+                        <tr>
+                            <td class="td_left">配送方式：</td>
+                            <td class="td_right" colspan="3"><input type="checkbox" value="自提" name="radio" /><label>自提</label><input type="checkbox" value="配送" name="radio" /><label>配送</label></td>            
+                        </tr>                           
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td colspan="3"><input type="submit" value="保存提交" class="sub"/><a href="javascript:history.go(-1)" class="sub">返回</a></td>                
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+        
+
+
+        
+    </div>
+</body>
+</html>

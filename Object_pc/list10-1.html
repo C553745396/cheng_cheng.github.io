@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link href="css/content.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body style=" background:#d9dcde;">
+	<div class="rightinfo">
+    	<div class="right_content">
+            <h1>分销市场</h1>
+           	<div class="form"> 
+                <form action="" method="post">
+                	<label>时间：</label>
+                    <input type="text" class="text_inp" name="" placeholder="年/月/日" onClick="SelectDate(this,'yyyy-MM-dd',80,0)" style="margin-right:0px;"/> 
+                    <div class="zhi">至</div>
+                    <input type="text" class="text_inp" name="" placeholder="年/月/日" onClick="SelectDate(this,'yyyy-MM-dd',80,0)" style="margin-right:15px;"/> 
+                    <label>类型：</label>
+                    <div class="select_border">
+                        <div class="container">
+                            <select name="" class="select">
+                                <option>全部</option>
+                            </select>
+                        </div>
+                    </div>
+                    <label style=" margin-left:15px;">状态：</label>   
+                    <div class="select_border" style=" margin-right:15px;">
+                        <div class="container">
+                            <select name="" class="select">
+                            	<option>已认领</option>
+                                <option>可认领</option>
+                            </select>
+                        </div>
+                    </div>
+                     
+                    <div class="clear"></div> 
+                    <label>商品名称：</label>
+                    <input type="text" class="text_inp" name="" >                                            
+                    <input type="submit" class="daochu" value="查询">
+                </form>                
+            </div>
+
+            <table class="tablelist">
+            	<thead>
+                    <tr>
+                    	<th>商品ID</th>
+                        <th>产品名称</th>
+                        <th>产品类别</th>
+                        <th>logo</th>
+                    	<th>原价</th>
+                        <th>现价</th>
+                    	<th>分销商佣金</th>
+                    	<th>用户佣金</th>
+                        <th>上传时间</th>
+                    	<th>状态</th>
+                    	<th>排序</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    	<td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                    	<td><img src="images/pic.jpg" height="42"/></td>
+                    	<td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>2015-09-27 00:00:00.0</td>
+                        <td>可认领</td>
+                        <td>0</td>
+                        <td><a class="down">认领</a></td>
+                    </tr>
+                    <tr>
+                    	<td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                    	<td><img src="images/pic.jpg" height="42"/></td>
+                    	<td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>2015-09-27 00:00:00.0</td>
+                        <td>已认领</td>
+                        <td>0</td>
+                        <td><a class="up">取消认领</a></td>
+                    </tr>
+
+
+                    <tr>
+                        <td colspan="12" class="page"><div class="page_num_sum">
+                                <div class="page_sum">共<span>21</span>条记录,1/5页 </div>
+                                <a href="#" class="one">1</a>
+                                <a href="#">2</a>
+                                <a href="#">3</a>
+                                <a href="#">4</a>
+                                <a href="#">5</a>
+                                <div class="page_sum"><em>到第</em><form action="" class="num_form"><input type="text" value="5" name="" class="num_for"/></form><em>页</em></div>
+                                <a class="one" href="#">前往</a>
+                            </div></td>
+                    </tr>
+                </tbody>
+
+            </table>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
