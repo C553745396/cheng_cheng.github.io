@@ -1,0 +1,253 @@
+*{ margin: 0; padding: 0;}
+html{height: 100%; width: 100%; font-size: 100px; outline: 0; -webkit-text-size-adjust:none;}
+body{ font-size: 0.22rem; height: 100%; -webkit-user-select: none; position: relative; font-family: "Microsoft YaHei"; margin: 0; padding: 0; background:#eee;}
+a{ text-decoration: none; color: #333;-webkit-tap-highlight-color: transparent; -webkit-touch-callout: none; -webkit-user-select: none;}
+p,h1,h2,h3,h4,h5,h6{ padding: 0; margin: 0;}
+img{ border: none; display: block; margin: 0 auto;}
+ul,li{ list-style: none;}
+input[type="button"], input[type="submit"], input[type="reset"], input[type="text"] {-webkit-appearance: none; font-family: "Microsoft YaHei";}
+em,i{ font-style: normal;}
+/*banner轮播*/
+.main_visual{ width: 6.4rem; height: 2.4rem; overflow:hidden;position:relative;}
+.main_image{ width: 6.4rem; height: 2.4rem;overflow:hidden;position:relative;}
+.main_image ul{width:9999px;overflow:hidden;position:absolute;top:0;left:0; height: 100%;}
+.main_image li{float:left;width:100%; height: 100%;}
+.main_image li span{display:block;width:100%;}
+.main_image li a{display:block;width:100%; height: 100%;}
+.main_image li img{ width: 100%; display: block; height: 100%;}
+.main_visual.detailPic{ height: 3.4rem; background: #fff;}
+.detailPic .main_image{ height: 3.2rem; margin-top: 0.2rem;}
+.detailPic .main_image li a img{ width: 3rem; height: 3rem;}
+
+div.flicking_con{position:absolute; bottom:0.1rem;left:0; width: 100%; text-align: center; z-index:999; font-size: 0;}
+div.flicking_con a{width: 0.16rem;height: 0.16rem;padding:0;display:inline-block;text-indent:-1000px;background:rgba(255,255,255,0.53);border-radius: 100%;margin: 0.1rem;}
+div.flicking_con a.on{background:#fff;}
+
+.detailPic div.flicking_con a{ background: rgba(186,186,186,0.66);}
+.detailPic div.flicking_con a.on{ background:#529df2;}
+
+/*消息滚动*/
+.news{ width:100%; height:0.45rem; padding: 0.18rem 0;background: #fff;border-bottom: 1px solid #d7d7d7; margin-bottom: 0.15rem;}
+.news_img{ float:left;width: 0.45rem;height: 0.45rem;padding: 0 0.15rem 0 0.2rem;}
+.news #scrollDiv{ float:left; height:0.45rem; overflow:hidden;}
+.news li a{ color:#666; width: 5.6rem; line-height:0.45rem; font-size: 0.22rem; color:#666;display:block;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+.news li a span{ padding:0 0.1rem; color:#30b7e5;}
+
+.title{ line-height: 0.64rem; background: #fff; border-top: 1px solid #d7d7d7; width: 100%; overflow: hidden;}
+.title span{ display: block; float: left; font-size: 0.2358rem; color: #585858; border-left: 0.12rem solid #4ed1f2; padding-left: 0.2rem;}
+.title a{ color: #878787; font-size: 0.2358rem; float: right; background: url(../img/more.png) no-repeat right center; background-size: 0.12rem 0.2rem; padding-right: 0.2rem; margin-right: 0.2rem;}
+.title.rm span{ border-color:#529df2; padding-right: 0.35rem; background: url(../img/h.png) right center no-repeat; background-size: 0.26rem 0.28rem;}
+
+.listBox{ width: 100%; overflow:hidden; background: url(../img/line.jpg) 50% top repeat-y #fff; background-size: 1px;}
+.listBox li{ position: relative; font-size: 0.22rem; float: left; width: 50%; border-top: 1px solid #d7d7d7; padding-bottom: 0.25rem;}
+.listBox li .cp{ display: block;}
+.listBox li p,.listBox li h4,.listBox li h5{ padding: 0 0.2rem;}
+.listBox .pic{ width: 2rem; height: 2rem; margin: 0.1rem auto;}
+.listBox h4{ line-height: 0.4rem; color: #545454; font-weight: normal;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+.listBox li p{ line-height: 0.4rem; color: #888;}
+.listBox li p span{ color: #529df2;}
+.listBox li p em{ color: #ed2d22;}
+.listBox li h5{ font-weight: normal; color: #ed2d22; background: url(../img/time.png) no-repeat left center; background-size: 0.31rem 0.3rem; padding-left: 0.4rem; line-height: 0.6rem; margin:0 0 0.1rem 0.2rem;}
+.listBox li p b{ font-weight: normal; font-size: 0.2rem;}
+.listBox li .prenceText{ padding: 0.1rem 0.2rem;}
+.listBox li .prenceText span{ padding-left: 0.1rem;}
+.bar{ width: 2.04rem; height: 0.1rem; background: #eaeaea; position: relative; margin-left: 0.2rem;}
+.bar span{ position: absolute; display: block; height: 100%; left: 0; top: 0; width: 0; background: #79b5f1;}
+.w-button-round{ position: absolute; width: 0.46rem; height: 0.46rem; background: #ed2d22; text-align: center; color: #fff; line-height: 0.4rem; font-size: 0.5rem; font-weight: bold; border-radius: 100%; bottom: 0.3rem; right: 0.2rem;}
+.w-button-round.on{ background: #ccc;}
+.timeDjs{ font-weight: bold; margin: 0 0.15rem; overflow: hidden; font-size: 0.312rem; color: #ed2d22;}
+.timeDjs span{ font-weight: normal; display: inline-block; color: #fff; background: #ed2d22; font-size: 0.3024rem; width: 0.48rem; height: 0.48rem; text-align: center; line-height: 0.48rem; border-radius: 0.08rem; margin: 0 0.05rem;}
+
+.loadUp{ display: block; width: 100%; text-align: center; color: #b6b6b6; font-size: 0.24rem; line-height: 0.7rem;}
+.bot{ border-bottom: 1px solid #d7d7d7;}
+
+.detailText{ font-size: 0.24rem; margin-bottom: 0.2rem; background: #fff; overflow: hidden; border-bottom: 1px solid #d7d7d7;}
+.detailText span{display: block; color: #888; padding-left:0.15rem;}
+
+.detailText .sy span{ float: left;}
+.detailText h4{ font-weight: normal; line-height: 0.6rem; overflow: hidden; padding-left:0.15rem;}
+.detailText h4 p{ color: #545454; float: left;max-width: 4.2rem; padding-right: 0.15rem;white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+.detailText .bar{ float: left; display: inline; width: 6.1rem; margin: 0.2rem 0.15rem 0.15rem;}
+.detailText em{ float: right; color: #ed2d22; padding-right: 0.15rem;}
+.sy{ overflow: hidden; padding-bottom: 0.25rem; width: 100%;}
+.srartTime{ padding-bottom: 0.1rem;}
+.endTime{ padding-bottom: 0.25rem;}
+
+.btnLine{ width: 100%; height: 0.9rem; overflow: hidden;}
+.footerBox{ width: 100%; position: fixed; bottom: 0; left: 0; background: #fff;border-top: 0.02rem solid #d7d7d7;}
+.footerBox a{ line-height: 0.88rem; font-size: 0; text-align: center; display: block; width: 50%; float: left; height: 0.88rem;}
+.footerBox a.active{ background: #0085d0;}
+.footerBox a span,.footerBox a img{ display: inline-block; vertical-align: middle; font-size: 0.2961rem; color: #888;}
+.footerBox a.active span{ color: #fff;}
+.footerBox a img{ height: 0.45rem; padding-right: 0.15rem;}
+.footerBox a.a1{ width:100%;}
+.footerBox a.a2{ float: right; width: 2.2rem;}
+.footerBox p{ line-height: 0.88rem; text-align: left; float: left; color: #464646; font-size: 0.2423rem; padding-left: 0.2rem;}
+.footerBox p span{ color: #ed2d22;}
+
+.cyList{ width: 100%; background: #fff; overflow: hidden; border-top: 1px solid #d7d7d7;}
+.tagTitle{ text-align: center; height: 0.58rem; background: url(../img/line.jpg) repeat-y 3.18rem top; background-size: 0.04rem 0.6rem; margin-bottom: 0.3rem;}
+.tagTitle a{ display: block; width: 50%; float: left; line-height: 0.6rem;}
+.tagTitle a span{ color: #545454; font-size: 0.2759rem; display: block; border-bottom: 0.04rem solid #d7d7d7; width: 2.52rem; margin: 0 auto;}
+.tagTitle a.active span{ color: #fbb700; border-bottom: 0.04rem solid #fbb700;}
+
+.timeT{ color: #545454; font-size: 0.24rem; border-bottom: 1px solid #d7d7d7; line-height: 0.68rem; padding: 0 0.35rem;}
+
+.listcon ul{ overflow: hidden; padding: 0.15rem 0;}
+.listcon li{ width: 100%; overflow: hidden; background: url(../img/line.jpg) repeat-y 0.68rem top; background-size: 0.02rem; padding: 0.34rem 0 0 0;}
+.listcon li a.photo,.listcon li a.photo img{ display: block; width: 0.72rem; height: 0.72rem;}
+.listcon li a.photo{ float: left; border-radius: 100%; overflow: hidden;  margin: 0 0.15rem 0 0.33rem;}
+.listcon li p{ font-size: 0.2272rem; color: #545454;}
+.listcon li p a{ font-size: 0.2272rem;color: #529df2; display: block; line-height: 0.38rem;}
+
+.listcon img.tw{ width: 100%;}
+.twText{ font-size: 0.2288rem; color: #b7b7b7; padding: 0.25rem; line-height: 0.4rem;}
+
+.text1{ background: #76c0ff; padding: 0.15rem 0; position: relative; overflow: hidden;} 
+.text1 span{ color: #fff; font-size: 0.24rem; line-height: 0.54rem;}
+.text1 span b{ font-weight: normal; font-size: 0.3687rem;}
+.sumDetail{ display: block; position:absolute; background: #fff; border-radius: 0.08rem; text-align: center; font-size: 0.2262rem; border: 0.02rem solid #0085d0; color: #0085d0; width: 1.34rem; height: 0.48rem; line-height: 0.48rem; bottom: 0.3rem; right: 0.3rem;}
+.mcy{ text-align: center; width: 100%; overflow: hidden; line-height: 0.6rem; font-size: 0.2233rem; color: #aeaeae;}
+
+.resultCon{ overflow: hidden; border: 1px solid #d7d7d7; border-radius: 0.1rem; margin: 0.3rem 0.15rem;}
+.w-record-avatar{ display: block; float: left; width: 0.75rem; height: 0.75rem; position: relative; margin: 0.38rem 0.3rem 0 0.3rem;}
+.w-record-avatar img.iconPhoto{ border-radius: 100%; width: 0.75rem; height: 0.75rem;}
+.iconW{ position: absolute; width: 0.61rem; left: -0.2rem; top: -0.36rem;}
+
+.recordText{ line-height: 0.42rem; float: left; font-size: 0.2233rem; color: #888; padding: 0.25rem 0;}
+.recordText a{ color: #529df2;}
+.recordText p a{ text-decoration: underline; display: inline-block;margin-left: 0.35rem;}
+.luckyNum{ position: relative; line-height: 0.72rem; clear: both; text-align: left; overflow: hidden; padding-left: 0.85rem; background: #76c0ff; color: #fff; font-size: 0.2233rem;}
+.luckyNum span{ font-size: 0.3333rem; color: #fff; display: inline; padding: 0;}
+.luckyNum a{ display: block; position:absolute; background: #fff; border-radius: 0.08rem; text-align: center; font-size: 0.2262rem; border: 0.02rem solid #0085d0; color: #0085d0; width: 1.34rem; height: 0.48rem; line-height: 0.48rem; bottom: 0.1rem; right: 0.4rem;}
+
+.textShow{ font-size: 0.22rem; color: #aeaeae; padding:0 0.1rem 0.2rem; line-height: 0.4rem;}
+
+.fade,.fadeBj{ width: 100%; height: 100%; top: 0; left: 0;}
+.fade{ display: none; position: fixed; z-index: 99999;}
+.fadeBj{ background: #000; opacity: 0.6; filter:alpha(opacity=60); position: absolute;}
+.numList{ background: #fff; position: absolute; left: 5%; top: 50%; margin-top: -2.05rem; border-radius: 0.15rem; width: 90%; height: 4.1rem; overflow: hidden;}
+.w-msgbox-close{  font-family: sans-serif; color: #ACACAC; font-size: 0.4rem; width: 0.6rem; height: 0.6rem; line-height: 0.6rem; text-align: center;  position: absolute; right: 0; top: 0; display: block;}
+.numList p{ border-bottom: 1px dotted #d4d4d4; color: #999; font-size: 0.24rem; clear: both; margin: 0 0.3rem; line-height: 0.6rem; padding-top: 0.4rem; text-align: center;}
+.numList ul{ margin: 0.08rem 0.3rem 0;overflow-y: scroll; height: 2.85rem;}
+.numList li{ width: 33.333333%; float: left; text-align: center;font-size: 0.24rem; color: #999; line-height: 0.4rem;}
+.numList li.txt-red{ color: #db3652;}
+
+/*弹窗样式*/
+.fade_con{ padding: 0.34rem 0 0.26rem; position: absolute; width: 5rem;background: #fff; border-radius: 0.1rem;top: 50%; left: 50%; margin-left: -2.5rem;margin-top: -2.5rem;}
+.fade_con .close{ width: 0.49rem; position: absolute; top: 0.13rem; right: 0.13rem;}
+.fade_con p{ color: #3b3d56; font-size: 0.3rem; padding: 0.4rem 0.3rem 0.4rem;}
+.fade_con p em{ font-style: normal; color: #fe6215; padding: 0 0.1rem;}
+.fade_con a{display: block; color: #fff; font-size: 0.28rem; margin: 0 auto 0.22rem;width: 50%; height: 0.66rem; line-height: 0.66rem; border-radius: 0.1rem; text-align: center;}
+a.btna{background: #0085d0;}
+a.btnb{ background: #6bc153;}
+a.btnc{ background: #00a0e9;}
+.fade_con h4{ font-weight: normal; text-align: center;color: #929292; font-size: 0.39rem; line-height: 0.86rem;padding: 0.3rem 0.1rem;}
+#inserBox .fade_con{ padding-top: 0.5rem;}
+.fade_con input{ display: block; border: 1px solid #d7d7d7; margin: 0.2rem auto 0; width: 86%; background: #fff; border-radius: 0.08rem; line-height: 0.6rem; height: 0.6rem; text-align: center;}
+.fade_con p{ color: #888; font-size: 0.2rem; padding: 0 0.2rem; line-height: 0.68rem; text-align: center;}
+.fade_con h3{ font-weight: normal; text-align: center; color: #0085d0; font-size: 0.3rem;}
+
+.userTop{ width: 100%; background: #76c0ff; overflow: hidden; padding: 0.3rem 0;}
+.userTop img{ width: 1.1rem; height: 1.1rem; border-radius: 100%; float: left; margin: 0 0.2rem 0 0.35rem;}
+.userTop span{ display: block; float: left; line-height: 1.1rem; color: #fff; font-size: 0.24rem;}
+
+.h4t{font-weight: normal; color: #888; font-size: 0.2248rem; line-height: 0.76rem; padding-left: 0.2rem;}
+.h5t{font-weight: normal; color: #545454; font-size: 0.2248rem; line-height: 0.76rem; padding-left: 0.25rem; border-bottom: 1px solid #d7d7d7;}
+
+.userTag{ width: 100%; text-align: center; border-top: 1px solid #d7d7d7; border-bottom: 1px solid #d7d7d7; background: #fff; overflow: hidden;}
+.userTag a{ display: block; float: left; width: 25%; font-size: 0.257rem; color: #545454; border-right: 1px solid #d7d7d7; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; line-height: 0.77rem; box-sizing: border-box;}
+.userTag a span{ display: block; border-bottom: 0.06rem solid #fff;}
+.userTag a.active{ color: #fbb700;}
+.userTag a.active span{ border-bottom: 0.06rem solid #fbb700;}
+.userTag a:last-child{ border-right: 0;}
+
+.resulBox{ background: #fff; overflow: hidden;}
+.resulBox li{ padding: 0.24rem 0; overflow: hidden; font-size: 0;border-bottom: 1px solid #d7d7d7;text-align: left;}
+.resulBox a.rPic{ display: inline-block;  width: 1.6rem; height: 1.6rem; padding: 0 0.1rem;vertical-align: middle;}
+.resulBox a.rPic img{ width: 1.6rem; height: 1.6rem;}
+.rightR{ font-size: 0.22rem; display: inline-block; overflow: hidden; line-height: 0.4rem; width: 4.56rem;vertical-align: middle;}
+.rightR h4{ color: #545454; overflow: hidden; font-weight: normal;}
+.rightR h4 em{ max-width: 4.56rem;white-space:nowrap; overflow:hidden; text-overflow:ellipsis; display: block; float: left;}
+.rightR h4 em.jd{max-width: 3.14rem;}
+.rightR h4 span{ color: #888; padding-left: 0.2rem;}
+.rightR p{ color: #888;}
+.rightR  a{ color: #529df2;}
+.rightR span{ color: #ed2d22;}
+.rightR p em{ float: right; color: #ed2d22; margin-right: 0.4rem;}
+.rightR .queryBtn{ padding-left: 0.5rem; text-decoration: underline;}
+.rightR .bar{ margin: 0.15rem 0; width: 4.2rem;}
+
+.orderList{width: 100%; overflow: hidden; background: #fff;}
+.orderList li{ font-size: 0; border-bottom: 1px solid #d7d7d7; overflow: hidden; text-align: left; padding: 0.2rem 0;}
+.orderList li .chp,.orderList .rightO{ display: inline-block; vertical-align: middle;}
+.orderList li .chp{ width: 1.5rem; height: 1.5rem; padding: 0 0.25rem;}
+.rightO{ width: 4.35rem; overflow: hidden; font-size: 0.2233rem; color: #888;}
+.rightO h4{ color: #545454; font-weight: normal; }
+.rightO h4 em{ color: #888; padding-left: 0.2rem;}
+.rightO p{ color: #529df2; line-height: 0.54rem;}
+.rightO span{ line-height: 0.42rem; padding-right: 0.2rem; color: #888; font-size: 0.2233rem; float: left;}
+.count{ float: left; border: 1px solid #d7d7d7; border-radius: 0.1rem; overflow: hidden;}
+.count a{ width: 0.4rem; text-align: center; display: block; float: left; color: #fbb700; font-size: 0.4rem; font-weight: bold; line-height: 0.32rem;}
+.count input{ display: block; float: left; width: 0.7rem; border: none; border-left: 1px solid #d7d7d7; border-right: 1px solid #d7d7d7; text-align: center; height: 0.4rem; line-height: 0.4rem;}
+.del{ width: 0.23rem; display: block; float: right; margin: 0.08rem 0.5rem 0 0;}
+.del img{ width: 0.23rem; height: 0.28rem;}
+
+.resulBox.out li{ padding: 0.15rem 0;}
+.resulBox.out li .rightR{ width: 4.4rem;}
+
+.editAdd{ width: 100%; overflow: hidden; background: #fff; border-top: 1px solid #d7d7d7;}
+.editAdd div{ border-bottom: 1px solid #d7d7d7; overflow: hidden;}
+.editAdd em{ width: 0.25rem; text-align: right; font-weight: bold; display: block; float: left; color: #ed2d22; font-size: 0.3rem; padding: 0.22rem 0.05rem 0 0;}
+.editAdd span{ width: 1.3rem; display: block; float: left; font-size: 0.2284rem; color: #545454; line-height: 0.78rem;}
+.editAdd input{ outline: none; display: block; float: left; border: none; border-radius: 0; height: 0.78rem; text-align: left; width: 4.5rem;}
+.editAdd select{ display: block; float: left; border: 0.02rem solid #d7d7d7; border-radius: 0.08rem; font-family: "微软雅黑"; color: #888; width: 1.4rem; overflow: hidden; font-size: 0.22rem; height: 0.46rem; line-height: 0.46rem; margin: 0.15rem 0.15rem 0 0; outline: none;}
+
+.wait{ text-align: center; overflow: hidden; background: #fff; border-bottom: 1px solid #d7d7d7;}
+.wait h4{ color: #545454; font-size: 0.3666rem; font-weight: normal; line-height: 1.54rem;}
+.wait h4 span{ display: inline-block; color: #ed2d22; border: 0.04rem solid #ed2d22; border-radius: 100%; width: 0.48rem; height: 0.48rem; text-align: center; line-height: 0.42rem; font-size: 0.46rem; font-weight: bold; margin-right: 0.15rem;}
+.wait p{ color: #545454; font-size: 0.2313rem; text-align: center; padding-bottom: 0.5rem;}
+
+.reckon1{ width: 5.27rem; padding: 0.2rem 0.4rem; background: #76c0ff; border-radius: 0.15rem; margin: 0.2rem auto; overflow: hidden;}
+.reckon1 span,.reckon1 p{ line-height: 0.5rem; color: #fff; font-size: 0.24rem;}
+
+.reckon2{ background: #fff; padding: 0.2rem 0.4rem; line-height: 0.4rem; border-top:1px solid #d7d7d7; border-bottom: 1px solid #d7d7d7; overflow: hidden; font-size: 0.23rem; margin-bottom: 0.2rem;}
+.reckon2 p{ color: #545454;}
+.reckon2 span{ color: #ed2d22;}
+.reckon2 .ptext1{ text-align: center; line-height: 0.6rem; padding-bottom: 0.2rem;}
+
+/*提交成功*/
+.paySuc{ width: 100%; margin: 0 auto; overflow: hidden;}
+.paySuc h4{ padding: 0.54rem 0; text-align: center; overflow: hidden; font-size: 0;}
+.paySuc h4 img{ display: inline-block; width: 0.62rem; vertical-align: middle;}
+.paySuc h4 span{font-size: 0.3666rem;color: #20c39b; display: inline-block; vertical-align: middle; line-height: 0.62rem; padding-left: 0.2rem;font-weight: normal;}
+.paySuc p{text-align: left;font-size: 0.22274rem;color: #aeaeae;padding: 0 0.9rem 1.55rem;}
+.btnBox{ width: 100%; text-align: center; font-size: 0; overflow: hidden;}
+.btnBox a{ display: inline-block;color: #0085d0;border: 1px solid #0085d0; width: 2.6rem; height: 0.64rem;font-size: 0.252rem; line-height: 0.64rem; border-radius: 0.08rem; margin: 0 0.12rem;}
+.btnBox a.a1{ background: #0085d0; color: #fff;}
+
+/*支付结果*/
+.payR{ background: #fff; padding-bottom: 0.4rem; border-bottom: 1px solid #d7d7d7; margin-bottom: 0.2rem;}
+.payR.paySuc p{padding-bottom: 0.7rem; text-align: center;}
+.resultPay{ line-height: 0.6rem; padding-bottom: 0.2rem; background: #fff; font-size: 0.2225rem; border-bottom: 1px solid #d7d7d7; border-top: 1px solid #d7d7d7; overflow: hidden;}
+.resultPay h4{ font-weight: normal; color: #545454; border-top: 1px solid #d7d7d7; padding-left: 0.25rem;}
+.resultPay span{ color: #aeaeae; display: block; padding-left: 0.25rem;}
+.resultPay h4 span{ padding-left: 0.15rem; display: inline;}
+
+/*支付订单*/
+.payLine{ display: block; padding: 0 0.25rem; font-size: 0.256rem; color: #545454; line-height: 0.96rem; border-bottom: 1px solid #d7d7d7; overflow: hidden; background: #fff;}
+.payLine p{white-space:nowrap; overflow:hidden; text-overflow:ellipsis; display: block; float: left; max-width: 3.2rem;}
+.payLine span{ padding-left: 0.1rem; color: #888; padding-left: 0.2rem;}
+.payLine span.color{ color: #e30d19; padding-left: 0;}
+.payLine img{ display: block; float: left; width: 0.52rem; margin: 0.22rem 0.15rem 0 0;}
+.payLine em{ color: #529df2; float: right;}
+.payLine.sty1{ background: url(../img/more.png) 96% center no-repeat #fff; background-size: 0.16rem;}
+
+.iconBox{ position: fixed; left: 0.06rem; top: 4rem; height: 1.54rem;}
+.iconBox a,.iconBox img{ display: block; width: 0.61rem;}
+.iconBox a{ margin: 0.08rem 0;}
+.cartImg{ position: relative;}
+.cartImg span{ position: absolute; top: 0; right: 0; color: #fff; width: 0.3rem; height: 0.3rem; text-align: center; background: #ed2d22; border-radius: 100%; font-size: 0.2rem;}
+
+.fade_con .btnBox{ padding-bottom: 0.2rem;}
+.fade_con .btnBox a{ width: 2rem;}

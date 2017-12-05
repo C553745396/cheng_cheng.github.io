@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, width=device-width" name="viewport">
+		<meta content="telephone=no" name="format-detection">
+		<meta content="email=no" name="format-detection">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+        <link href="css/style.css" rel="stylesheet" type="text/css"/>
+        <script type="text/javascript" src="js/rem.js" ></script>
+		<title></title>
+	</head>
+	<body>
+		<div class="wrap">			
+			<div class="listBox bot">
+				<ul>
+					<li>
+						<a class="cp" href="detail.html">
+							<img src="img/pic3.jpg" class="pic"/>
+							<h4>Apple iPhone6s 16G</h4>
+							<p>颜色随机</p>
+							<p class="prenceText">揭晓进度<span>60%</span></p>
+							<div class="bar"><span style="width: 60%;"></span></div>
+						</a>	
+						<div class="w-button-round addcar">+</div>
+					</li>
+					<li>
+						<a class="cp" href="detail.html">
+							<img src="img/pic3.jpg" class="pic"/>
+							<h4>小米智能手环 电信直供</h4>
+							<p>颜色随机</p>
+							<p class="prenceText">揭晓进度<span>31%</span></p>
+							<div class="bar"><span style="width: 31%;"></span></div>
+						</a>	
+						<div class="w-button-round addcar">+</div>
+					</li>
+					<li>
+						<a class="cp" href="detail.html">
+							<img src="img/pic3.jpg" class="pic"/>
+							<h4>Apple iPhone6s 16G</h4>
+							<p>颜色随机</p>
+							<p class="prenceText">揭晓进度<span>60%</span></p>
+							<div class="bar"><span style="width: 60%;"></span></div>
+						</a>	
+						<div class="w-button-round addcar">+</div>
+					</li>
+					<li>
+						<a class="cp" href="detail.html">
+							<img src="img/pic3.jpg" class="pic"/>
+							<h4>小米智能手环 电信直供</h4>
+							<p>颜色随机</p>
+							<p class="prenceText">揭晓进度<span>31%</span></p>
+							<div class="bar"><span style="width: 31%;"></span></div>
+						</a>	
+						<div class="w-button-round addcar">+</div>
+					</li>
+					<li>
+						<a class="cp" href="detail.html">
+							<img src="img/pic3.jpg" class="pic"/>
+							<h4>Apple iPhone6s 16G</h4>
+							<p>颜色随机</p>
+							<p class="prenceText">揭晓进度<span>60%</span></p>
+							<div class="bar"><span style="width: 60%;"></span></div>
+						</a>	
+						<div class="w-button-round addcar">+</div>
+					</li>
+					<li>
+						<a class="cp" href="detail.html">
+							<img src="img/pic3.jpg" class="pic"/>
+							<h4>小米智能手环 电信直供</h4>
+							<p>颜色随机</p>
+							<p class="prenceText">揭晓进度<span>31%</span></p>
+							<div class="bar"><span style="width: 31%;"></span></div>
+						</a>	
+						<div class="w-button-round addcar">+</div>
+					</li>
+					<li>
+						<a class="cp" href="detail.html">
+							<img src="img/pic3.jpg" class="pic"/>
+							<h4>Apple iPhone6s 16G</h4>
+							<p>颜色随机</p>
+							<p class="prenceText">揭晓进度<span>60%</span></p>
+							<div class="bar"><span style="width: 60%;"></span></div>
+						</a>	
+						<div class="w-button-round addcar">+</div>
+					</li>
+					<li>
+						<a class="cp" href="detail.html">
+							<img src="img/pic3.jpg" class="pic"/>
+							<h4>小米智能手环 电信直供</h4>
+							<p>颜色随机</p>
+							<p class="prenceText">揭晓进度<span>31%</span></p>
+							<div class="bar"><span style="width: 31%;"></span></div>
+						</a>	
+						<div class="w-button-round addcar">+</div>
+					</li>
+				</ul>
+			</div>
+			<a class="loadUp">上划加载更多</a>
+		</div>		
+		<div class="iconBox">
+			<a href="user.html"><img src="img/icon1.png" /></a>
+			<a class="cartImg" href="orderlist.html"><img src="img/icon2.png" /><span>0</span></a>
+		</div>
+		<script type="text/javascript" src="js/jquery-1.11.1.min.js" ></script>
+		<script type="text/javascript">
+			$(function(){
+				$(".addcar").click(function(){
+			        $(this).addClass('on').unbind('click');
+			        var i = parseInt($('.cartImg span').text());
+			        $('.cartImg span').text(i+1);
+			   });
+			});
+		</script>
+	</body>
+</html>
