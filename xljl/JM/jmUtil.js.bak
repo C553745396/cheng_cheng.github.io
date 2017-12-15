@@ -1,0 +1,200 @@
+/**
+ * Created by cash on 2015/9/24.
+ */
+
+function fRandomBy(under, over){
+    switch(arguments.length){
+        case 1: return parseInt(Math.random()*under+1);
+        case 2: return parseInt(Math.random()*(over-under+1) + under);
+        default: return 0;
+    }
+}
+function getRandomStr16(){
+    var base = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    var intLen = 16;
+    var res = "";
+    for (var i = 0 ; i < intLen ; i++){
+        res += base.charAt(fRandomBy(1,base.length-1));
+    }
+    return res;
+}
+
+
+function myEncryptedString4(word){
+    try {
+        word = encodeURI(word);
+
+        var strSHA = SHA256Encrypt(word);
+
+        var k = getRandomStr16();
+        var i = getRandomStr16();
+
+        var key = CryptoJS.enc.Utf8.parse(k);
+        var iv =CryptoJS.enc.Utf8.parse(i);
+
+        var srcs  =  CryptoJS.enc.Utf8.parse(word);
+        var encrypted = CryptoJS.AES.encrypt(srcs, key, { iv: iv,mode:CryptoJS.mode.CBC});
+
+        var t = strSHA+k+i;
+        var key1 = RSAUtils.getKeyPair('010001', '', '008c6f8539061f8076c471ff85740e8a8878adb3850dd8045adb45a568e2dc13b84e7875388620e7c3ef2cf323a6cb81e4a5e17bd1825c263a1a040b6218e7265a74f581053db1c2c455a8bed5808510eb6c9802166a3d757ba9ca32d79ffc2c742b86bb596d0a651e1172ec3d921157b705cdc7c3fe8de36db9fc81215e085dc9');
+        var tJ = RSAUtils.encryptedString(key1, t);
+
+        return encrypted+"||"+tJ;
+
+    } catch (e){
+        alert(e)
+    }
+}
+function myDecryptString3(word){
+
+    var conn = Ext.lib.Ajax.getConnectionObject().conn;
+    conn.open("POST",atom.webContextRoot+"/jmaction.do",false);
+    conn.setRequestHeader("Content-Type","application/x-www-form-urlencoded;charset=UTF-8");
+    var params = "method=getStrS";
+    conn.send(params);
+    var o = Ext.util.JSON.decode(conn.responseText);
+    var res = "";
+    res = o.res;
+    publicKey['K'] = res.substr(0,16);
+    //console.log(publicKey['K']+"len:"+publicKey['K'].length);
+
+    publicKey['I'] = res.substr(16,16);
+    //console.log(publicKey['I']+"len:"+publicKey['I'].length);
+
+    publicKey['R'] = res.substr(32);
+    //console.log(publicKey['R']+"len:"+publicKey['R'].length);
+
+    var key = CryptoJS.enc.Utf8.parse(publicKey["K"]);
+    var iv =CryptoJS.enc.Utf8.parse(publicKey["I"]);
+    var decrypt = CryptoJS.AES.decrypt(word, key, { iv: iv,mode:CryptoJS.mode.CBC});
+    var tempStr = CryptoJS.enc.Utf8.stringify(decrypt).toString();
+    tempStr = decodeURIComponent(tempStr);
+    return tempStr;
+
+}
+
+function SHA256Encrypt(word){
+    var srcs  =  CryptoJS.enc.Utf8.parse(word);
+    var res = CryptoJS.SHA256(srcs);
+    //CryptoJS.enc.utf
+    res = CryptoJS.enc.Base64.stringify(res).toString();
+    return res;
+}
+
+/**
+ *  根据传入的参数对象，生成加密后的参数字符串
+ *  */
+function getJMParam (inParams){
+    var returnStr = "";
+    var regExp = /^[^`~!@#$%^&*()+=|\\\][\]\{\}:;'\.<>?]*$/;
+    //returnStr = "Token="+currUser['token'];
+    //for (var i in inParams) {
+    //    if (inParams.hasOwnProperty(i)) {
+    //      /*  if (testTSZF(i)  ){
+    //            Ext.MessageBox.alert("提示", "参数名"+i+"包含特殊字符^`~!@#$%^&*()+=|\\\][\]\{\}:;'\.<>?");
+    //            return "";
+    //        }
+    //        if (testTSZF(inParams[i])  ){
+    //
+    //            Ext.MessageBox.alert("提示", "参数值"+inParams[i]+"包含特殊字符^`~!@#$%^&*()+=|\\\][\]\{\}:;'\.<>?");
+    //            return "";
+    //        }*/
+    //        //if (returnStr == "") {
+    //        //    returnStr +=  ""+i+"="+inParams[i];
+    //        //} else {
+    //        //    returnStr += "||&&"+i+"="+inParams[i];
+    //        //}
+    //    }
+    //}
+//  returnStr = Ext.encode(inParams);		
+		//JSOM.parse(jsonStr);//将json字符串转成json对象		
+		returnStr = JSON.stringify(inParams);//将json对象转成json对符串		
+    returnStr = myEncryptedString4(returnStr);
+    alert(returnStr)
+    return returnStr;
+}
+/**
+ * 校验是否含有特殊字符
+ * @param s
+ * @returns {boolean}
+ */
+function testTSZF(s){
+    var regExp = /^[^`~!@#$%^&*()+=|\\\][\]\{\}:;'\.<>?]*$/;
+    if(regExp.test(s))
+    {
+        return false;
+    }
+    return true;
+}
+/**
+ *  根据传入的Extjs的formpanel对象，生成加密后的参数字符串
+ *  */
+function getJMExtFormPanel(formPanel){
+    var returnStr = "";
+    //returnStr = "Token="+currUser['token'];
+    var returnObj = {};
+    returnObj = getExtjsFormField(formPanel,returnObj);
+    returnStr = Ext.encode(returnObj);
+    returnStr = myEncryptedString4(returnStr);
+    return returnStr;
+}
+
+/**
+ * 获取form中所有对象的名值对
+ * @param {Ext.form.FormPanel} formPanel
+ */
+function getExtjsFormField(formPanel,returnObj){
+    var children=formPanel.items;
+    if (!children) return returnObj;
+    for (var i=0;i<children.getCount();i++){
+        var childTmp=children.get(i);
+        if (childTmp.items){
+            returnObj = getExtjsFormField(childTmp,returnObj);
+        }
+//		var xtype=childTmp.xtype;
+////		var origFldDisabled = childTmp.disabled;
+//		if(xtype != "btntextfield" && !Ext.isEmpty(xtype)){
+        try {
+            if (childTmp.getName() != undefined && childTmp.getValue() != undefined) {
+//                if (testTSZF(childTmp.getName())  ){
+//                    Ext.MessageBox.alert("提示", "参数名"+childTmp.getName()+"包含特殊字符^`~!@#$%^&*()+=|\\\][\]\{\}:;'\.<>?");
+//                    return "";
+//                }
+//                if (testTSZF(childTmp.getValue())  ){
+//
+//                    Ext.MessageBox.alert("提示", "参数值"+childTmp.getValue()+"包含特殊字符^`~!@#$%^&*()+=|\\\][\]\{\}:;'\.<>?");
+//                    return "";
+//                }
+
+                if(childTmp.xtype == "datefield") {
+                    returnObj[childTmp.getName()]
+                        = Ext.util.Format.date(childTmp.getValue(), childTmp.format);
+                    //if (returnStr == ""){
+                    //    returnStr += "" + childTmp.getName()
+                    //        + "=" + Ext.util.Format.date(childTmp.getValue(), childTmp.format);
+                    //} else {
+                    //    returnStr += "||&&" + childTmp.getName()
+                    //        + "=" + Ext.util.Format.date(childTmp.getValue(), childTmp.format);
+                    //}
+
+                } else {
+                    returnObj[childTmp.getName()]
+                        = childTmp.getValue();
+                    //if (returnStr == ""){
+                    //    returnStr += "" + childTmp.getName()
+                    //        + "=" + childTmp.getValue();
+                    //} else {
+                    //    returnStr += "||&&" + childTmp.getName()
+                    //        + "=" + childTmp.getValue();
+                    //}
+
+                }
+            }
+        } catch(e){
+
+        }
+
+    }
+    return returnObj;
+
+}

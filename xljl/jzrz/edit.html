@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>选择设备</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<link href="../public/style/slideBar.css" rel="stylesheet" type="text/css">
+    <link href="../css/global.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="../css/mui/mui_css/mui.min.css">
+    <link rel="stylesheet" href="../css/alert/css/qikoo.css"/>
+    <link href="../css/mui/mui_css/mui.picker.css" rel="stylesheet"/>
+    <link href="../css/mui/mui_css/mui.poppicker.css" rel="stylesheet"/>
+    <link rel="stylesheet" type="text/css" href="../css/mui/mui_css/mui.picker.min.css" />
+    <link href="../style/index1.css" rel="stylesheet" type="text/css">
+    
+    <style>
+
+
+        .btns01 {
+            /*border-bottom: 12px solid #f5f5f5;*/
+            float: left;
+            font-size: 1em;
+            height: 1.8rem;
+            padding: 0 0 0.4em;
+            width: 50%;
+            color: #878787;
+            line-height: 1rem;
+            padding: .4rem 0;
+            position: relative;
+            border-right: 1px solid #d6d6d6;
+            background-color: #f7f7f7;
+            text-align: center;
+            top: 0.5rem;
+        }
+
+        .btns01 p img {
+            border: 0;
+            width: 5%;
+        }
+
+        .btns02 {
+            /*border-bottom: 12px solid #f5f5f5;*/
+            float: left;
+            font-size: 1em;
+            height: 1.8rem;
+            padding: 0 0 0.4em;
+            width: 50%;
+            color: #878787;
+            line-height: 1rem;
+            padding: .4rem 0;
+            position: relative;
+            border-right: 0px solid #d6d6d6;
+            background-color: #f7f7f7;
+            text-align: center;
+            top: 0.5rem;
+        }
+
+        #topPopover {
+            position: fixed;
+            top: 46px;
+            width: 100%;
+        }
+
+        #topPopover .mui-popover-arrow {
+            left: 2rem;
+        }
+
+        .mui-popover {
+            height: 140px;
+        }
+
+        .mui-content {
+
+        }
+
+        .leftRight5px {
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+        .leftTop5px {
+        margin-top: 10px;
+        top:10px;
+
+        }
+        .leftTop31px {
+        top:40px;
+
+        }
+        .leftTop5px {
+        margin-top: 10px;
+        top:10px;
+
+        }
+        .leftTopp5px {
+        margin-top: -5px;
+        top:-5px;
+
+        }
+.addBtnControl1{
+	width: 100%;
+	height: 50px;
+	background-color: #2196F3;
+	text-align: center;
+	margin-top: -19px;
+}
+.addBtnControl1 div{
+	width: 100%;
+	float: left;
+    text-align: center;
+    color: white;
+    height: 100%;
+    position: relative;
+}
+.addBtnControl1 p{
+	width: 100%;
+    height: 60%;
+    float: left;
+    line-height: 120%;
+    font-size: 10px !important;
+    margin-bottom: 0px;
+    color: white;
+}
+.addBtnControl1 div p:nth-child(1){
+	margin-top: 1%;
+}
+.addBtnControl1 .addBtnImg{
+	background: url(../images/mymessage/add_qunzu.png)no-repeat center;
+	background-size: auto 65%;
+
+}
+.addBtnControl1 div .border{
+	width: 0;
+	height: 60%;
+	/*border-right: 1px solid #fff;*/
+	position: absolute;
+	right: 0;
+	top: 10%;
+}
+
+.addBtnControl2{
+
+	width: 100%;
+	height: 50px;
+	background-color: #2196F3;
+	text-align: center;
+}
+
+.addBtnControl2 p{
+	width: 100%;
+    height: 60%;
+    float: left;
+    line-height: 120%;
+    font-size: 10px !important;
+    margin-bottom: 0px;
+    color: white;
+}
+
+.addBtnControl2 .addBtnImg{
+	background: url(../images/mymessage/add_qunzu.png)no-repeat center;
+	background-size: auto 65%;
+
+}
+
+
+.rowStyleRight{
+    text-align:right;
+    font-size:14px;
+    font-family:"Titillium Web", sans-serif;
+
+}
+.rowStyleReadOnly {
+background-color: #F2F2F2;
+float:left;
+width:64%;
+height:88%;
+margin-top:2px
+}
+.rowStyleNoteReadOnly {
+float:left;
+width:64%;
+height:88%;
+margin-top:2px
+}
+    </style>
+</head>
+
+<body>
+
+<div class="indexPage">
+    <div class="mui-scroll-wrapper leftTop31px" >
+            <div class="mui-scroll">
+
+            <!--<h4 class="leftRight5px title2" id="JZSBH4">监造设备：</h4>-->
+            <!--<button type="button" id='selectDeviceButton'-->
+                    <!--class="mui-btn mui-btn-primary mui-btn-block mui-btn-outlined">选择设备-->
+            <!--</button>-->
+            <div class="addBtnControl1 mui-hidden" style="width: 100%;margin-top:-18px;" id='selectDeviceButton'>
+                <p class="addBtnImg" style="width:100%;margin-top:10px;padding-top:10px;float: right;padding-left: 60px;">选择设备</p>
+            </div>
+            <form class="mui-input-group">
+            <div class="mui-input-row">
+                <label class='rowStyleRight' >物资唯一码</label>
+                <input type="text" name="WZWYM"  style="font-size:14px; font-family:'Titillium Web', sans-serif;background-color: #F2F2F2;float:left;width:64%;height:88%;margin-top:2px;border-color:#999999;border-style:solid;border-width:0px;border-radius:4px;border-radius: 3px;padding: 10px;"
+                       id='WZWYM' placeholder=""
+                       readonly="true">
+                <input name="equInfo" type="hidden" id="EQUID">
+                <input name="equInfo" type="hidden" id="LOGID">
+            </div>
+                <div class="mui-input-row">
+                    <label class='rowStyleRight' >项目名称</label>
+                    <input type="text" name="ERPGCMC"  style="font-size:14px; font-family:'Titillium Web', sans-serif;background-color: #F2F2F2;float:left;width:64%;height:88%;margin-top:2px;border-color:#999999;border-style:solid;border-width:0px;border-radius:4px;border-radius: 3px;padding: 10px;"
+                           id='ERPGCMC'
+                           readonly="true" >
+                </div>
+
+                <div class="mui-input-row">
+                    <label class='rowStyleRight' >生产工号</label>
+                    <input type="text" name="CPSCGH"  style="font-size:14px; font-family:'Titillium Web', sans-serif;background-color: #F2F2F2;float:left;width:64%;height:88%;margin-top:2px;border-color:#999999;border-style:solid;border-width:0px;border-radius:4px;border-radius: 3px;padding: 10px;"
+                           id='CPSCGH'
+                           readonly="true" >
+                </div>
+
+                <div class="mui-input-row">
+                    <label class='rowStyleRight' >记录人</label>
+                    <input type="text" name="equInfo" style="font-size:14px; font-family:'Titillium Web', sans-serif;background-color: #F2F2F2;float:left;width:64%;height:88%;margin-top:2px;border-color:#999999;border-style:solid;border-width:0px;border-radius:4px;border-radius: 3px;padding: 10px;"
+                           id='USERNAME'
+                           readonly="true" >
+                    <input type="hidden" id="USERID">
+                </div>
+
+                <div class="mui-input-row">
+                    <label class='rowStyleRight' >记录时间</label>
+                    <input type="text" name="logInfo" style="font-size:14px; font-family:'Titillium Web', sans-serif;float:left;width:64%;height:88%;margin-top:2px;"
+                           id='RECORDTIME' data-options='{"type":"date","beginYear":2016,"endYear":2036}'
+                           readonly="true" >
+
+                </div>
+
+                <div class="mui-input-row">
+                    <label class='rowStyleRight' >设备/材料型号</label>
+                    <input type="text" name="logInfo" class="mui-input-clear" style="font-size:14px; font-family:'Titillium Web', sans-serif;float:left;width:64%;height:88%;margin-top:2px ;"
+                           id='MATERIAL_NO'
+                           >
+
+                </div>
+
+                <div class="mui-input-row" style="height:126px;">
+                    <label class='rowStyleRight' >监造工作情况</label>
+
+                    <textarea name="logInfo" id="SUPERVISE_SITUATION" rows="5"  style="font-size:14px; font-family:'Titillium Web', sans-serif;border-radius:4px;float:left;width:64%;height:88%;margin-top:2px;"></textarea>
+
+                </div>
+
+                <div class="mui-input-row" style="height:130px;">
+                    <label class='rowStyleRight' >协调其他事项</label>
+
+                    <textarea name="logInfo" id="DEAL_OTHER_THING" rows="5" style="font-size:14px; font-family:'Titillium Web', sans-serif;border-radius:4px;float:left;width:64%;height:88%;margin-top:2px;"></textarea>
+
+                </div>
+
+                <div class="mui-input-row" style="height:130px;">
+                    <label class='rowStyleRight' >问题及处理结果</label>
+
+                    <textarea name="logInfo" id="PROSITUATION" rows="5" style="font-size:14px; font-family:'Titillium Web', sans-serif;border-radius:4px;float:left;width:64%;height:88%;margin-top:2px;"></textarea>
+
+                </div>
+
+            </form>
+
+
+
+
+            <div class="addBtnControl1" style="width: 100%;margin-top:10px" id='submitButton'>
+                <p class="addBtnImg"></p>
+                <p>提交&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+            </div>
+
+            <div class="mui-input-row leftRight5px">
+                &nbsp;
+            </div>
+
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="../cordova.js"></script>
+<script src="../JM/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script> 
+<script type="text/javascript" src="../public/js/public.js"></script>
+<script src="../js/mui.min.js"></script>
+<script src="../js/mui.picker.min.js"></script>
+<script src="../js/mui.poppicker.js"></script>
+
+<script src="../JM/RSA/RSA.js" type="text/javascript" charset="utf-8"></script>
+<script src="../JM/CryptoJS/core.js" type="text/javascript" charset="utf-8"></script>
+<script src="../JM/CryptoJS/enc-base64.js" type="text/javascript" charset="utf-8"></script>
+<script src="../JM/CryptoJS/cipher-core.js" type="text/javascript" charset="utf-8"></script>
+<script src="../JM/CryptoJS/aes.js" type="text/javascript" charset="utf-8"></script>
+<script src="../JM/CryptoJS/sha256.js" type="text/javascript" charset="utf-8"></script>
+<script src="../JM/jmUtil.js" type="text/javascript" charset="utf-8"></script>
+
+<script type="text/javascript" src="../js/public/joint.js"></script>
+
+<script src="../js/AJAX/prodBuild.js" type="text/javascript" charset="utf-8"></script>
+<!--<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>-->
+<script src="../public/js/jQuery.alertShow.js" type="text/javascript" charset="utf-8"></script>
+<!--<script src="js/update.js" type="text/javascript" charset="utf-8"></script>-->
+<script>
+    var page = 1;
+    var totalPages = 0;
+    var jsonObj = eval('(' + data.data1001.request + ')');
+    mui.init();
+    window.parent.document.addEventListener("deviceready", onDeviceReady, false);
+    function onDeviceReady(){
+    	inchu();
+        var devicePlatform = window.parent.device.platform;
+        if("iOS" == devicePlatform) {} else {
+            window.parent.navigator.UserData.getData(successCallback, errorcallback, {
+                keyboad: 1
+            });
+        }
+        function successCallback(data) {
+            var visi = data.visible;
+            var heightP = data.height;
+            var screenHeight = data.screenHeight;
+            var allHeight = window.document.height || document.documentElement.clientHeight;;
+            var hp = heightP * (allHeight / screenHeight)
+            if(visi == "1") {
+                $('.mui-input-group').css('bottom', hp-70 + 'px')
+            } else {
+                $('.mui-input-group').css('bottom', '0px')
+            }
+        }
+        function errorcallback(data) {
+        }
+    }
+    function inchu() {
+
+        // 绑定选择设备按钮事件
+        var selectDeviceButton = document.getElementById('selectDeviceButton');
+        selectDeviceButton.addEventListener('click', function (event) {
+
+            window.location.href = 'equIndex.html';
+        }, false);
+
+        // 绑定提交按钮事件
+        var submitButton = document.getElementById('submitButton');
+        submitButton.addEventListener('click', function (event) {
+            var equid = jQuery('#EQUID').val();
+            var SUPERVISE_SITUATION = jQuery('#SUPERVISE_SITUATION').val();
+            var DEAL_OTHER_THING = jQuery('#DEAL_OTHER_THING').val();
+            var PROSITUATION = jQuery('#PROSITUATION').val();
+            var LOGID = jQuery('#LOGID').val();
+            if (equid == ''){
+                qikoo.dialog.alert('请先选择设备！');
+            } else if (SUPERVISE_SITUATION == ''){
+                qikoo.dialog.alert('请填写监造工作情况！');
+            } else if (DEAL_OTHER_THING == ''){
+                qikoo.dialog.alert('请填写协调、处理其他事项！');
+            }  else if (PROSITUATION == ''){
+                qikoo.dialog.alert('请填写见证发现的问题及处理结果！');
+            } else {
+                jsonObj = eval('(' + data.data1001.request + ')');
+                jsonObj.data.type = "addOrEdit";
+                jsonObj.data.EQUID = equid;
+                jsonObj.data.LOGID = LOGID;
+                jsonObj.data.RECORDTIME = jQuery('#RECORDTIME').val();
+                jsonObj.data.MATERIAL_NO = jQuery('#MATERIAL_NO').val();
+                jsonObj.data.SUPERVISE_SITUATION = SUPERVISE_SITUATION;
+                jsonObj.data.DEAL_OTHER_THING = jQuery('#DEAL_OTHER_THING').val();
+                jsonObj.data.PROSITUATION = jQuery('#PROSITUATION').val();
+                
+                
+                 var jsonStr = JSON.stringify(jsonObj);
+			 data.data1001.request = jsonStr;
+			//alert(23235);
+        getJSON(url,data.data1001, doAddBack);
+               // getJSON(jsonObj, doAddBack);
+            }
+
+        }, false);
+
+        // 为记录时间， 添加日期选择事件
+        var RECORDTIME = document.getElementById('RECORDTIME');
+        RECORDTIME.addEventListener('click', function (event) {
+            var optionsJson = this.getAttribute('data-options') || '{}';
+            var options = JSON.parse(optionsJson);
+            var id = this.getAttribute('id');
+            /*
+             * 首次显示时实例化组件
+             * 示例为了简洁，将 options 放在了按钮的 dom 上
+             * 也可以直接通过代码声明 optinos 用于实例化 DtPicker
+             */
+            var picker = new mui.DtPicker(options);
+            picker.show(function (rs) {
+                /*
+                 * rs.value 拼合后的 value
+                 * rs.text 拼合后的 text
+                 * rs.y 年，可以通过 rs.y.vaue 和 rs.y.text 获取值和文本
+                 * rs.m 月，用法同年
+                 * rs.d 日，用法同年
+                 * rs.h 时，用法同年
+                 * rs.i 分（minutes 的第二个字母），用法同年
+                 */
+//                result.innerText = '选择结果: ' + rs.text;
+                jQuery('#RECORDTIME').val( rs.text);
+                /*
+                 * 返回 false 可以阻止选择框的关闭
+                 * return false;
+                 */
+                /*
+                 * 释放组件资源，释放后将将不能再操作组件
+                 * 通常情况下，不需要示放组件，new DtPicker(options) 后，可以一直使用。
+                 * 当前示例，因为内容较多，如不进行资原释放，在某些设备上会较慢。
+                 * 所以每次用完便立即调用 dispose 进行释放，下次用时再创建新实例。
+                 */
+                picker.dispose();
+            }, false);
+        });
+        initOpr();
+
+        mui('.mui-scroll-wrapper').scroll({
+            deceleration: 0.0005
+        });
+    }
+
+    //			获取url参数
+    function getUrlParam(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+        var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+        if (r != null) return unescape(r[2]);
+        return null; //返回参数值
+    }
+
+    /**
+     * 初始化页面操作，
+     * 判断 oprType
+     *      等于 add ， 新增页面的第一次载入
+     *      等于 addSelect ， 选择监造设备后的载入。
+     *      等于 edit ， 编辑监造日志
+     *      等于 view ， 查看监造日志
+     */
+    function initOpr() {
+        var oprType = getUrlParam("oprType");
+        // console.log(oprType);
+        intOprOther();
+        if("add" == oprType||"addSelect" == oprType||"edit" == oprType){
+            jQuery("#selectDeviceButton,#submitButton").show();
+            jQuery("input[name='logInfo']").css({"border":"1px solid rgba(0,0,0,.2)","border-radius":"3px","padding":"10px"});
+            jQuery("textarea[name='logInfo']").css({"border":"1px solid rgba(0,0,0,.2)","border-radius":"3px","padding":"10px"});
+        }else{
+            jQuery("#selectDeviceButton,#submitButton").hide();
+            jQuery("input[name='logInfo']").attr("readonly","true").css({"border":"none"});
+            jQuery("textarea[name='logInfo']").attr("readonly","true").css({"border":"none"});
+            jQuery(".mui-input-clear").removeClass(".mui-input-clear");
+        }
+        if ("add" == oprType) {
+            jQuery(document).attr('title', '监造日志新增');
+
+//					jQuery(".titleFont",window.parent.document).html('监造日志新增');
+        } else if ("addSelect" == oprType) {
+            jQuery(document).attr('title', '监造日志新增');
+            var equId = getUrlParam("equId");
+            doSelectEqu(equId);
+        } else if ("edit" == oprType) {
+            jQuery(document).attr('title', '监造日志编辑');
+            var logId = getUrlParam("LOGID");
+            doSelectLog(logId);
+            // 隐藏监造设备h4
+            //jQuery("#JZSBH4").hide();
+            jQuery("#selectDeviceButton").hide();
+        } else if ("view" == oprType) {
+            jQuery(document).attr('title', '监造日志查看');
+            var logId = getUrlParam("LOGID");
+            doSelectLog(logId);
+            // 隐藏监造设备h4
+            //jQuery("#JZSBH4").hide();
+
+        }
+
+
+    }
+
+    /**
+     * 根据监造设备ID， 查询监造设备信息
+     */
+    function doSelectEqu(equId) {
+        jsonObj = eval('(' + data.data1001.request + ')');
+        jsonObj.data.type = "selectEquById";
+        jsonObj.data.EQUID = equId;
+        
+        
+          var jsonStr = JSON.stringify(jsonObj);
+			 data.data1001.request = jsonStr;
+			//alert(23235);
+        getJSON(url,data.data1001, doSelectEquBack);
+        //getJSON(jsonObj, doSelectEquBack);
+
+    }
+
+    /**
+     * 根据监造设备ID， 查询监造设备信息 ，回调函数
+     */
+    function doSelectEquBack(v) {
+      //  v = eval('(' + v + ')');
+		// console.log(v);
+        if(v.count){
+            // 物资唯一码
+            jQuery('#WZWYM').val(v.records[0].WZWYM);
+            // 项目名称
+            jQuery('#ERPGCMC').val(v.records[0].ERPGCMC);
+            // 生产工号
+            jQuery('#CPSCGH').val(v.records[0].CPSCGH);
+            // 记录人
+            var oprType = getUrlParam("oprType");
+            if(oprType == 'add' ){
+            	//新增编辑，记录人是当前登录用户
+	            jQuery('#USERNAME').val(userName);
+	            jQuery('#USERID').val(userId);
+            }else{
+            	//查看
+//            	jQuery('#USERNAME').val(v.records[0].JZZJ_USER_NAME);
+            }
+            // 物资ID
+            jQuery('#EQUID').val(v.records[0].ID);
+        }
+    }
+
+    /**
+     * 默认填入记录人，记录时间字段
+     */
+    function intOprOther(){
+        // 记录人
+        jQuery('#USERNAME').val(userName);
+        jQuery('#USERID').val(userId);
+
+        // 记录时间
+        var myDate = new Date();
+        var year = myDate.getFullYear();
+        var month = myDate.getMonth();
+        month++;
+        if (month < 10){
+            month = "0"+month;
+        }
+        var date = myDate.getDate();
+        if (date < 10){
+            date = "0"+date;
+        }
+        jQuery('#RECORDTIME').val(year+"-"+month+"-"+date);
+    }
+
+    /**
+     * 添加或者编辑事件，回调函数
+     */
+    function doAddBack(v) {
+        //v = eval('(' + v + ')');
+        // console.log(v);
+        if(v.success){
+            qikoo.dialog.alert("保存成功",function(){
+                window.location.href = 'index.html';
+            });
+
+        } else {
+            qikoo.dialog.alert("保存失败");
+        }
+    }
+
+    /**
+     * 根据监造日志ID， 查询监造日志
+     */
+    function doSelectLog(logId) {
+        jsonObj = eval('(' + data.data1001.request + ')');
+        jsonObj.data.type = "selectById";
+        jsonObj.data.LOGID = logId;
+        
+        
+           var jsonStr = JSON.stringify(jsonObj);
+			 data.data1001.request = jsonStr;
+			//alert(23235);
+        getJSON(url,data.data1001, doSelectLogBack);
+      //  getJSON(jsonObj, doSelectLogBack);
+
+    }
+
+    /**
+     * 根据监造日志ID， 查询监造日志 ，回调函数
+     */
+    function doSelectLogBack(v) {
+      //  v = eval('(' + v + ')');
+        // console.log(v);
+        if(v.success){
+            // 设备材料型号
+            var MATERIAL_NO = ""
+            if(typeof(v.records[0].MATERIAL_NO ) != "undefined"){
+                MATERIAL_NO = v.records[0].MATERIAL_NO;
+            }
+            jQuery('#MATERIAL_NO').val(MATERIAL_NO);
+            // 记录时间
+            var RECORD_DATE = ""
+            if(typeof(v.records[0].RECORD_DATE ) != "undefined"){
+                RECORD_DATE = v.records[0].RECORD_DATE;
+            }
+            jQuery('#RECORDTIME').val(RECORD_DATE);
+
+
+
+            // 监造日志的id
+            jQuery('#LOGID').val(v.records[0].ID);
+            // 设备ID
+            jQuery('#EQUID').val(v.records[0].EQU_ID);
+            // 记录人
+            jQuery('#USERNAME').val(v.records[0].RECORD_USERNAME);
+            jQuery('#USERID').val(v.records[0].RECORD_USERID);
+
+
+            jQuery('#SUPERVISE_SITUATION').val(v.records[0].SUPERVISE_SITUATION);
+            jQuery('#DEAL_OTHER_THING').val(v.records[0].DEAL_OTHER_THING);
+            jQuery('#PROSITUATION').val(v.records[0].PROSITUATION);
+
+            // 查询设备信息
+            doSelectEqu(v.records[0].EQU_ID);
+
+        }
+    }
+
+</script>
+</body>
+
+</html>
