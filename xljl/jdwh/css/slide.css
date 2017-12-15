@@ -1,0 +1,59 @@
+html,
+			body {
+				background-color: #efeff4;
+			}
+			p {
+				text-indent: 22px;
+			}
+			span.mui-icon {
+				font-size: 14px;
+				color: #007aff;
+				margin-left: -15px;
+				padding-right: 10px;
+			}
+			.mui-off-canvas-right {
+				color: #fff;
+			}
+			.title {
+				margin: 35px 15px 10px;
+			}
+			.title+.content {
+				margin: 10px 15px 35px;
+				color: #bbb;
+				text-indent: 1em;
+				font-size: 14px;
+				line-height: 24px;
+			}
+			input {
+				color: #000;
+			}
+			.xljl_sideerBar{
+				text-align: center;
+				height: 162px;
+			}
+			.xljl_sideerBar p{
+				color: #FAFAFA;
+				font-size: 17px;
+				
+			}
+			.xljl_sideerBar p:first-child{
+				margin-top: 90px;
+			}
+			.xljl_sideerBar p:last-child{
+				margin-top: 30px;
+			}
+			
+			
+			.mui-off-canvas-left, .mui-off-canvas-right{width: 60%;}
+		
+			.mui-table-view-cell>a:not(.mui-btn){margin-left: 5px;text-overflow: initial;width: 146px;}
+			.mui-table-view-inverted:before{left: 60px;background: #FAFAFA;}
+			.mui-table-view-inverted:after{left: 60px;background: #FAFAFA;}
+			.mui-table-view-cell{margin-left: 60px;}
+			.mui-table-view li:nth-of-type(1){background:url(img/shouye.png) no-repeat 3% center;background-size: 8% 30%;}
+			.mui-table-view li:nth-of-type(2){background:url(img/zhishiku.png) no-repeat 3% center;background-size: 8% 30%;}
+			.mui-table-view li:nth-of-type(3){background:url(img/xiaoxin.png) no-repeat 3% center;background-size: 8% 30%;}
+			.mui-table-view li:nth-of-type(4){background:url(img/fexiang.png) no-repeat 3% center;background-size: 8% 30%;}
+			.mui-table-view li:nth-of-type(5){background:url(img/guanyu.png) no-repeat 3% center;background-size: 8% 30%;}
+			.mui-table-view li:nth-of-type(6){background:url(img/tuichu.png) no-repeat 3% center;background-size: 8% 30%;}
+			.mui-table-view-inverted .mui-table-view-cell:after{background: #FAFAFA;left: 0px;}
