@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>问题查看</title>
+		<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+	    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+	    <meta content="yes" name="apple-mobile-web-app-capable">
+	    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+	    <meta content="telephone=no" name="format-detection">
+		<link href="../public/style/alert/css/qikoo.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="../public/style/public.css">
+		<link rel="stylesheet" type="text/css" href="../style/index.css"/>
+		<!--<link href="../css/public/zt_xingliTwo.css" rel="stylesheet" type="text/css">-->
+		<link rel="stylesheet" type="text/css" href="../public/style/touchzoom/scale.css"/>
+		 <link href="../public/style/slideBar.css" rel="stylesheet" type="text/css">
+		<script type="text/javascript" src="../cordova.js"></script>
+		<script type="text/javascript" src="../public/js/public.js"></script>
+		<script type="text/javascript" src="../public/js/jquery.js"></script>
+		<script type="text/javascript" src="../js/public/joint.js"></script>
+		<script type="text/javascript" src="../js/AJAX/prodBuild.js"></script>
+		<script type="text/javascript" src="../public/js/jQuery.alertShow.js"></script>
+		<script src="../public/js/touchzoom/scale.js" type="text/javascript"></script>
+
+	<script>
+		var tID = window.location.search.split('=')[1];
+		var roleStr = localStorage.getItem(localStorage.getItem("userId")+"roleCode")
+		var flag =false;
+		$(function(){
+			if(roleStr=="JLB1&JLB1_PROMANAGER"||roleStr=="JLB1&JLB1_PROMANAGERS"||roleStr=="JLB1&JLB1_ENGINEER"){
+				$('.editControl').show();
+				flag=true;
+			}
+			if(flag){
+				sectionheight()
+			}
+			
+			document.addEventListener("deviceready", onDeviceReady, false);
+	    	function onDeviceReady () {
+	    		var jsonObj = eval('(' + data.data017.request + ')');
+		    	jsonObj.data.id=tID
+		        var jsonStr = JSON.stringify(jsonObj);
+		        data.data017.request = jsonStr;
+		    	getJSON(url, data.data017, data017);
+	    	}
+	    	function data017(v){
+	    		if(v.data){
+		    		var dataObj = eval(v.data);
+					$('#proName').attr("data-proId",dataObj.pro_id);
+		    		$('#proName').text(dataObj.pro_name);
+		    		
+					$('#proType').attr("data-val",dataObj.prob_type);
+					$('#proType').text(proType(dataObj.prob_type));
+					
+					$('#shiFou').attr("data-val",dataObj.prob_report);
+					$('#shiFou').text(report(dataObj.prob_report));
+					
+					$('#proDate').text(dataObj.found_date);
+					
+		    		$('#proMiao').val(dataObj.prob_name);
+		    		$('#yiJian').val(dataObj.prob_desc);
+		    		
+		    		$('#status').val(dataObj.status);
+		    		var status = dataObj.status;
+		    		if(status==1){
+		    			$('.tijiao').show();
+		    			$('.bihuan').hide();
+		    			
+//		    			$('.edit').css("visibility","visible");
+		    			$('.delete').css("display","block");
+		    			$('.save  .border').css("display","block")
+		    			$('.editControl div').css("width","25%")
+		    		}else if(status==2){
+		    			$('.bihuan').show();
+		    			$('.tijiao').hide();
+						if(roleStr=="JLB1&JLB1_PROMANAGER"||roleStr=="JLB1&JLB1_PROMANAGERS"||roleStr=="JLB1&JLB1_ENGINEER"){
+							$('.save  .border').css("display","block")
+							$('.delete').css("display","block");
+							$('.editControl div').css("width","25%")
+						}else{
+							$('.editControl div').css("width","33.33%")
+						}
+		    		}
+		    		
+		    		
+		    		//获取图片的urls
+					if(dataObj.imgs){
+						var urls = dataObj.imgs;
+						var url = urls.split(',');
+						var len = url.length;
+//						hasImgs = true;
+						$('.towerImgs').show();
+						for (var i = 0;i < len;i++){
+							var small = url[i].split(";")[1];
+							var big = url[i].split(";")[0];
+							$('<li id="'+big+'"><img src="'+small+'"></li>').appendTo('.towerImg')
+						}
+						$('.towerImgs .towerImg').css('width',len*100);
+						$('.towerImg li img').attr('draggable',false);
+						ImagesZoom.init({
+							"elem": ".towerImg"
+						});
+					}else{
+//						hasImgs = false;
+					}
+	    		}
+	    	}
+	    	function proType(str){
+	    		if(str==1){
+	    			return "质量"
+	    		}
+	    		if(str==2){
+	    			return "安全"
+	    		}
+	    	}
+	    	function report(str){
+	    		if(str==0){
+	    			return "否"
+	    		}
+	    		if(str==1){
+	    			return "是"
+	    		}
+	    	}
+	    	//编辑---
+			$('.save').on('click', function() {
+				window.location.href = 'questionIncrease_2.html?tID='+tID;
+			});
+			$('.submit').on('click',function(){
+				var status = $('#status').val();
+				var end_date="";
+				var jsonObj = eval('(' + data.data010.request + ')');
+				jsonObj.head.roleName =window.sessionStorage.getItem("roleName")
+		    	jsonObj.data.prob_id=tID;
+		    	jsonObj.data.is_report=$('#shiFou').attr("data-val");
+		    	jsonObj.data.status=status;
+				jsonObj.data.prob_name=$('#proMiao').val();
+				jsonObj.data.pro_name=$('#proName').text();
+				jsonObj.data.pro_id=$('#proName').attr("data-proId");
+				if(status == 1){
+			    	jsonObj.data.end_date=end_date;
+			        var jsonStr = JSON.stringify(jsonObj);
+			        data.data010.request = jsonStr;
+			    	getJSON(url, data.data010, data010);
+					
+				}else{
+					qikoo.dialog.confirm2('1',function(){
+						end_date = document.getElementById("confirmDate").value;
+					    qikoo.dialog.hide()
+					    if(end_date<$('#proDate').text()){
+							qikoo.dialog.alert("闭环日期不能早于发现日期")
+						}else{
+							jsonObj.data.end_date=end_date;
+					        var jsonStr = JSON.stringify(jsonObj);
+					        data.data010.request = jsonStr;
+					    	getJSON(url, data.data010, data010);
+						}
+					},function(){
+							
+					});
+					
+				}
+			})
+			function data010(v){
+		    	var result = v.head.resp;
+	        	if(result==000000){
+	        		history.back()
+	        	}else{
+	        		qikoo.dialog.alert("提交失败");
+	        	}
+		    }
+			
+			$('.delete').on('click',function(){
+				qikoo.dialog.confirm("确认删除？",function(){
+					var jsonObj = eval('(' + data.data011.request + ')');
+			    	jsonObj.data.prob_id=tID;
+			    	var jsonStr = JSON.stringify(jsonObj);
+			        data.data011.request = jsonStr;
+			    	getJSON(url, data.data011, data011);
+				},function(){
+					
+				})
+			})
+			function data011(v){
+				var result = v.head.resp;
+	        	if(result==000000){
+	        		history.back()
+	        	}else{
+	        		qikoo.dialog.alert("删除失败");
+	        	}
+			}
+			
+			$('.photo').on('click',function(){
+				window.location.href="511picture.html?probId="+tID;
+			})
+		});	
+		
+	</script>
+		
+		
+	</head>
+	<body >
+		<div class="indexPage questionEditor">		
+		<!--<header class="cell-1" style="display: block;">
+			<span class="submit tijiao">提&nbsp;&nbsp;&nbsp;&nbsp;交</span>
+			<span class="submit bihuan" style="display: block;">闭&nbsp;&nbsp;&nbsp;&nbsp;环</span>
+			<span class="picture">问题照片</span>
+			<span class="edit">编&nbsp;&nbsp;&nbsp;&nbsp;辑</span>
+			<span class="delete" style="display: block;">删&nbsp;&nbsp;&nbsp;&nbsp;除</span>
+		</header>-->
+		<section>
+			<input type="hidden" id="status" value="" />
+			<div class="content">
+				<span class="contentTitle">工程名称:</span>
+				<span id="proName" data-proId="" class="cont"></span>
+			</div>
+			<div class="content">
+				<span class="contentTitle">问题类别:</span>
+				<span id="proType" data-val="" class="cont"></span>
+			</div>
+			<div class="content">
+				<span class="contentTitle">公司协助:</span>
+				<span id="shiFou" data-val="" class="cont"></span>
+			</div>
+			<div class="content">
+				<span class="contentTitle">发现日期:</span>
+				<span id="proDate" class="cont"></span>
+			</div>
+			<div class="content2">
+				<span class="contentTitle">问题描述:</span>
+				<textarea id="proMiao" disabled="disabled"></textarea>
+			</div>
+			<div class="content2">
+				<span class="contentTitle">处理意见:</span>
+				<textarea id="yiJian" disabled="disabled"></textarea>
+			</div>
+			
+		</section>
+		<div class="kong" style="height: 0px;"></div>
+		<div class="editControl" style="display: none;">
+				<div class="submit tijiao">
+					<p class="submitImg"></p>
+					<p>提交<p>
+					<p class="border"><p>
+				</div>
+				<div class="submit bihuan" style="display: none;">
+					<p class="closeImg"></p>
+					<p>闭环</p>
+					<p class="border"><p>
+				</div>
+				<div class="photo">
+					<p class="photoImg"></p>
+					<p>照片</p>
+					<p class="border"><p>
+				</div>
+				<div class="save">
+					<p class="saveImg"></p>
+					<p>编辑<p>
+					<p class="border" style="display: none;"><p>
+				</div>
+				<div class="delete" style="display: none;">
+					<p class="delImg"></p>
+					<p>删除<p>
+				</div>
+		</div>
+		<div class="towerImgs">
+			<ul class="towerImg">
+			
+			</ul>
+		</div>
+		<section class="imgzoom_pack">
+    		<div class="imgzoom_img"><img src="" /></div>
+    	</section
+    	</div>
+	</body>
+	<script>
+	$(function(){
+		//底部菜单位置
+		var windowSize = $(window).height();		
+		$(window).resize(function(){
+		var windowSizeNow = $(window).height();
+			if(windowSize-windowSizeNow>65){				
+				$('.editControl').css({'display':'static','bottom':'auto'});
+				$('.kong').css({'height':'25px'});
+				$(".content").hide();
+			}else{			
+				$('.editControl').css({'display':'fixed','bottom':'0'});
+//				$('.kong').css({'height':'50px'});
+				$(".content").show();
+			}			
+		})
+	})
+		function sectionheight(){
+	    	var indexHight = $('body')[0].offsetHeight;
+			hight3 = indexHight -50;
+			$('body').css("height",hight3+'px')
+			
+    	}
+	</script>
+</html>

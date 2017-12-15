@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+	<meta charset="UTF-8">
+	<title>风险一览</title>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+	<meta content="yes" name="apple-mobile-web-app-capable">
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta content="telephone=no" name="format-detection">
+	<link rel="stylesheet" href="../public/style/public.css" />
+	<link rel="stylesheet" href="../public/style/hpd.css" />
+	<link rel="stylesheet" href="../style/index.css" />
+	<link href="../public/style/alert/css/qikoo.css" rel="stylesheet">
+	 <link href="../public/style/slideBar.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="../cordova.js"></script>
+	<script type="text/javascript" src="../public/js/public.js"></script>
+	<script type="text/javascript" src="../public/js/jquery.js"></script>
+	<script type="text/javascript" src="../js/public/joint.js"></script>
+	<script type="text/javascript" src="../js/AJAX/prodBuild.js"></script>
+	<script type="text/javascript" src="../public/js/jQuery.alertShow.js"></script>
+	<style>
+			.btns {
+				float: left;
+				font-size: 1em;
+				height: 1.7rem;
+				padding: 0 0 0.4em;
+				width: 33.333%;
+				color: #878787;
+				line-height: 1.8rem;
+				padding: .4rem 0;
+				position: relative;
+			}
+			
+			.btns span {
+				width: .4rem;
+				height: .4rem;
+				line-height: .4rem;
+				border-radius: .2rem;
+				display: block;
+				margin-top: .7rem;
+				float: left;
+				margin-right: 7%;
+				margin-left: 12%;
+			}
+			
+			.btns p {
+				width: 48%;
+				height: 1.833333rem;
+				float: left;
+				line-height: 1.833333rem;
+				text-align: center;
+			}
+			
+			.btns:last-child p {
+				width: 100%;
+			}
+			
+			.btns i {
+				display: block;
+				width: 21%;
+				height: 1.5rem;
+				float: right;
+			}
+			
+			.btns i img {
+				width: 35%;
+				height: auto;
+				vertical-align: middle;
+				padding-right: 30%;
+			}
+			
+			.btns:first-child i {
+				border-right: 1px solid #dfe0e2;
+			}
+			
+			.btns:nth-of-type(2) i {
+				border-right: 1px solid #dfe0e2;
+			}
+			
+			.btns ul {
+				width: 100%;
+				height: auto;
+				overflow: hidden;
+				position: absolute;
+				top: 2.9em;
+				z-index: 10;
+				display: none;
+				left: 0;
+				background-color: #FFFCF4;
+				border: 1px solid #D2D2D2;
+			}
+			
+			.btns ul li {
+				width: 100%;
+				height: 2em;
+				line-height: 2em;
+				float: left;
+				/*background: #FAFAFA none repeat scroll 0% 0%;*/
+				text-indent: 3.4em;
+				border-bottom: 1px solid #D2D2D2;
+				/*margin-left: 20%;*/
+			}
+		</style>
+	<script type="text/javascript">
+	var proId = window.location.search.split('&')[0].split('=')[1];
+	var xiangmuId = window.location.search.split('&')[1].split('=')[1];
+	var proEnter = window.location.search.split('&')[2].split('=')[1];
+
+	var roleVal = localStorage.getItem(localStorage.getItem("userId")+"roleCode").split("&")[1]
+	var riskMemory = window.sessionStorage.getItem("riskMemory");
+	var isLeft = true;
+	var flag = false;
+	$(function () {	
+		securityRiskDetail()
+		if (proEnter == 1) {
+			$('.projectScreening').css('background-color','#F2F2F2')
+			$('.projectScreening').unbind()
+		}
+		
+		document.addEventListener("deviceready", onDeviceReady, false);
+		
+		var jsonObj = eval('(' + data.data004.request + ')');
+    	
+    	jsonObj.data.start=0
+    	jsonObj.data.datetype=0
+    	jsonObj.data.status=0
+    	if(riskMemory){
+    		jsonObj.data.datetype=riskMemory.split(",")[0]
+    		jsonObj.data.status=riskMemory.split(",")[1]
+    		
+    		$('#ok1 p').text(fandatetype(riskMemory.split(",")[0]));
+	        $('#ok2 p').text(fanstatus(riskMemory.split(",")[1]));
+    		
+    		window.sessionStorage.removeItem("riskMemory")
+    	}
+    	jsonObj.data.district_id=xiangmuId
+    	jsonObj.data.projectid=proId
+        
+	    function onDeviceReady () {
+//	    	qikoo.dialog.confirm2('4',function(){
+//	    		var orgName = document.getElementsByName("orgName")
+//	    		
+//	    		for(var i in orgName){
+//	    			if(orgName[i].checked==true){
+//	    				roleVal = orgName[i].value
+//	    			}
+//	    		}
+//	    		if(roleVal==""){
+//	    			//qikoo.dialog.alert("请选择角色")
+//	    			return 
+//	    		}
+				pageUpDown();
+				
+
+	    		jsonObj.head.roleName=roleVal
+	    		var jsonStr = JSON.stringify(jsonObj);
+        		data.data004.request = jsonStr;
+		    	getJSON(url, data.data004, data004);
+	   			qikoo.dialog.hide()
+//	   		},function(){
+//	   			
+//	   		})
+	    }
+	    function data004(v){
+	    	$('.risk_item').children().remove();
+	    	if(isLeft){
+	    		$("#risk_left").text(v.data.recCount);
+	    	}else{
+	    		$("#risk_right").text(v.data.recCount);
+	    	}
+	    	if(v.data.cont){
+		    	var dataObj = v.data.cont;
+		    	var length = dataObj.length;
+		    	
+		    	for(var i=0;i<length;i++){
+		    		var level = ""
+		    		if(dataObj[i].RISK_LEVEL=="3"){
+		    			level = "type_lever"
+		    		}else{
+		    			level = "type_nver"
+		    		}
+		    		$('<div class="cell-2 risk" id='+dataObj[i].ID+'><span class="risk_span"><div><span class="riskName oneName">'+dataObj[i].NAME+'</span></div><div><span class="project '+level+' oneName">工程:'+dataObj[i].PRO_NAME+'</span><span class="status oneName">状态:'+dataObj[i].RISK_STATUS+'</span></div><div><span class="xiangmubu oneName">项目部:'+dataObj[i].DISTRICT_NAME+'</span></div></span><span class="jiantou"><img src="../img/ward_03.png"/></span></div>').appendTo('.risk_item');
+		    	}
+	    	}
+	    }
+	    
+	    function pageUpDown() {
+			$("#scroll").on("scroll", function() {
+				var s = $("#scroll")[0];
+				if (s.clientHeight + s.scrollTop > s.scrollHeight - 1) {
+					
+					if(flag){
+						var start = $('.risk').length;
+						jsonObj.data.start=start;
+				        var jsonStr = JSON.stringify(jsonObj);
+				        data.data004.request = jsonStr;
+				    	getJSON(url, data.data004, data0041);
+					}
+				}
+			});
+			$("#scroll").on('touchmove',function(){
+				flag = true;
+			})
+		}
+	    function data0041(v){
+	    	flag = false;
+	    	if(v.data.cont){
+	    		$('.nomore').remove();
+		    	var dataObj = v.data.cont;
+		    	var length = dataObj.length;
+		    	
+		    	for(var i=0;i<length;i++){
+		    		var level = ""
+		    		if(dataObj[i].RISK_LEVEL=="3"){
+		    			level = "type_lever"
+		    		}else{
+		    			level = "type_nver"
+		    		}
+		    		$('<div class="cell-2 risk oneName" id='+dataObj[i].ID+'><span class="risk_span"><div><span class="riskName oneName">'+dataObj[i].NAME+'</span></div><div><span class="project '+level+' oneName">工程:'+dataObj[i].PRO_NAME+'</span><span class="status oneName">状态:'+dataObj[i].RISK_STATUS+'</span></div><div><span class="xiangmubu oneName">项目部:'+dataObj[i].DISTRICT_NAME+'</span></div></span><span class="jiantou"><img src="../img/ward_03.png"/></span></div>').appendTo('.risk_item');
+		    	}
+	    	}else{
+	    		if($('.nomore').length==0){
+	    			$('<div class="nomore"><span>没有更多记录</span></div>').appendTo('.risk_item');
+	    		}
+	    	}
+	    }
+	    
+		$('.btns').each(function (index) {
+            $('.btns').eq(index).click(function () {	
+            	$('.ok_dots').eq(index).css('background-color','');
+            	
+            	var is_div= $('.btns').eq(index);
+            	var is_dot=$('.ok_dots').eq(index);
+            	var is_img=  $('.i_coins').eq(index);	
+            	
+            	var is_display=is_div.attr('dis_data');
+            	var is_dots=is_dot.attr('dis_data');
+            	
+                $('.btns').attr('dis_data','0').children('ul').css('display', 'none');
+            	$('.ok_dots').attr('dis_data','0').css('background-color','');
+            	$('.i_coins').attr('src','../img/select_03.png');
+            	
+            	if (is_display==0&&is_dots==0) {
+            		 $(this).attr('dis_data','1').children('ul').css('display', 'block');
+            		 $('.ok_dots').eq(index).attr('dis_data','1').css('background-color','#ff9523');
+            		  is_img.attr('src','../img/select_04.png');
+            		 
+            	} else{
+            		 $(this).attr('dis_data','0').children('ul').css('display', 'none');
+            		 $('.ok_dots').attr('dis_data','0').eq(index).css('background-color','');
+            		  is_img.attr('src','../img/select_03.png');
+            	}
+            
+             
+            });
+        });
+        $('#ok1 li').each(function (index) {
+            $(this).click(function () {
+            	flag = false;
+                var mus = $(this).text();
+                $('#ok1 p').text(mus);
+                $('#ok1 ul').css('display', 'none');		                   
+                $('.ok_dots').attr('dis_data','0').eq(0).css('background-color','');
+                jsonObj.data.start=0
+				jsonObj.data.datetype=datetype(mus);
+		    	jsonObj.data.status=status($('#ok2 p').text());
+			    jsonStr = JSON.stringify(jsonObj);
+			    data.data004.request = jsonStr;
+			    getJSON(url, data.data004, data004);
+            })
+        });
+        $('#ok2 li').each(function (index) {
+            $(this).click(function () {
+            	flag = false;
+                var mus = $(this).text();
+                $('#ok2 p').text(mus);
+                $('#ok2 ul').css('display', 'none');
+                $('.ok_dots').attr('dis_data','0').eq(1).css('background-color','');
+                jsonObj.data.start=0
+				jsonObj.data.datetype=datetype($('#ok1 p').text());
+		    	jsonObj.data.status=status(mus);
+			    jsonStr = JSON.stringify(jsonObj);
+			    data.data004.request = jsonStr;
+			    getJSON(url, data.data004, data004);
+            })
+        });
+        $('.risk_left').on('click',function(e){
+        	isLeft = true;
+        	 $('.risk_lever li').css('border','0').eq(0).css('border-bottom','5px solid #28907E');
+ 			 $('.risk_lever p').css('color','#4c4b4b').eq(0).css('color','#28907E');
+ 			 $('.risk_lever span').css('background-color','#d0d0d0').eq(0).css('background-color','#28907E');
+ 			 jsonObj.data.start=0
+ 		  	 jsonObj.data.risk_level="3"
+        	 jsonObj.head.roleName=roleVal
+        	 jsonStr = JSON.stringify(jsonObj);
+			 data.data004.request = jsonStr;
+        	 getJSON(url, data.data004, data004);
+        })
+        $('.risk_right').on('click',function(e){
+        	isLeft = false;
+        	 $('.risk_lever li').css('border','0').eq(1).css('border-bottom','5px solid #28907E');
+             $('.risk_lever p').css('color','#4c4b4b').eq(1).css('color','#28907E');
+             $('.risk_lever span').css('background-color','#d0d0d0').eq(1).css('background-color','#28907E');
+             jsonObj.data.start=0
+             jsonObj.data.risk_level="4"
+         	 jsonObj.head.roleName=roleVal
+         	 jsonStr = JSON.stringify(jsonObj);
+			 data.data004.request = jsonStr;
+        	 getJSON(url, data.data004, data004);
+        })
+		$('.risk_item').delegate('.risk','click',function(e){
+	    	var tID = e.target.id;
+	        if(tID==""){
+	        	tID = e.target.parentNode.id;
+	        	if(tID==""){
+	        		tID = e.target.parentNode.parentNode.id;
+	        		if(tID==""){
+		        		tID = e.target.parentNode.parentNode.parentNode.id;
+		        	}
+	        	}
+	        }
+	        var dt = datetype($('#ok1 p').text());
+	        var st = status($('#ok2 p').text());
+	        var riskMemory = dt+","+st;
+	        window.sessionStorage.setItem("riskMemory",riskMemory);
+	        
+			window.location.href = 'riskDetail.html?tID='+tID+'&roleName='+roleVal;
+		});
+		function datetype(str){
+        	if(str=="本周"){
+        		return 0;
+        	}
+        	if(str=="下周"){
+        		return 1;
+        	}
+        	if(str=="全部"){
+        		return 2;
+        	}
+        }
+        function status(str){
+        	if(str=="全部"){
+        		return 0;
+        	}
+        	if(str=="计划"){
+        		return 1;
+        	}
+        	if(str=="确认"){
+        		return 2;
+        	}
+        	if(str=="实施"){
+        		return 3;
+        	}
+        }
+		function fandatetype(num){
+        	if(num=="0"){
+        		return "本周";
+        	}
+        	if(num=="1"){
+        		return "下周";
+        	}
+        	if(num=="2"){
+        		return "全部";
+        	}
+        }            
+		function fanstatus(num){
+        	if(num=="0"){
+        		return "全部";
+        	}
+        	if(num=="1"){
+        		return "计划";
+        	}
+        	if(num=="2"){
+        		return "确认";
+        	}
+        	if(num=="3"){
+        		return "实施";
+        	}
+        }            
+        $('#scroll').on('scroll',function(){
+			var top = $('#scroll').scrollTop();
+			if (top > 100) {
+				$('.top').show()
+			}else{
+				$('.top').hide()
+			}
+		})
+	        
+        $('.top').on('click',function(){
+        	$('#scroll').scrollTop(0);
+        	$('.top').hide()
+        })
+	});
+		  function securityRiskDetail() {
+			var indexHight = $('body')[0].offsetHeight;
+			var hight1 = $('.risk_header')[0].offsetHeight;
+			var hight2 = $('.risk_lever')[0].offsetHeight;
+			var hight3 = indexHight - hight1 - hight2 ;
+			$('.riskshow').css("height", hight3 + 'px')
+		}
+			   
+		</script>
+	</head>
+
+	<body >
+		<div class="indexPage riskBody">	
+		<header class="cell-1 risk_header" >
+			<div class="btns oneName" id="ok1"  dis_data="0">
+				<span class="ok_dots"  dis_data="0"></span>
+				<i><img src="../img/select_03.png" class="i_coins"></i>
+				<p >本周</p>
+    			<ul style="display: none;">
+    				<li>本周</li>
+    				<li>下周</li>
+    				<li>全部</li>
+    			</ul>
+			</div>
+			<div class="btns oneName" id="ok2" dis_data="0">
+				<span class="ok_dots" dis_data="0"></span>
+				<i><img src="../img/select_03.png" class="i_coins"></i>
+				<p >全部</p>
+    			<ul style="display: none;">
+    				<li>计划</li>
+    				<li>确认</li>
+    				<li>实施</li>
+    				<li>全部</li>
+    			</ul>
+			</div>
+			<div class="btns projectScreening" id="ok3" >
+				<p >工程筛选</p>
+			</div>
+		</header>
+		<section class="cell-1 risk_lever oneName">
+			<ul class="cell-1">
+				<li>
+					<p class="risk_left">三级<span id="risk_left">0</span></p>
+				</li>
+				<li>
+					<p class="risk_right">四级及以上<span id="risk_right">0</span></p>
+				</li>
+			</ul>
+		</section>
+		<section class="cell-9 riskshow" >
+			<div class=" risk_item left" id="scroll" style="overflow: auto; height: 100%; width: 100%;">
+				<!--<div class="cell-2 risk oneName">
+					<span class="risk_span">
+						<div>
+							<span class="riskName">1645施工用电</span>
+						</div>
+						<div>
+							<span class="project">工程:工程一</span>
+							<span class="status">状态:确认</span>
+						</div>
+						<div>
+							<span class="xiangmubu">项目部:北京</span>
+						</div>
+					</span>
+					<span class="jiantou">
+						<img src="../img/ward_03.png"/>
+					</span>
+				</div>-->
+				
+			</div>
+			<div class="top" style="overflow: hidden;">
+    			<img src="../img/tourCheckTop.png" alt="" />
+    			<span>回顶部</span>
+    		</div>
+		</section>
+		</div>
+	</body>
+
+</html>

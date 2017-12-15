@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>风险详情</title>
+		<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+		<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<link href="../public/style/alert/css/qikoo.css" rel="stylesheet">
+		<link rel="stylesheet" href="../public/style/public.css" />
+		<link href="../css/public/zt_xingliTwo.css" rel="stylesheet" type="text/css">
+		<link rel="stylesheet" href="../style/index.css" />
+			<!--<link rel="stylesheet" href="../style/mui.min.css" />-->
+		<link rel="stylesheet" type="text/css" href="../public/style/touchzoom/scale.css" />
+		<link href="../public/style/slideBar.css" rel="stylesheet" type="text/css">
+		<script type="text/javascript" src="../cordova.js"></script>
+		<script type="text/javascript" src="../public/js/public.js"></script>
+		<script type="text/javascript" src="../public/js/jquery.js"></script>
+		<script type="text/javascript" src="../js/public/joint.js"></script>
+		<script type="text/javascript" src="../js/AJAX/prodBuild.js"></script>
+		<!--<script type="text/javascript" src="../js/AJAX/coreBuild.js"></script>-->
+		<script type="text/javascript" src="../public/js/jQuery.alertShow.js"></script>
+		<script src="../public/js/touchzoom/scale.js" type="text/javascript"></script>
+		<style>
+			.showDiv {
+			    width: 90%;
+	            height: 90%;
+	            /*background: rgba(0, 0, 0, .2);*/
+	            position: absolute;
+	            left: 5%;
+	            top: 5%;
+	            display: none;
+			    z-index: 19;
+			}
+
+		    .knowledge>p {
+				text-align: center;
+				font-size: 16px;
+				line-height: 3rem;
+			}
+			
+			.knowledge-cell2 {
+				margin-top: 2em;
+				padding: .5em .5em;
+				background: white;
+				border: 1px solid #b5b5b5;
+				height: 15em;
+				overflow-y: auto;
+				word-break: break-all;
+				margin-left: 1.5em;
+				margin-right: 1.5em;
+			}
+			.riskCloseFunction {
+			    width: 100%;
+			    height: 50px;
+			    overflow: hidden;
+			    position: fixed;
+			    bottom: 0;
+			}
+			
+			.riskCloseFunction ul {
+			    width: 100%;
+			    height: 100%;
+			    overflow: hidden;
+			    background-color: #28907e;
+			}
+			
+			.riskCloseFunction ul li {
+			    width: 33.33%;
+			    height: 100%;
+			    float: left;
+			    text-align: center;
+			    color: #FFFFFF;
+			    position: relative;
+			}
+			.riskCloseFunction ul li .picShow{
+			    background: url(../img/photo.png) no-repeat center;
+			    background-size: auto 65%;
+			    margin-top: 1%;
+			}
+			.riskCloseFunction ul li .line{
+				width: 0;
+				height: 60%;
+				border-right: 1px solid #fff;
+				position: absolute;
+				right: 0;
+				top: 20%;
+			}
+			.riskCloseFunction ul li .perOrder{
+			    background: url(../img/personnel.png) no-repeat center;
+			   	background-size: auto 70%;
+			    margin-top: 1%;
+			}
+			.riskCloseFunction ul li .xiaFa{
+				background: url(../img/sure_1.png) no-repeat center;
+			    background-size: auto 70%;
+			    margin-top: 1%;
+			}
+			.riskCloseFunction ul li .shiShi{
+				background: url(../img/sure_1.png) no-repeat center;
+			    background-size: auto 70%;
+			    margin-top: 1%;
+			}
+			.riskCloseFunction ul li .guanBi{
+			    background: url(../img/sure_1.png) no-repeat center;
+			    background-size: auto 70%;
+			    margin-top: 1%;
+			}
+			.riskCloseFunction ul li span {
+			    width: 63%;
+			    height: auto;
+			    display: block;
+			    text-align: center;
+			    padding: .2rem 0;
+			}
+			.riskCloseFunction ul li div {
+			    width: 63%;
+			    height: auto;
+			    display: block;
+			    text-align: center;
+			    padding: .2rem 0;
+			}
+			
+			.riskCloseFunction ul li span img {
+			    width: 63%;
+			    height: auto;
+			}
+			.riskCloseFunction ul li div img {
+			    width: 63%;
+			    height: auto;
+			}
+			
+			
+			.riskCloseFunction ul li p {
+			    text-align: center;
+			    width: 100%;
+			    color: #fff;
+			    height: 60%;
+			    float: left;
+			    line-height: 100%;
+			    font-size: 10px !important;
+			}
+		</style>
+		<script type="text/javascript">
+				var tID = window.location.search.split('&')[0].split('=')[1];
+//				var roleName=""
+				var roleName = window.location.search.split('&')[1].split('=')[1];
+				var roleStr = localStorage.getItem(localStorage.getItem("userId")+"roleCode")
+			    var risk_level = "";
+			    var flag=false;
+				$(function(){
+//					var a = '<li class="assign"><p class="perOrder"></p><p>监理指派</p></li>'
+//					var b = '<li class="subConfirm"><p class="guanBi"></p><p>确认关闭</p></li>'
+//					var c = '<li class="photo"><p class="picShow"></p><p >旁站照片</p></li>'
+//					document.getElementById("headSpan").innerHTML = a+b+c;
+//					roleStr="JLB1&JLB1_PROMANAGER"
+					if(roleStr=="JLB1&JLB1_PROMANAGER"||roleStr=="JLB1&JLB1_PROMANAGERS"||roleStr=="JLB1&JLB1_ENGINEER"){
+						$('.riskCloseFunction').show();
+						flag=true;
+					}
+					riskDetailInformHeight();
+					document.addEventListener("deviceready", onDeviceReady, false);
+					var jsonObj = eval('(' + data.data016.request + ')');
+			    	jsonObj.data.id=tID
+			        var jsonStr = JSON.stringify(jsonObj);
+			        data.data016.request = jsonStr;
+					function onDeviceReady () {
+				    	getJSON(url, data.data016, data016);
+					}
+					function data016(v){
+						if(v.data){
+							var dataObj = eval(v.data)
+							$('.riskDetail p:eq(1)').text(dataObj.name)
+							$('.riskDetail p:eq(3)').text(dataObj.pro_name)
+							risk_level = dataObj.risk_level
+							if(dataObj.risk_level=="3"){
+								$('.riskDetail p:eq(5)').text("三级")
+							}
+							else if(dataObj.risk_level=="4"){
+								$('.riskDetail p:eq(5)').text("四级")
+							}
+							else if(dataObj.risk_level=="5"){
+								$('.riskDetail p:eq(5)').text("五级")
+							}
+							else{
+								$('.riskDetail p:eq(5)').text("")	
+							}
+							
+							$('.riskDetail p:eq(7)').text(dataObj.RISK_STATUS)
+							$('.riskDetail p:eq(9)').text(dataObj.plan_start_date)
+							$('.riskDetail p:eq(11)').text(dataObj.plan_end_date)
+							if(dataObj.real_start_date){
+								$('.riskDetail p:eq(13)').text(dataObj.real_start_date)
+							}
+							if(dataObj.real_end_date){
+								$('.riskDetail p:eq(15)').text(dataObj.real_end_date)
+							}
+				
+				
+							if(dataObj.RISK_STATUS_ID=="1"){
+								var a = '<li class="assign"><p class="perOrder"></p><p>监理指派</p><p class="line"></p>'
+								var b = '<li class="issued"><p class="guanBi"></p><p>工单下发</p></li><p class="line"></p>'
+								var c = '<li class="photo"><p class="picShow"></p><p >旁站照片</p></li>'
+								if(roleStr=="JLB1&JLB1_ENGINEER"){
+									document.getElementById("headSpan").innerHTML = c
+									$('.riskCloseFunction ul li').css('width',"100%")
+								}else{
+									document.getElementById("headSpan").innerHTML = a
+									$('.issued .line').css("display","none")
+									$('.riskCloseFunction ul li').css('width',"100%")
+								}
+								
+							}
+							if(dataObj.RISK_STATUS_ID=="2"){
+								var a = '<li class="assign"><p class="perOrder"></p><p>监理指派</p><p class="line"></p>'
+								var b = '<li class="subConfirm"><p class="guanBi"></p><p>确认实施</p><p class="line"></p>'
+								var c = '<li class="photo"><p class="picShow"></p><p >旁站照片</p></li>'
+								if(roleStr=="JLB1&JLB1_ENGINEER"){
+									document.getElementById("headSpan").innerHTML = c
+									$('.riskCloseFunction ul li').css('width',"100%")
+								}else{
+									document.getElementById("headSpan").innerHTML = a+b+c
+								}
+								
+
+							}
+							if(dataObj.RISK_STATUS_ID=="3"){
+								var a = '<li class="assign"><p class="perOrder"></p><p>监理指派</p><p class="line"></li>'
+								var b = '<li class="subClose"><p class="guanBi"></p><p>确认关闭</p><p class="line"></li>'
+								var c = '<li class="photo"><p class="picShow"></p><p >旁站照片</p></li>'
+								if(roleStr=="JLB1&JLB1_ENGINEER"){
+									document.getElementById("headSpan").innerHTML = c
+									$('.riskCloseFunction ul li').css('width',"100%")
+								}else{
+									document.getElementById("headSpan").innerHTML = a+b+c
+								}
+								
+							}
+		
+			
+							
+							var book = dataObj.book
+							var shtml = '<span><i><img src="../img/riskDetailHorn.png"></i>公司提醒</span>';
+							var khtml = ""
+							for(var i in book){
+								khtml = khtml+'<div class="knowLeg" id='+book[i].id+'><i><img src="../img/riskDetailRemind.png"></i><p>'+book[i].title+'</p><i><img src="../img/riskDetailRight.png"></i></div>'
+							}
+							if(khtml==""){
+								khtml = khtml+'<div ><i><img src="../img/riskDetailRemind.png"></i><p>没有数据</p><i><img src="../img/riskDetailRight.png"></i></div>'
+								document.getElementById("kSpan").innerHTML=shtml+khtml
+							}else{
+								document.getElementById("kSpan").innerHTML=shtml+khtml
+							}
+							
+							//获取图片的urls
+							if(dataObj.imgs){
+								var urls = dataObj.imgs;
+								var url = urls.split(',');
+								var len = url.length;
+		//						hasImgs = true;
+								$('.towerImgs').show();
+								for (var i = 0;i < len;i++){
+									var small = url[i].split(";")[1];
+									var big = url[i].split(";")[0];//data-preview-src="'+big+'" data-preview-group="1"
+									$('<li id="'+big+'"><img  width="120px" height="100px"  src="'+small+'"></li>').appendTo('.towerImg')
+								}
+								$('.towerImgs .towerImg').css('width',len*100);
+								$('.towerImg li img').attr('draggable',false);
+								ImagesZoom.init({
+									"elem": ".towerImg"
+								});
+							}else{
+		//						hasImgs = false;
+							}
+//							$('.riskDetail').height($('.riskDetailBody').height()-$('#headSpan').height()-$('.riskDetailInform').height()-20)
+//							alert($('.riskDetail').height())
+						}
+					}
+					
+					$('.riskDetailInform').delegate('.knowLeg','click', function(e) {
+						$('#conent').text("")
+						var kID = e.target.id;
+				        if(kID==""){
+				        	kID = e.target.parentNode.id;
+				        	if(kID==""){
+				        		kID = e.target.parentNode.parentNode.id;
+				        	}
+				        }
+						var coreData = {data012: {
+					        'request': '{"data":{"id":""},"head":{"imei":"","userId":"'+localStorage.getItem("userId")+'","bic":"012"}}',
+					        'method': 'entry'
+					    }}
+						var jsonObjC = eval('('+coreData.data012.request+')');
+					    jsonObjC.data.id = kID;
+					    var jsonStrC = JSON.stringify(jsonObjC);
+					    coreData.data012.request = jsonStrC;
+					    mam.navigator.ajax.post('GCGK_CORE',{"method":"entry","request":encodeURIComponent(coreData.data012.request)}, "CORE_SERVER",function(v){
+					    	var v1;
+							if(typeof v === 'string'){
+					        		v1 = eval('(' + v + ')');
+					        }else{
+				        		v1 = eval(v);
+				        	 }
+					   		if(v1.data){
+					            var value =v1.data;
+								$('#title').text(value.TITLE)
+								str = value.CONTENT
+								str = str.replace(/['\＜']/g,'\<')
+								str = str.replace(/['\＞']/g,'\>')
+								$('#conent').append(str)
+							}
+							$('.showDiv').show()
+							$('.shield_1').show();
+						})
+				        
+
+					});
+					
+					$('.cell-1').delegate('.issued','click',function(e){
+						var fsonObj = eval('(' + data.data022.request + ')');
+						fsonObj.data.riskid=tID
+					    var fsonStr = JSON.stringify(fsonObj);
+					    data.data022.request = fsonStr;
+					    getJSON(url, data.data022, data022);
+					    var shiFou = "0"
+					    function data022(v){
+							if(v.data.dat0){
+								shiFou = "1"
+							}
+							if (shiFou=="0") {
+								qikoo.dialog.alert("还没有添加风险监理人员，不能下发工单")
+								return
+							}else{
+								qikoo.dialog.confirm('确认工单下发吗？',function(){
+									var fsonObj = eval('(' + data.data024.request + ')');
+							    	fsonObj.data.riskid=tID
+							    	fsonObj.head.roleName=roleName
+							    	fsonObj.data.risk_level=risk_level
+							        var fsonStr = JSON.stringify(fsonObj);
+							        data.data024.request = fsonStr;
+							    	getJSON(url, data.data024, data024);
+								},function(){
+									
+								}); 
+							}
+						}
+						
+					})
+					$('.cell-1').delegate('.subConfirm','click',function(e){
+						qikoo.dialog.confirm2('1',function(){
+							var subDate = document.getElementById("confirmDate").value;
+							qikoo.dialog.hide()
+							if(subDate==""||subDate==null){
+								qikoo.dialog.alert("请选择时间")
+								return
+							}
+							var fsonObj = eval('(' + data.data006.request + ')');
+					    	fsonObj.data.id=tID
+					    	fsonObj.data.real_start_date=subDate
+					        var fsonStr = JSON.stringify(fsonObj);
+					        data.data006.request = fsonStr;
+					    	getJSON(url, data.data006, data006);
+						},function(){
+								
+						});
+						
+					})
+					$('.cell-1').delegate('.subClose','click',function(e){
+						qikoo.dialog.confirm2('1',function(){
+							var subDate = document.getElementById("confirmDate").value;
+							qikoo.dialog.hide()
+							if(subDate==""||subDate==null){
+								qikoo.dialog.alert("请选择时间")
+								return
+							}
+							if (subDate<$('.riskDetail p:eq(13)').text()) {
+								qikoo.dialog.alert("结束时间不能早于开始时间")
+								return
+							}
+							var fsonObj = eval('(' + data.data007.request + ')');
+					    	fsonObj.data.id=tID
+					    	fsonObj.data.real_end_date=subDate
+					        var fsonStr = JSON.stringify(fsonObj);
+					        data.data007.request = fsonStr;
+					    	getJSON(url, data.data007, data007);
+						},function(){
+								
+						});
+						
+					})
+					$('.cell-1').delegate('.photo','click',function(e){
+						window.location.href = '411picture.html?riskId='+tID;
+					});
+					function data024(v){
+						if(v.head){
+							if(v.head.resp=='000000'){
+								getJSON(url, data.data016, data016);
+							}else{
+								qikoo.dialog.alert("工单下发失败")
+							}
+						}
+					}
+					function data006(v){
+						if(v.head){
+							if(v.head.resp=='000000'){
+								getJSON(url, data.data016, data016);
+							}else{
+								qikoo.dialog.alert("确认实施失败")
+							}
+						}
+					}
+					function data007(v){
+						if(v.head){
+							if(v.head.resp=='000000'){
+//								window.location.href = 'riskShow.html?projectId=0&xiangmuId=0'
+								history.back()
+								
+							}else{
+								qikoo.dialog.alert("没有风险照片，不能关闭")
+							}
+						}
+					}
+					$('.cell-1').delegate('.assign','click',function(e){
+						window.location.href="403personnelAppoint.html?tID="+tID;
+		            })
+					
+			 });
+
+		function showDivHide(){
+			$('.showDiv').hide()
+			$('.shield_1').hide();
+		}
+		function riskDetailInformHeight(){
+	    	var indexHight = $('body')[0].offsetHeight;
+			var hight3 = "";
+			if(flag){
+				hight3 = indexHight * 0.3 -52;
+				$('.riskDetailInform').css("height",hight3+'px');
+				$('.riskDetailInform').css("bottom",54+'px')
+				var hight1 = indexHight - $('.riskDetailInform')[0].offsetHeight-50;
+				$('.riskDetail').css("height",hight1+'px')
+			}
+    	}
+		</script>
+	</head>
+
+	<body >
+		<div class="indexPage riskDetailBody">		
+		<!--<header id="headSpan" style="display: none;" class="cell-1">
+
+		</header>-->
+
+		<section class="cell-6 riskDetail oneName">
+			<ul>
+				<li class="cell-1">
+					<p class="riskDetail_left">风&nbsp;&nbsp;&nbsp;险&nbsp;&nbsp;名&nbsp;&nbsp;称</p>
+					<p class="riskDetail_right"></p>
+				</li>
+				<hr>
+				<li class="cell-1">
+					<p class="riskDetail_left">所&nbsp;&nbsp;&nbsp;属&nbsp;&nbsp;工&nbsp;&nbsp;程</p>
+					<p class="riskDetail_right"></p>
+				</li>
+				<hr>
+				<li class="cell-1">
+					<p class="riskDetail_left">风&nbsp;&nbsp;&nbsp;险&nbsp;&nbsp;等&nbsp;&nbsp;级</p>
+					<p class="riskDetail_right"></p>
+				</li>
+				<hr>
+				<li class="cell-1">
+					<p class="riskDetail_left">风&nbsp;&nbsp;&nbsp;险&nbsp;&nbsp;状&nbsp;&nbsp;态</p>
+					<p class="riskDetail_right state"></p>
+				</li>
+				<hr>
+				<li class="cell-1">
+					<p class="riskDetail_left">计划开始时间</p>
+					<p class="riskDetail_right"></p>
+				</li>
+				<hr>
+				<li class="cell-1">
+					<p class="riskDetail_left">计划结束时间</p>
+					<p class="riskDetail_right"></p>
+				</li>
+				<hr>
+				<li class="cell-1">
+					<p class="riskDetail_left">实际开始时间</p>
+					<p class="riskDetail_right"></p>
+				</li>
+				<hr>
+				<li class="cell-1">
+					<p class="riskDetail_left">实际结束时间</p>
+					<p class="riskDetail_right"></p>
+				</li>
+				<hr>
+			</ul>
+			<div class="towerImgs">
+				<ul class="towerImg">
+					
+				</ul>
+			</div>
+		</section>
+		<section class="imgzoom_pack">
+			<div class="imgzoom_img"><img src="" /></div>
+		</section>
+		<div id="kSpan" class="riskDetailInform">
+			<span><i><img src="../img/riskDetailHorn.png"></i>公司提醒</span>
+			<!--<div class="knowLeg" id='+book[i].id+'><i><img src="../img/riskDetailRemind.png"></i>
+				<p>2213123133</p><i><img src="../img/riskDetailRight.png"></i></div>
+				<div class="knowLeg" id='+book[i].id+'><i><img src="../img/riskDetailRemind.png"></i>
+				<p>2213123133</p><i><img src="../img/riskDetailRight.png"></i></div>
+				<div class="knowLeg" id='+book[i].id+'><i><img src="../img/riskDetailRemind.png"></i>
+				<p>2213123133</p><i><img src="../img/riskDetailRight.png"></i></div>-->
+			
+		</div>
+		<section class="cell-1 riskCloseFunction " style="display: none;">
+		    <ul id="headSpan">
+				<!--<li class="assign">
+					<p class="picShow"></p>
+					<p >旁站照片</p>
+					<p class="line"></p>
+				</li>
+				<li class="issued">
+					<p class="guanBi"></p>
+					<p>确认实施</p>
+					<p class="line"></p>
+				</li>
+				<li class="photo">
+					<p class="perOrder"></p>
+					<p>人员指派</p>
+				</li>-->
+		    </ul>
+		</section>
+		<div class="shield_1"></div>
+		<div class="shield_2"></div>
+		<div class="showDiv" onclick="showDivHide()" style="background:#f5f5f5;">
+			<div class="knowledge">
+				<p id="title"></p>
+				<div class="knowledge-cell2" id="conent">
+					
+				</div>
+	
+			</div>
+		</div>
+	</div>
+	</body>
+<script src="../public/js/mui.min.js"></script>
+	<script src="../public/js/mui.zoom.js"></script>
+	<script src="../public/js/mui.previewimage.js"></script>
+	<script>
+		mui.previewImage();
+	</script>
+</html>

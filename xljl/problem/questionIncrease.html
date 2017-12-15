@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>问题新增</title>
+		<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+		<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<link href="../public/style/alert/css/qikoo.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="../public/style/public.css">
+		<link rel="stylesheet" type="text/css" href="../style/index.css"/>
+		 <link href="../public/style/slideBar.css" rel="stylesheet" type="text/css">
+		<script type="text/javascript" src="../cordova.js"></script>
+		<script type="text/javascript" src="../public/js/public.js"></script>
+		<script type="text/javascript" src="../public/js/jquery.js"></script>
+		<script type="text/javascript" src="../js/public/joint.js"></script>
+		<script type="text/javascript" src="../public/js/jQuery.alertShow.js"></script>
+		<script type="text/javascript" src="../js/AJAX/prodBuild.js"></script>
+	</head>
+
+	<body>
+		<div class="indexPage questionIncrease">	
+		<!--<header class="cell-1">
+			<span>确&nbsp;&nbsp;&nbsp;&nbsp;认</span>
+			<span>取&nbsp;&nbsp;&nbsp;&nbsp;消</span>
+		</header>-->
+		<section>
+			<div class="content">
+				<span class="contentTitle">工程名称:</span>
+				<div class="header_btns" id="projectName"  dis_data="0">
+	    			<p data-val=""></p>
+	    			<i><img src="../img/select_03.png" class="i_coins"></i>
+	    			<ul style="display: none;">
+	    			</ul>
+	    		</div>
+			</div>
+			<div class="content">
+				<span class="contentTitle">问题类别:</span>
+				<div class="header_btns" id="proType" dis_data="0">
+	    			<p data-val=""></p>
+	    			<i><img src="../img/select_03.png" class="i_coins"></i>
+	    			<ul style="display: none;">
+	    				<li data-val="1">质量</li>
+	    				<li data-val="2">安全</li>
+	    			</ul>
+	    		</div>
+			</div>
+			<div class="content">
+				<span class="contentTitle">公司协助:</span>
+				<div class="header_btns" id="shiFou" dis_data="0">
+	    			<p data-val=""></p>
+	    			<i><img src="../img/select_03.png" class="i_coins"></i>
+	    			<ul style="display: none;">
+	    				<li data-val="0">否</li>
+	    				<li data-val="1">是</li>
+	    			</ul>
+				</div>
+			</div>
+			<div class="content">
+				<span class="contentTitle">发现日期:</span>
+				<input type="date" value="" id="proDate"/>
+			</div>
+			<div class="content2">
+				<span class="contentTitle">问题描述:</span>
+				<textarea id="proMiao" class="srf"></textarea>
+			</div>
+			<div class="content2">
+				<span class="contentTitle">处理意见:</span>
+				<textarea id="yiJian" class="srf"></textarea>
+			</div>
+			<div class="kong" style="height: 0px;"></div>
+			
+		</section>
+		<div class="kong" style="height: 0px;"></div>
+		<div class="addControl">
+				<div class="save" style="width: 50%;">
+					<p class="saveImg"></p>
+					<p>保存</p>
+					<p class="border"></p>
+				</div>
+				<div class="cancel" style="width: 50%;">
+					<p class="cancelImg"></p>
+					<p>取消</p>
+				</div>
+			</div
+	 </div>
+	</body>
+	<script>
+	var roleName = window.location.search.split('=')[1];
+	var proId = window.sessionStorage.getItem("addProb_Id")
+	$(function(){	
+		//底部菜单位置
+		var windowSize = $(window).height();	
+		$(window).resize(function(){
+		var windowSizeNow = $(window).height();
+		
+			if(windowSize-windowSizeNow>65){				
+				$('.addControl').css({'display':'static','bottom':'auto'});
+				$('.kong').css({'height':'25px'});
+				$(".content").hide();
+			}else{			
+				$('.addControl').css({'display':'fixed','bottom':'0'});
+				$('.kong').css({'height':'0px'});
+				$(".content").show();
+			}			
+		})
+		document.addEventListener("deviceready", onDeviceReady, false);
+	    function onDeviceReady () {
+	    	var jsonObj = eval('(' + data.data032.request + ')');
+	    	jsonObj.head.roleName=roleName
+	        var jsonStr = JSON.stringify(jsonObj);
+	        data.data032.request = jsonStr;
+	    	getJSON(url, data.data032, data032);
+	    }
+	    function data032(v){
+	    	if(v.data.cont){
+		    	var cont = v.data.cont;
+		    	var len = cont.length;
+		    	if (proId) {
+		    		for(var i = 0;i<len;i++){
+		    			if (proId == cont[i].ID) {
+		    				$('#projectName').children("p").attr("data-val",cont[i].ID);
+		    				$('#projectName').children("p").text(cont[i].PRO_NAME)
+		    			}
+			    	}
+		    		$('#projectName').children("p").off("click");
+		    		$('#projectName').children("i").hide();
+		    		$('#projectName').children("ul").hide();
+		    	}else{
+			    	for(var i = 0;i<len;i++){
+			    		$('#projectName ul').append('<li data-val="'+cont[i].ID+'">'+cont[i].PRO_NAME+'</li>')
+			    	}
+			    	if(len>5){
+			    		$('#projectName ul').css("height","160px");
+			    	}
+		    	}
+	    	}
+	    }
+	    
+	    $('.addControl .save').on('click',function(){
+	    	var proId = $('#projectName p').attr("data-val");
+	    	var proType =$('#proType p').attr("data-val");
+	    	var shiFou = $('#shiFou p').attr("data-val");
+	    	var foundDate = $('#proDate').val();
+	    	var miaoshu = $('#proMiao').val();
+	    	if(!proId){
+	    		qikoo.dialog.alert("请选择工程");
+	    	}else if(!proType){
+	    		qikoo.dialog.alert("请选择问题类型");
+	    	}else if(!shiFou){
+	    		qikoo.dialog.alert("请选择是否需要公司协助");
+	    	}else if(!foundDate){
+	    		qikoo.dialog.alert("请填写发现时间");
+	    	}else if(!miaoshu){
+	    		qikoo.dialog.alert("请填写问题描述");
+	    	}else{
+		    	var jsonObj = eval('(' + data.data009.request + ')');
+		    	jsonObj.data.prob_id="0";
+		    	jsonObj.data.status="0";
+		    	jsonObj.data.pro_id=proId;
+		    	jsonObj.data.prob_type=proType;
+		    	jsonObj.data.found_date=foundDate;
+		    	jsonObj.data.is_report=shiFou;
+		    	jsonObj.data.prob_name=miaoshu;
+		    	jsonObj.data.prob_desc=$('#yiJian').val();
+		        var jsonStr = JSON.stringify(jsonObj);
+		        data.data009.request = jsonStr;
+		    	getJSON(url, data.data009, data009);
+	    	}
+	    	
+	    })
+	    function data009(v){
+	    	var result = v.head.resp;
+        	if(result==000000){
+//      		window.location.href = 'problemShow.html';
+				window.sessionStorage.removeItem("addProb_Id")
+				history.back()
+        	}else{
+        		qikoo.dialog.alert("提交失败");
+        	}
+	    }
+	    $('.addControl .cancel').on('click',function(){
+	    	history.back()
+		})
+        $('.header_btns p').on('click',function(){
+        	event.stopPropagation()
+        	var is_img=  $(this).siblings("i").children();
+        	var is_display=$(this).parent().attr('dis_data');
+        	
+        	$('.header_btns').attr('dis_data','0').children('ul').css('display', 'none');
+		    $('.i_coins').attr('src','../img/select_03.png');
+        	
+        	if (is_display==0) {
+				$(this).parent().attr('dis_data','1').children('ul').css('display', 'block')
+        		is_img.attr('src','../img/select_04.png');
+        	} else{
+				$(this).parent().attr('dis_data','0').children('ul').css('display', 'none')
+        		is_img.attr('src','../img/select_03.png');
+        	}
+        });
+        
+        $('.header_btns .i_coins').on('click',function(){
+        	event.stopPropagation()
+        	var is_img=  $(this)
+        	var is_display=$(this).parents(".header_btns").attr('dis_data');
+        	
+        	$('.header_btns').attr('dis_data','0').children('ul').css('display', 'none');
+		    $('.i_coins').attr('src','../img/select_03.png');
+        	
+        	if (is_display==0) {
+				$(this).parents(".header_btns").attr('dis_data','1').children('ul').css('display', 'block')
+        		is_img.attr('src','../img/select_04.png');
+        	} else{
+				$(this).parents(".header_btns").attr('dis_data','0').children('ul').css('display', 'none')
+        		is_img.attr('src','../img/select_03.png');
+        	}
+        });
+        
+        
+        $('.header_btns ul').delegate('li','click',function(){
+        	event.stopPropagation()
+        	var mus = $(this).text();
+			var val = $(this).attr("data-val");
+			$(this).parent().siblings("p").text(mus);
+			$(this).parent().siblings("p").attr("data-val",val);
+			
+			$(this).parent().hide()
+			$(this).parent().siblings("i").children().attr('src','../img/select_03.png');
+        })
+        
+        $('.content2 textarea').focus(function(){
+        	$('.header_btns').attr('dis_data','0').children('ul').css('display', 'none');
+		    $('.i_coins').attr('src','../img/select_03.png');
+        })
+        
+        $(".srf").focus(function(){
+        	$(".content").hide();
+        })
+         $(".srf").blur(function(){
+        	$(".content").show();
+        })
+	})	
+	</script>
+</html>

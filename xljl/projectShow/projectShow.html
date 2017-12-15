@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="UTF-8">
+    <title>工程一览</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <link rel="stylesheet" href="../public/style/public.css" />
+	<link rel="stylesheet" href="../public/style/hpd.css" />
+	<link href="../public/style/alert/css/qikoo.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="../style/index.css"/>
+	 <link href="../public/style/slideBar.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="../cordova.js"></script>
+	<script type="text/javascript" src="../public/js/public.js"></script>
+	<script type="text/javascript" src="../public/js/jquery.js"></script>
+	<script type="text/javascript" src="../js/public/joint.js"></script>
+	<script type="text/javascript" src="../js/AJAX/prodBuild.js"></script>
+	<script type="text/javascript" src="../public/js/jQuery.alertShow.js"></script>
+	<script type="text/javascript">
+//		alert("roldCode"+localStorage.getItem(localStorage.getItem("userId")+"roleCode"));
+	var roleName = localStorage.getItem(localStorage.getItem("userId")+"roleCode").split("&")[1]
+	var proMemory = window.sessionStorage.getItem("proMemory")
+	var start = 0;
+      $(function(){   
+      	document.addEventListener("deviceready", onDeviceReady, false);
+	    function onDeviceReady () {
+//	    	qikoo.dialog.confirm2('4',function(){
+//	    		var orgName = document.getElementsByName("orgName")
+//	    		var roleVal = ""
+//	    		for(var i in orgName){
+//	    			if(orgName[i].checked==true){
+//	    				roleVal = orgName[i].value
+//	    				roleName = roleVal;
+////	    				window.sessionStorage.setItem("roleName",roleVal);
+//	    			}
+//	    		}
+//	    		if(roleVal==""){
+//	    			//qikoo.dialog.alert("请选择角色")
+//	    			return 
+//	    		}
+	    		var jsonObj = eval('(' + data.data002.request + ')');
+		    	jsonObj.head.roleName=roleName
+		        var jsonStr = JSON.stringify(jsonObj);
+		        data.data002.request = jsonStr;
+		    	getJSON(url, data.data002, data002);
+	   			qikoo.dialog.hide()
+//	   		},function(){
+//	   			
+//	   		})
+	    }
+	    function data002(v) {
+	    	if(v.data.cont){
+		    	var province = v.data.cont;
+		    	var length = province.length;
+		    	for(var i=0;i<length;i++){
+		        	$('.projectShow_section').append('<div class="sect"><ul class="sect_ul"><li class="sect_li  province'+i+'"><div class="cell-1 title titleName" style="font-size: 16px;"><P><span class="dots"></span>'+province[i].name+'</P><span class="nums">'+province[i].count+'</span><i><img src="../img/item_09.png" class="i_coins"></i></div></li></ul></div>');
+		        	
+	        		var dis = province[i].district;
+	        		var len = dis.length;
+	        		for(var j =0;j<len;j++){
+	        			$('.province'+i).append('<div class="location" dis_data="0" style="display:none;"><div class="location_title oneName" id="'+dis[j].id+'"><P><span class="location_dot"></span>'+dis[j].name+'</P><span class="location_nums">'+dis[j].count+'</span><i><img src="../img/item_09.png"></i></div><ul class="location_list  twoName ps_1" dis_data="0" style="display:none;"></ul></div>');
+	        		}
+		        }
+		    	if(proMemory){
+		    		var first = proMemory.split(',')[0];
+		    		var second = proMemory.split(',')[1];
+		    		window.sessionStorage.removeItem("proMemory");
+		    		var sect = $('.sect').eq(first);
+		    		
+		    		sect.children().children().children().children().children(".dots").css('background-color','#FF9523');
+		            sect.children().children().children().children(".nums").css('background-color','#FF9523');
+		         	sect.children().children().children().children().children(".i_coins").attr('src','../img/item_03.png');
+		            sect.children().children().children(".location").show();
+		            sect.children().children().children(".location").attr("dis_data","1");	
+		            
+		            var location1 = $('.sect').eq(first).children().children().children(".location").eq(second);
+		            var id = location1.children(".location_title").attr("id")
+					window.sessionStorage.setItem("xiangmubuId",id);
+	      			var is_obj = $("#"+id).siblings();
+					var isDisplay= is_obj.attr('dis_data');
+					var is_img = location1.children(".location_title").children("i").children();
+					
+					is_obj.css('display', 'block').attr('dis_data','1');
+	               	is_img.attr('src','../img/item_03.png');   
+	      			
+	      			
+	      			var jsonObj = eval('(' + data.data003.request + ')');
+			    	jsonObj.head.roleName = roleName;
+			    	jsonObj.data.id = id;
+			    	jsonObj.data.start = 0;
+			        var jsonStr = JSON.stringify(jsonObj);
+			        data.data003.request = jsonStr;
+			    	getJSON(url, data.data003, data003);	            
+		    	}
+	    	}
+        }
+  		$('.projectShow_section').delegate('.title','click',function(){
+  			start=0;
+			var is_obj = $(this).siblings();
+			var len = is_obj.length;
+			
+			var is_img= $(this).children("i").children();
+			var is_dots=$(this).children("P").children(".dots");
+			var is_nums=$(this).children(".nums");
+			 
+			$(".nums").css('background-color','#d0d0d0');
+			$(".dots").css('background-color','white');	
+			is_dots.css('background-color','white');
+			is_nums.css('background-color','#d0d0d0');
+			
+			var others = $(this).parents(".sect").siblings();
+			others.each(function(index){
+                $(this).children().children().children(".dots").css('background-color','white');
+                $(this).children().children().children(".nums").css('background-color','#d0d0d0');
+                $(this).children().children().children().children().children(".i_coins").attr('src','../img/item_09.png');
+                
+                $(this).children().children().children(".location").hide();
+                $(this).children().children().children(".location").attr("dis_data","0");
+                
+                
+                $(this).children().children().children(".location").children(".location_title").children("i").children().attr('src','../img/item_09.png');
+                $(this).children().children().children(".location").children(".location_list").hide();
+                $(this).children().children().children(".location").children(".location_list").attr("dis_data","0");
+                $(this).children().children().children(".location").children(".location_list").children().remove();
+                
+			})
+			
+			for(var i = 0;i<len;i++){
+				var isDisplay = is_obj[i].getAttribute('dis_data');
+				if(isDisplay==0){
+					is_obj[i].setAttribute("style","display:block");
+					is_obj[i].setAttribute("dis_data","1");
+                    is_img.attr('src','../img/item_03.png');
+                    is_dots.css('background-color','#FF9523');
+                    is_nums.css('background-color','#FF9523');
+                }else{
+					is_obj[i].setAttribute("style","display:none");
+					is_obj[i].setAttribute("dis_data","0");
+               	    is_img.attr('src','../img/item_09.png');
+               	    is_dots.css('background-color','white');
+               	    is_nums.css('background-color','#d0d0d0');
+                }
+			}
+  		});
+  		$('.projectShow_section').delegate('.location_title','click',function(){
+  			start=0;
+  			window.sessionStorage.setItem("xiangmubuId",this.id);
+  			var is_obj = $("#"+this.id).siblings();
+			var isDisplay= is_obj.attr('dis_data');
+			var is_img = $(this).children("i").children();
+			
+			var others = $(this).parent().siblings();
+			others.each(function(index){
+                $(this).children(".location_title").children("i").children().attr('src','../img/item_09.png');
+                
+                $(this).children(".location_list").hide();
+                $(this).children(".location_list").attr("dis_data","0");
+                $(this).children(".location_list").children().remove();
+			})
+			
+			if(isDisplay==0){
+				is_obj.css('display', 'block').attr('dis_data','1');
+               	is_img.attr('src','../img/item_03.png');   
+      			
+      			var jsonObj = eval('(' + data.data003.request + ')');
+		    	jsonObj.head.roleName = roleName;
+		    	jsonObj.data.id = this.id;
+		    	jsonObj.data.start = 0;
+		        var jsonStr = JSON.stringify(jsonObj);
+		        data.data003.request = jsonStr;
+		    	getJSON(url, data.data003, data003);
+               	
+			}else{
+				is_obj.css('display', 'none').attr('dis_data','0');
+                is_img.attr('src','../img/item_09.png');	         
+                is_obj.children().remove()
+                
+			}
+       	});
+       	function data003(v){
+       		var id = window.sessionStorage.getItem("xiangmubuId")
+       		if(v.data.cont){
+           		var project = v.data.cont;
+		    	var length = project.length;
+		    	if(length>4){
+		    		$("#"+id).siblings().css('height','200px');
+		    	}
+		    	$("#"+id).siblings().children().remove()
+		    	for(var i=0;i<length;i++){
+		    		$("#"+id).siblings().append('<li id="'+project[i].ID+'"><p>'+project[i].PRO_NAME+'</p><span>'+project[i].MAJORDOMO+'</span><i><img src="../img/item_07.png"></i></li>')
+		    	}
+		    	pageUpDown();
+       		}
+        }
+       	
+       	function pageUpDown(){
+       		
+       		$('.location_list').each(function(){
+       			$(this).on("scroll", function() {
+       				
+					var s = $(this)[0];
+					if (s.clientHeight + s.scrollTop > s.scrollHeight - 1) {
+						$('.location_list').unbind("scroll")
+						
+						var len = $(this).children().length;
+						if(start!=len){
+							start = len;
+							var jsonObj = eval('(' + data.data003.request + ')');
+					    	jsonObj.head.roleName = roleName;
+					    	jsonObj.data.id = $(this).prev().attr("id");
+					    	jsonObj.data.start = $(this).children().length;
+					        var jsonStr = JSON.stringify(jsonObj);
+					        data.data003.request = jsonStr;
+					    	getJSON(url, data.data003, data0031);
+						}
+					}
+				});
+       		})
+       		
+       		
+       	}
+       	function data0031(v){
+       		pageUpDown();
+       		var id = window.sessionStorage.getItem("xiangmubuId")
+       		if(v.data.cont){
+       			$("#"+id).siblings().children(".nomore").remove();
+           		var project = v.data.cont;
+		    	var length = project.length;
+//		    	$("#"+id).siblings().children().remove()
+		    	for(var i=0;i<length;i++){
+		    		$("#"+id).siblings().append('<li id="'+project[i].ID+'"><p>'+project[i].PRO_NAME+'</p><span>'+project[i].MAJORDOMO+'</span><i><img src="../img/item_07.png"></i></li>')
+		    	}
+       		}else{
+       			var len = $("#"+id).siblings().children(".nomore").length
+       			if(len==0){
+       				
+	       			$("#"+id).siblings().append('<li class="nomore" style="text-align:center;"><span style="width:100%;font-size: 14px;">没有更多记录</span></li>')
+       			}
+       			$('.location_list').unbind("scroll")
+       		}
+       	}
+    })
+	</script>
+	</head>
+	<body>
+		<div class="indexPage">	
+		<section class="cell-12 projectShow">
+			<div class="projectShow_section">
+				<!--<div class="sect">
+					<ul class="sect_ul">
+						<li class="sect_li  province'+i+'">
+							<div class="cell-1 title titleName" style="font-size: 16px;">
+								<P>
+									<span class="dots"></span>测试1
+								</P>
+								<span class="nums">90</span>
+								<i>
+									<img src="../img/item_09.png" class="i_coins"></i>
+							</div>
+							<div class="location" dis_data="0" style="display:none;">
+								<div class="location_title oneName" id="123">
+									<P>
+										<span class="location_dot"></span>南京
+									</P>
+										<span class="location_nums">20</span>
+										<i>
+											<img src="../img/item_09.png">
+											
+										</i>
+								</div>
+								<ul class="location_list twoName ps_1" dis_data="0" style="display:none;">
+									<li id="'+project[i].ID+'">
+										<p>南京</p>
+										<span>测试内容</span>
+										<i>
+											<img src="../img/item_07.png">
+											
+										</i>
+									</li>
+								</ul>
+							</div>
+						</li>
+					</ul>
+				</div>-->
+			</div>
+		</div>
+	</body>
+</html>

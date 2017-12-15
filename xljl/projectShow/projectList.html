@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>工程详情</title>
+		<link href="../public/style/alert/css/qikoo.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="../public/style/public.css">
+		<link rel="stylesheet" type="text/css" href="../css/public/xza.css">
+		<link rel="stylesheet" type="text/css" href="../style/index.css"/>
+		 <link href="../public/style/slideBar.css" rel="stylesheet" type="text/css">
+		<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<script type="text/javascript" src="../cordova.js"></script>
+		<script type="text/javascript" src="../public/js/public.js"></script>
+		<script type="text/javascript" src="../public/js/jquery.js"></script>
+		<script type="text/javascript" src="../js/public/joint.js"></script>
+		<script type="text/javascript" src="../public/js/jQuery.alertShow.js"></script>
+		<script type="text/javascript" src="../js/AJAX/prodBuild.js"></script>
+		<!--<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ED41WD9ZxMj2rBdRfRwnFL11"></script>
+    	<script type="text/javascript" src="http://developer.baidu.com/map/jsdemo/demo/convertor.js"></script>-->
+		<style>
+			.Control {
+				width: 100%;
+				height: 50px;
+				background-color: #28907E;
+				position: fixed;
+				bottom: 0;
+			}
+			
+			.Control div {
+				width: 33.33%;
+				float: left;
+			    text-align: center;
+			    color: white;
+			    height: 100%;
+			    position: relative;
+			}
+			.Control div p {
+			    width: 100%;
+			    height: 60%;
+			    float: left;
+			    line-height: 120%;
+			    font-size: 10px !important;
+			}
+			.Control div p:nth-child(1){
+				margin-top: 2%;
+			}
+			.Control div .saveImg {
+				background: url(../img/edit.png)no-repeat center;
+				background-size: auto 65%;
+			}
+			
+			.Control div .cancelImg {
+				background: url(../img/close.png)no-repeat center;
+				background-size: auto 65%;
+			}
+			.Control div .zgImg {
+				background: url(../img/edit.png)no-repeat center;
+				background-size: auto 65%;
+			}
+			.Control div .closeImg {
+				background: url(../img/zuobiao.png)no-repeat center;
+				background-size: auto 65%;
+			}
+			.Control div .photoImg {
+				background: url(../img/photo.png)no-repeat center;
+				background-size: auto 65%;
+			}
+			
+			.Control div .submitImg {
+				background: url(../img/sure_1.png)no-repeat center;
+				background-size: auto 65%;
+			}
+			.Control div .delImg {
+				background: url(../img/delete.png)no-repeat center;
+				background-size: auto 65%;
+			}
+			.Control div .border {
+				width: 0;
+				height: 60%;
+				border-right: 1px solid #fff;
+				position: absolute;
+				right: 0;
+				top: 20%;
+			}
+			#commit{
+				background-color: #28907E;
+			}
+			.plUl-1{
+				    background-color: #FFFCF4;
+				    border: 1px solid #D2D2D2;
+			}
+			.plUl-1 li{
+				border-bottom: 1px solid #D2D2D2;
+			}
+		</style>
+		<script type="text/javascript">
+		var x_pi = 3.14159265358979324 * 3000.0 / 180.0;
+		var pi = 3.14159265358979324,a = 6378245.0,ee = 0.00669342162296594323;
+		var projectId = window.location.search.split('=')[1];
+		var userId = window.localStorage.getItem("userId")
+		var roleStr = localStorage.getItem(userId+"roleCode");
+			$(function() {
+				document.addEventListener("deviceready", onDeviceReady, false); 
+				securityRiskDetail();
+			    function onDeviceReady() {
+				    var jsonObj = eval('(' + data.data015.request + ')');
+				    jsonObj.data.id = projectId;
+				    var jsonStr = JSON.stringify(jsonObj);
+				    data.data015.request = jsonStr;
+					getJSON(url, data.data015, data015);
+			    }
+				function data015(v){
+					if(v.data){
+						var project = v.data;
+						$('.plcell-1 ul li p').eq(1).text(project.PRO_NAME)
+						$('.plcell-1 ul li p').eq(5).text(project.DISTRICT_NAME)
+						$('.plcell-1 ul li p').eq(7).text(project.CITY_NAME)
+						$('.plcell-1 ul li p').eq(9).text(project.PRO_TYPE)
+						$('.plcell-1 ul li p').eq(11).text(project.CONSTRUCT_QUALITY)
+						$('.plcell-1 ul li p').eq(13).text(project.PRO_LEVEL)
+						$('.plcell-1 ul li p').eq(15).text(project.ELEC_LEVEL)
+						$('.plcell-1 ul li p').eq(17).text(project.ELEC_CAP)
+						$('.plcell-1 ul li p').eq(19).text(project.CAPACITY)
+						$('.plcell-1 ul li p').eq(21).text(project.PATH_LENGTH)
+						$('.plcell-1 ul li p').eq(23).text(project.PATH_LENGTH2)
+						$('.plcell-1 ul li p').eq(25).text(project.PATH_LENGTH3)
+						$('.plcell-1 ul li p').eq(27).text(project.MAJORDOMO_NAME)
+						$('.plcell-1 ul li p').eq(29).text(project.AGENT_NAME)
+						$('.plcell-1 ul li p').eq(31).text(project.MONITOR_NAME)
+						$('.plcell-1 ul li textarea').eq(0).text(project.CURRENT_WEEK_PROCESS)
+						$('.plcell-1 ul li textarea').eq(1).text(project.NEXT_WEEK_PLAN)
+						
+						$('#LONGITUDE').val(project.LONGITUDE)
+						$('#LATITUDE').val(project.LATITUDE)
+						$('#WORK_TYPE').val(project.WORK_TYPE)
+						if(roleStr=="JLB1&JLB1_PROMANAGER"||roleStr=="JLB1&JLB1_PROMANAGERS"||roleStr=="JLB1&JLB1_ENGINEER"){
+							if ($('#WORK_TYPE').val()==1) {
+								$('.zuobiaocaiji').show();
+								$('.Control div ').css("width","25%")
+							}else{
+								$('.Control div ').css("width","33.33%")	
+							}
+						}
+					}
+				}
+				
+				
+				//$('.plcell-1').height($('.projectList').height()-$('.plcell-2').height()-20)
+				
+				$('.gongchenggaohang').on('click', function() {
+					var longitude = $('#LONGITUDE').val(),
+			            latitude =  $('#LATITUDE').val();
+			        if(longitude==undefined||longitude==""||longitude=="undefined"||
+						latitude==undefined||latitude==""||latitude=="undefined"){
+						qikoo.dialog.alert('没有坐标，无法导航');      	
+			        }else{
+			        	var data = changeHWD(longitude,latitude)
+			        	mam.navigator.openSwitch.toMap(succeccCallback3,errorCallback3,data[0],data[1])
+			        	function succeccCallback3(v) {
+//			        		alert('success:'+JSON.stringify(v))
+				        }
+				
+				        function errorCallback3(v) {
+//				        	alert('error:'+JSON.stringify(v))
+				        }
+			            //window.location.href = '615BMap.html?longitude=' + longitude + '&latitude=' + latitude;
+			        }
+				});
+				function changeHWD(lng,lat){
+					 var data=[];
+					 var x = lng - 0.0065, y = lat - 0.006;
+					 var z = Math.sqrt(x * x + y * y) - 0.00002 * Math.sin(y * x_pi);
+					 var theta = Math.atan2(y, x) - 0.000003 * Math.cos(x * x_pi);
+					 var lngNew = z * Math.cos(theta),latNew = z * Math.sin(theta);
+					 data.push(lngNew);
+					 data.push(latNew);
+					 return data;
+				}
+				var flag = true;
+				$('.zuobiaocaiji').click(function() {
+					var type = $('#WORK_TYPE').val();
+					if(type==1){
+						
+						$("#posy").text('');
+						$("#posx").text('');
+						if (flag) {
+							var jsonObj = eval('(' + data.data025.request + ')');
+						    jsonObj.data.id = projectId;
+						    var jsonStr = JSON.stringify(jsonObj);
+						    data.data025.request = jsonStr;
+							getJSON(url, data.data025, data025);
+							
+							$(this).children().children().css('background', '-webkit-gradient(linear, 0 0, 0 100%, from(#cdcdcd), to(#b9b9b9))');
+							$(this).children().children().css('background', '-moz-linear-gradient(top, #cdcdcd, #b9b9b9)');
+							$(this).children().children().css('background', 'linear-gradient(top, #cdcdcd, #b9b9b9)');
+							$('.plcell-3').css('display', 'block');
+							$('.plcell-3').animate({
+								'top': '0px'
+							}, 600);
+							$('.shield').css('display', 'block');
+							flag=false;
+						}else{
+							$(this).children().children().css('background', '-webkit-gradient(linear, 0 0, 0 100%, from(#88d3ff), to(#6bc4f8))');
+							$(this).children().children().css('background', '-moz-linear-gradient(top, #88d3ff, #6bc4f8)');
+							$(this).children().children().css('background', 'linear-gradient(top, #88d3ff, #6bc4f8)');
+							$('.plcell-3').css('display', 'none');
+							$('.shield').css('display', 'none');
+							flag=true;
+						}
+					}else{
+						qikoo.dialog.alert("没有权限进行坐标采集")
+					}
+					
+				});
+				function data025(v){
+					if(v.data.areas){
+						var len = v.data.areas.length;
+						if(len>0){
+							$('.pl3-left').children().remove()
+							var areas = v.data.areas;
+							var length = areas.length;
+							for(var i = 0;i<length;i++){
+								$('.pl3-left').append('<p id="'+areas[i].areaid+'">'+areas[i].areaname+'</p>')
+							}
+							
+							var areaid = $('.pl3-left p:eq(0)').attr("id");
+							var jsonObj = eval('(' + data.data026.request + ')');
+						    jsonObj.data.id = projectId;
+						    jsonObj.data.areaid = areaid;
+						    var jsonStr = JSON.stringify(jsonObj);
+						    data.data026.request = jsonStr;
+							getJSON(url, data.data026, data026);
+						}
+					}
+					
+				}
+					
+				$('.pl3-span').click(function() {
+					$('.plUl-1').toggle()
+				});
+				$('.plUl-1').delegate('li','click',function(){
+						var mus = $(this).text();
+						var id = $(this).attr("id");
+						var posy = $(this).attr("data-posy");
+						var posx = $(this).attr("data-posx");
+						
+						$('.pl3-span').text(mus);
+						$('.pl3-span').attr("id",id);
+						$('#posy').text(posy);
+						$('#posx').text(posx);
+						
+						$('.pl3-span').append('<i><img src="../img/plTriangle.png"></i>')
+						$('.plUl-1').css('display', 'none');
+				});
+				$('.pl3-left').delegate('p','click',function(){
+					$("#posy").text('');
+					$("#posx").text('');
+					$('.plUl-1').css('display', 'none');
+					
+					$(this).prevAll().css('background', '#ffffff')
+					$(this).css('background', '#f5f5f5');
+					$(this).nextAll().css('background', '#ffffff')
+					
+					var areaid = this.id;
+					var jsonObj = eval('(' + data.data026.request + ')');
+				    jsonObj.data.id = projectId;
+				    jsonObj.data.areaid = areaid;
+				    var jsonStr = JSON.stringify(jsonObj);
+				    data.data026.request = jsonStr;
+					getJSON(url, data.data026, data026);
+					
+					$('.pl3-span').text('').append('<i><img src="../img/plTriangle.png"></i>');
+				});
+				function data026(v){
+					if(v.data.cnt){
+						var cnt = v.data.cnt;
+						var len= cnt.length;
+						$('.plUl-1').children().remove()
+						for(var i = 0;i<len;i++){
+							if (cnt[i].remark) {
+								$('.plUl-1').append('<li id="'+cnt[i].id+'" data-posy="'+cnt[i].posy+'" data-posx="'+cnt[i].posx+'">'+cnt[i].remark+'</li>')
+							}else{
+								$('.plUl-1').append('<li id="'+cnt[i].id+'" data-posy="'+cnt[i].posy+'" data-posx="'+cnt[i].posx+'"></li>')
+							}
+						}
+						if(len>4){
+							$('.plUl-1').css("height","92px")
+						}
+					}
+				}
+				
+				$('#commit').on('click', function() {
+					$('.plUl-1').css('display', 'none');
+					var id = $('.pl3-span').attr("id");
+					var posy = $("#posy").text();
+					var posx = $("#posx").text();
+					if(posy==''||posx==''){
+						qikoo.dialog.alert("没有采集到经纬度不能提交")
+					}else{
+						var jsonObj = eval('(' + data.data027.request + ')');
+					    jsonObj.data.ID = id;
+					    jsonObj.data.LONGITUDE = posx;
+					    jsonObj.data.LATITUDE = posy;
+					    var jsonStr = JSON.stringify(jsonObj);
+					    data.data027.request = jsonStr;
+						getJSON(url, data.data027, data027);
+					}
+				});
+				function data027(v){
+					var result = v.head.resp;
+	            	if(result==000000){
+	            		qikoo.dialog.alert("提交成功")
+	            	}else{
+	            		qikoo.dialog.alert("提交失败")
+	            	}
+				}
+				
+				$('.location').on('click',function(){
+					$("body").append('<div class="loading" id="loadingGif" style="display:block"><img src="../../img/loading.gif"></div>');
+		   			$("body").append('<div class="loadingMoveDiv" id="loadingGifDiv" style="top: 0;"></div>');
+					var setTime=setTimeout(function(){ 
+			    		$("#loadingGif").remove();
+					   	$("#loadingGifDiv").remove();
+					},10000);
+			
+					mylocation();
+				})
+				$('.delete').on('click',function(){
+					$("#posy").text('');
+					$("#posx").text('');
+				})
+				
+				function mylocation(){
+					mam.navigator.openSwitch.lbs(successCallback,errorCallBack);
+					function successCallback(v){
+						$('#posx').text(v.longitude);
+					   	$('#posy').text(v.latitude);
+					   	
+					   	$("#loadingGif").remove();
+						$("#loadingGifDiv").remove();
+						clearTimeout(setTime);
+					}
+					function errorCallBack(){
+						qikoo.dialog.alert("没有获取到位置")
+						
+						$("#loadingGif").remove();
+						$("#loadingGifDiv").remove();
+						clearTimeout(setTime);
+					}
+					
+					
+//					var lon,lat;
+//					mam.navigator.geolocation.getCurrentPosition(successCallback,errorCallback)
+//			        function successCallback(position){
+//			        	lon = position.coords.longitude;
+//			        	lat = position.coords.latitude;
+//			        	var gpsPoint = new BMap.Point(lon,lat);
+//			        	
+//			        	//坐标转换，地理坐标转换成平面坐标
+//						BMap.Convertor.translate(gpsPoint,0,translateCallback);
+//			        	//坐标转换完之后的回调函数
+//						function translateCallback(point){
+//						   	// 百度地图API功能
+//						   	$('#posy').val(point.lng);
+//						   	$('#posx').val(point.lat);
+//						   	var point = new BMap.Point(point.lng,point.lat);
+//						   	var gc = new BMap.Geocoder();
+//						   	gc.getLocation(point, function(rs){
+//						       var addComp = rs.addressComponents;
+//						       //alert(addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber);
+//						       var str = addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
+//							   	$('#position').text(str);
+//							});
+//						    $("#loadingGif").remove();
+//							$("#loadingGifDiv").remove();
+//							clearTimeout(setTime);
+//						}
+//			         }
+//			         function errorCallback(){
+//			         	qikoo.dialog.alert('没有获取到位置');
+//			         }
+				}
+			});
+			function securityRiskDetail() {
+				var indexHight = $('body')[0].offsetHeight;
+				var hight4 = indexHight -50;
+				$('.plcell-1').css("height", hight4 + 'px')
+		}
+			function closeZuoBiao(){
+				$('.plcell-3').css('display', 'none');
+				$('.shield').css('display', 'none');
+			}
+		</script>
+	</head>
+	<body >
+		<div class="indexPage cell-12 projectList">		
+		<section class="plcell-1 cell-6">
+			<input type="hidden" value="" id="LONGITUDE"/>
+			<input type="hidden" value="" id="LATITUDE"/>
+			<input type="hidden" value="" id="WORK_TYPE"/>
+			<ul class="oneName">
+				
+				<li class="cell-1">
+					<p>工&nbsp;&nbsp;&nbsp;程&nbsp;&nbsp;名&nbsp;&nbsp;称:</p>
+					<p></p>
+					<!--<hr>-->
+				</li>
+				<li class="cell-1" style="height: 200px;">
+					<p style="line-height: 200px;padding: 0 0;">上周工作情况:</p>
+					<textarea disabled="disabled" style="font-size:14px;color:#7C7C7C;border:1px solid #D6D6D6;width: 65%;height: 90%;position:relative;top: 5%;background-color: #ededed;" ></textarea>
+				</li>
+				<li class="cell-1" style="height: 200px;">
+					<p style="line-height: 200px;padding: 0 0;">本周工作计划:</p>
+					<textarea disabled="disabled" style="font-size:14px;color:#7C7C7C;border:1px solid #D6D6D6;width: 65%;height: 90%;position:relative;top: 5%;background-color: #ededed;"></textarea>
+				</li>
+				<!--<hr/>-->
+				<li class="cell-1">
+					<p>所属&nbsp;项&nbsp;目&nbsp;部:</p>
+					<p></p>
+				</li>
+				<!--<hr/>-->
+				<li class="cell-1">
+					<p>所&nbsp;&nbsp;&nbsp;属&nbsp;&nbsp;地&nbsp;&nbsp;区:</p>
+					<p></p>
+				</li>
+				<!--<hr/>-->
+				<li class="cell-1">
+					<p>工&nbsp;&nbsp;&nbsp;程&nbsp;&nbsp;类&nbsp;&nbsp;型:</p>
+					<p></p>
+				</li>
+				<!--<hr/>-->
+				<li class="cell-1">
+					<p>建&nbsp;&nbsp;&nbsp;设&nbsp;&nbsp;性&nbsp;&nbsp;质:</p>
+					<p></p>
+				</li>
+				<!--<hr/>-->
+				<li class="cell-1">
+					<p>工&nbsp;&nbsp;&nbsp;程&nbsp;&nbsp;阶&nbsp;&nbsp;段:</p>
+					<p></p>
+				</li>
+				<!--<hr/>-->
+				<li class="cell-1">
+					<p>电&nbsp;&nbsp;&nbsp;压&nbsp;&nbsp;等&nbsp;&nbsp;级:</p>
+					<p></p>
+				</li>
+				<!--<hr/>-->
+				<li class="cell-1">
+					<p>变&nbsp;&nbsp;&nbsp;电&nbsp;&nbsp;容&nbsp;&nbsp;量:</p>
+					<p></p>
+				</li>
+				<!--<hr/>-->
+				<li class="cell-1">
+					<p>装&nbsp;&nbsp;&nbsp;机&nbsp;&nbsp;容&nbsp;&nbsp;量:</p>
+					<p></p>
+				</li>
+				<!--<hr/>-->
+				<li class="cell-1">
+					<p>架线路径长度:</p>
+					<p></p>
+				</li>
+				<!--<hr/>-->
+				<li class="cell-1">
+					<p>架线折单长度:</p>
+					<p></p>
+				</li>
+				<!--<hr/>-->
+				<li class="cell-1">
+					<p>电缆线路长度:</p>
+					<p></p>
+				</li>
+				<!--<hr/>-->
+				<li class="cell-1">
+					<p>总&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;监:</p>
+					<p></p>
+				</li>
+				<!--<hr/>-->
+				<li class="cell-1">
+					<p>总&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;代:</p>
+					<p></p>
+				</li>
+				<!--<hr/>-->
+				<li class="cell-1">
+					<p>监&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;理:</p>
+					<p></p>
+				</li>
+				
+				<!--<hr/>-->
+			</ul>
+
+		</section>
+		<!--<section class="riskDetailInform cell-4">
+			<span><i><img src="../img/riskDetailHorn.png"></i>公司提醒</span>
+			<div>
+				<i><img src="../img/riskDetailRemind.png"></i>
+				<p>江苏省变电站建设</p>
+				<i><img src="../img/riskDetailRight.png"></i>
+			</div>
+			<div>
+				<i><img src="../img/riskDetailRemind.png"></i>
+				<p>电力监理指标</p>
+				<i><img src="../img/riskDetailRight.png"></i>
+			</div>
+			<div>
+				<i><img src="../img/riskDetailRemind.png"></i>
+				<p>电力监理安全手册</p>
+				<i><img src="../img/riskDetailRight.png"></i>
+			</div>
+		</section>-->
+
+		<section class="plcell-3" style="display:none">
+			<!--<p style="background: #ffffff;"><img src="../img/line.png" /></p>-->
+
+			<div class="pl3-left">
+				<!--<p>变电站电子工作区</p>
+				<p>线路电子工作区</p>
+				<p>办公区电子工作区</p>-->
+			</div>
+			<div class="pl3-right">
+				<span>描述</span>
+				<span class="pl3-span" style="border: 1px solid #d2d2d2;">
+					<i><img src="../img/plTriangle.png"></i>
+				</span>
+				<ul class="plUl-1" style="display: none;">
+					<!--<li>东北</li>
+					<li>东南</li>
+					<li>西南</li>
+					<li>西北</li>-->
+				</ul>
+				<ul class="plUl-2" style="display: none;">
+					<!--<li>T1</li>
+					<li>T2</li>
+					<li>T3</li>
+					<li>T4</li>-->
+				</ul>
+
+				<span>经度</span>
+				<!--<span>
+					<input id="posy" type="text" value="" disabled/>
+				</span>-->
+				<span id="posx" style="border: 1px solid #d2d2d2;"></span>
+				<span>纬度</span>
+				<!--<span>
+					<input id="posx" type="text" value="" disabled/>
+				</span>-->
+				<span id="posy" style="border: 1px solid #d2d2d2;"></span>
+				<span>操作</span>
+				<strong>
+					<i class="location"><img style="width: 35%;margin-top: .2em;" src="../img/plPosition.png"></i>
+					<i class="delete"><img style="width: 40%;" src="../img/plDeleted.png"></i>
+				</strong>
+				<p id="commit">提交</p>
+			</div>
+		</section>
+		<div class="Control" style="display: block;">
+				<div class="submit gongchenggaohang">
+					<p class="submitImg"></p>
+					<p>工程位置<p>
+					<p class="border"></p>
+				</div>
+				<div class="submit zuobiaocaiji" style="display: none;">
+					<p class="closeImg"></p>
+					<p>坐标采集</p>
+					<p class="border"></p>
+				</div>
+				<div class="photo fengxianchakan">
+					<p class="photoImg"></p>
+					<p>风险查看</p>
+					<p class="border"></p>
+				</div>
+				<div class="save wentichakan">
+					<p class="saveImg"></p>
+					<p>问题查看<p>
+				</div>
+			</div>
+		<div onclick="closeZuoBiao()" class="shield" style="top: 0;display: none;"></div>
+		</div>
+	</body>
+</html>

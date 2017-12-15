@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>知识查看</title>
+		<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+		<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=no" name="format-detection">
+		<link rel="stylesheet" type="text/css" href="../public/style/public.css">
+		<link rel="stylesheet" type="text/css" href="../css/public/xza.css">
+		<link rel="stylesheet" href="../style/index.css" />
+		 <link href="../public/style/slideBar.css" rel="stylesheet" type="text/css">
+		<script type="text/javascript" src="../cordova.js"></script>
+		<script type="text/javascript" src="../public/js/public.js"></script>
+		<script type="text/javascript" src="../public/js/jquery.js"></script>
+		<script type="text/javascript" src="../js/public/joint.js"></script>
+		<script type="text/javascript" src="../js/AJAX/coreBuild.js"></script>
+		<script type="text/javascript" src="../public/js/jQuery.alertShow.js"></script>
+	</head>
+	<script>
+		var tID = window.location.search.split('=')[1];
+		$(function () {
+		    document.addEventListener("deviceready", onDeviceReady, false); 
+		    var jsonObj = eval('('+coreData.data012.request+')');
+		    jsonObj.data.id = tID;
+		    var jsonStr = JSON.stringify(jsonObj);
+		    coreData.data012.request = jsonStr;
+		    function onDeviceReady() {
+				getJSON(url, coreData.data012, data012);
+		    }
+	        function data012(v) {
+	            var value =v.data;
+//	            document.getElementById("title").innerHTML=value.TITLE
+//	            document.getElementById("conent").innerHTML=value.CONTENT
+				$('#title').text(value.TITLE)
+				str = value.CONTENT
+//				alert(str[0]+',<')
+//				str = str.replace(/['\"']/g,'\'')
+				str = str.replace(/['\＜']/g,'\<')
+				str = str.replace(/['\＞']/g,'\>')
+				$('#conent').append(str)
+//				$('<font face="tahoma,arial,helvetica,sans-serif">alksjd水电费flkasjf</font face>').appendTo('#conent')
+	        }
+		 })
+	</script>
+	<body >
+		<div class="indexPage" style="background:#f5f5f5;">		
+		<header class="knowledge">
+			<p id="title"></p>
+			<div class="knowledge-cell2" id="conent">
+				
+			</div>
+
+		</header>
+	    </div>
+	</body>
+
+</html>

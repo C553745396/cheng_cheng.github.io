@@ -1,0 +1,342 @@
+
+/*照片*/
+.photos{
+	width: 100%;
+	height: 85%;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+.photos ul{
+	width: 98%;
+	margin: auto;
+	margin-top: 1%;
+	
+}
+.photos ul li{
+	width: 33.33%;
+	/*height: width;*/
+	/*border: 1px solid black;
+	box-sizing: border-box;*/
+	display: inline-block;
+	float: left;
+	position: relative;
+}
+.photos ul .camera .cameraImg{
+	width: 95%;
+	height: 95%;
+}
+.photos ul .localPicture .localPictureImg{
+	width: 95%;
+	height: 95%;
+}
+.photos ul li .pict{
+	width: 95%;
+	height: 95%;
+}
+.photos ul li .checkImg{
+	width: 20%;
+	height: 20%;
+	position: absolute;
+	top: 5%;
+	right: 10%;
+	display: none;
+}
+.photos ul li .editType{
+	width: 20%;
+	height: 20%;
+	position: absolute;
+	bottom: 10%;
+	right: 10%;
+	/*display: none;*/
+}
+.photos ul li  input{
+	display: none;
+}
+.photoControls{
+	width: 100%;
+	height: 5rem;
+	position: fixed;
+	bottom: 0;
+	background-color: #ffffff;
+	text-align: center;
+	box-shadow: 0 0 2px 2px #cdcdcd;
+}
+.photoControls div{
+	width: 24%;
+	height: 100%;
+	/*float: left;*/
+	display: inline-block;
+	text-align: center;
+}
+.photoControls div span{
+	width: 85%;
+	height: 40%;
+	display: inline-block;
+	font-size: 1rem;
+	line-height: 1.5rem;
+	position: relative;
+	top: 10%;
+}
+.photoControls .checkAll{
+	color: #cad361;
+}
+.photoControls .checkAll .checkAllImg{
+	background: url('../img/pic1.png')no-repeat center;
+	background-size: 30px 30px;
+}
+.photoControls .edit{
+	color: #fec97b;
+}
+.photoControls .edit .editImg{
+	background: url('../img/pic2.png')no-repeat center;
+	background-size: 30px 30px;
+}
+.photoControls .delete{
+	color: #16a7eb;
+}
+.photoControls .delete .deleteImg{
+	background: url('../img/pic3.png')no-repeat center;
+	background-size: 30px 30px;
+}
+.photoControls .upload{
+	color: #b0e5f4;
+}
+.photoControls .upload .uploadImg{
+	background: url('../img/pic4.png')no-repeat center;
+	background-size: 30px 30px;
+}
+.photoControls .upload .checkNum{
+	width: 20px;
+	height: 20px;
+	display: inline-block;
+	border-radius: 10px;
+	background-color: #32b16c;
+	color: white;
+	position: absolute;
+	left: 90%;
+	line-height: 1.2em;
+}
+.photoControls .upload .checkNum.mes{
+	left: 78%;
+}
+ .loading {
+    width: 40%;
+    height: auto;
+    overflow: hidden;
+    position: absolute;
+    top: 50%;
+    left: 45%;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    transform: translateY(-50%);
+    z-index: 15;
+}
+
+.loading img {
+    width: 30%;
+    height: auto;
+}
+
+
+.loadingMoveDiv {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .2);
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: block;
+    z-index: 10;
+}
+/*照片*/
+
+/*图片编辑*/
+.redact {
+    overflow: hidden;
+    position: relative;
+}
+
+.redact > img {
+    width: 100%;
+    height: auto;
+}
+
+.redact span {
+    width: 4rem;
+    height: 4rem;
+    overflow: hidden;
+    border-radius: 2rem;
+    position: absolute;
+    left: 50%;
+    bottom: 5%;
+    transform: translateX(-50%);
+}
+
+.redact span img {
+    width: 100%;
+    height: auto;
+}
+.redactMessage {
+    /*overflow: hidden;*/
+    padding: .8rem 0;
+}
+
+.redactMessage label {
+    width: 30%;
+    height: 100%;
+    overflow: hidden;
+    line-height: 2.8rem;
+    float: left;
+    text-align: center;
+    font-size: 1.2em;
+}
+
+.redactMessage input.text {
+    width: 65%;
+    height: 2.2rem;
+    float: left;
+    border: 0;
+    border-radius: .3rem;
+    margin-top: .3rem;
+    text-indent: .8rem;
+    font-size: 1.4em;
+}
+
+.redactMessage textarea {
+    width: 65%;
+    /*height: 6em;*/
+    overflow: hidden;
+    float: left;
+    resize: none;
+    border: 0;
+    border-radius: .3rem;
+    margin-top: .6rem;
+    text-indent: .8rem;
+    line-height: 1.6rem;
+    font-size: 1.4em;
+}
+.chuzhiLabel{
+	/*width: 35%;*/
+}
+.redactFooter {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background: #fff;
+    /*padding: .2rem 0;*/
+    text-align: center;
+}
+
+.redactFooter p {
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    
+    /*text-align: center;*/
+    float: left;
+    /*padding-left: 15%;*/
+}
+.redactFooter p:first-child{
+	border-right: 1px dashed #a09f9f;
+	box-sizing: border-box;
+} 
+.redactFooter p i {
+    width: 2rem;
+    height: 2rem;
+    margin-top: .4rem;
+    margin-left: 28%;
+    overflow: hidden;
+    float: left;
+}
+
+.redactFooter p i img {
+    width: 100%;
+    height: auto;
+}
+
+.redactFooter p span {
+    float: left;
+    width: 30%;
+    height: 100%;
+    line-height: 2.8rem;
+    font-size: 1.2em;
+}
+/*图片编辑*/
+
+/*图片修改*/
+.canvas {
+    overflow: hidden;
+    position: relative;
+}
+.colorList {
+    width: 100%;
+    height: 2rem;
+    background: #fff;
+    text-align: center;
+    position: relative;
+}
+
+.colorList span {
+    width: 1.6rem;
+    height: 1.6rem;
+    overflow: hidden;
+    margin: .2rem;
+    /*background: #000;*/
+    display: inline-block;
+    border-radius: .8rem;
+}
+.picCanvas {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: -1px -1px 5px 1px #d0d0d0;
+}
+
+.picCanvas div {
+    width: 25%;
+    height: 100%;
+    overflow: hidden;
+    float: left;
+    text-align: center;
+    padding-top: 1rem;
+}
+
+.picCanvas div i {
+    width: 40%;
+    height: auto;
+    display: inline-block;
+    position: relative;
+}
+
+.picCanvas div span {
+    width: 100%;
+    height: 1.6rem;
+    overflow: hidden;
+    line-height: 1.6rem;
+    display: block;
+    text-align: center;
+}
+
+.picCanvas div:nth-of-type(1) span {
+    color: #12aaed;
+}
+
+.picCanvas div:nth-of-type(2) span {
+    color: #fec063;
+}
+
+.picCanvas div:nth-of-type(3) span {
+    color: #92ddf1;
+}
+
+.picCanvas div:nth-of-type(4) span {
+    color: #cbd462;
+}
+
+.picCanvas div i img {
+    width: 100%;
+    height: auto;
+}
+/*图片修改*/

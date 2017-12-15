@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>设备详细</title>
+		<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+	    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+	    <meta content="yes" name="apple-mobile-web-app-capable">
+	    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+	    <meta content="telephone=no" name="format-detection">
+	    
+		<link href="../css/public.css" rel="stylesheet" type="text/css">
+    	<link href="../css/alert/css/qikoo.css" rel="stylesheet" type="text/css">
+    	<link href="../public/style/public.css" rel="stylesheet" type="text/css">
+    	<link href="../style/index1.css" rel="stylesheet" type="text/css">
+		<link href="../css/mui/mui_css/mui.min.css" rel="stylesheet" type="text/css">
+		<link href="../public/style/touchzoom/scale.css" rel="stylesheet" type="text/css">
+		<link href="../public/style/slideBar.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="../cordova.js"></script>
+		<script type="text/javascript" src="../public/js/public.js"></script>
+    	<script src="../JM/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../JM/RSA/RSA.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../JM/CryptoJS/core.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../JM/CryptoJS/enc-base64.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../JM/CryptoJS/cipher-core.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../JM/CryptoJS/aes.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../JM/CryptoJS/sha256.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../JM/jmUtil.js" type="text/javascript" charset="utf-8"></script>
+		<!--
+        	<script type="text/javascript" src="../cordova.js"></script>
+        -->
+
+        <script type="text/javascript" src="../public/js/jQuery.alertShow.js"></script>
+		<script src="../js/public/joint.js" type="text/javascript" ></script>
+    	    <script src="../js/AJAX/prodBuild.js" type="text/javascript" charset="utf-8"></script>
+    	<!-- <script src="../js/jQuery.alertShow.js" type="text/javascript" charset="utf-8"></script> -->
+    	<script src="../js/mui.min.js" type="text/javascript" ></script>
+    	<script src="../public/js/touchzoom/scale.js" type="text/javascript" ></script>
+		<style>
+			/*.xljl_header span{float: left;
+			    display: block;
+			    height: 2.8rem;
+			    line-height: 2.8rem;
+			    text-align: center;
+			    color: #fff;}*/
+   .sbxxEditor>header>span{padding-top:2px;font-size: 17px;font-weight: 500;}
+		</style>
+	<script>
+		var tID = window.location.search.split('=')[1];
+		var roleStr = localStorage.getItem(localStorage.getItem("userId")+"roleCode")
+//		var flag =false;
+		$(function(){
+			//if(roleStr=="JLB1&JLB1_PROMANAGER"||roleStr=="JLB1&JLB1_PROMANAGERS"||roleStr=="JLB1&JLB1_ENGINEER"){
+//				$('.editControl').show();
+//				flag=true;
+			//}
+//			if(flag){
+//				sectionheight()
+//			}
+			
+			//window.parent.document.addEventListener("deviceready", onDeviceReady, false);
+			//onDeviceReady();
+	    	
+		});	
+		function onDeviceReady () {
+	    		//alert(2323);
+	    		var jsonObj = eval('(' + data.data702.request + ')');
+		    	jsonObj.data.id=tID;
+	    		//alert(23423);
+
+            //jsonObj.head.roleName=roleName
+            var jsonStr = JSON.stringify(jsonObj);
+            data.data702.request = jsonStr;
+	    		//alert(23235);
+
+            getJSON(url, data.data702, data702);
+	    		//alert(23236);
+
+		    	//getJSON( jsonObj, data702);
+	    	}
+	    	//设备明细
+	    	function data702(v){
+	    		//alert("221"+v)
+	    		//v = eval('(' + v + ')');
+	    		if(v.data){
+	    		//alert(23237);
+
+		    		var dataObj = v.data;
+		    		//alert("2212"+dataObj)
+		    		$('#wzmc').text(dataObj.wlms);
+					$('#jzzj').text(dataObj.user_name);
+					$('#jzy').text(dataObj.t_names);
+					$('#qygs').text(dataObj.area);
+		    		$('#pch').text(dataObj.wzwym);
+		    		$('#cjmc').text(dataObj.supplier_name);
+		    		$('#gcmc').text(dataObj.erpgcmc);
+		    		$('#xmdw').text(dataObj.xmdw);
+		    		$('#jldw').text(dataObj.jldw);
+		    		$('#cgsl').text(dataObj.cgsl);
+		    		$('#zbpc').text(dataObj.zbpc);
+	    		}
+	    	}
+	</script>
+		
+		
+	</head>
+	<body class="sbxxEditor">
+		<section>
+			<div class="content">
+				<span class="contentTitle title14">物资名称:</span>
+				<span id="wzmc" data-proId="" class="cont title14"></span>
+			</div>
+			<div class="content">
+				<span class="contentTitle title14">监造总监:</span>
+				<span id="jzzj" data-val="" class="cont title14"></span>
+			</div>
+			<div class="content">
+				<span class="contentTitle title14">&nbsp;&nbsp;&nbsp;监造员:</span>
+				<span id="jzy" data-val="" class="cont title14"></span>
+			</div>
+			<div class="content">
+				<span class="contentTitle title14">区域归属:</span>
+				<span id="qygs" class="cont title14"></span>
+			</div>
+			<div class="content">
+				<span class="contentTitle title14">&nbsp;&nbsp;&nbsp;批次号:</span>
+				<span id="pch" class="cont title14"></span>
+			</div>
+			<div class="content">
+				<span class="contentTitle title14">厂家名称:</span>
+				<span id="cjmc" class="cont title14"></span>
+			</div>
+			<div class="content">
+				<span class="contentTitle title14">工程名称:</span>
+				<span id="gcmc" class="cont title14"></span>
+			</div>
+			<div class="content">
+				<span class="contentTitle title14">项目单位:</span>
+				<span id="xmdw" class="cont title14"></span>
+			</div>
+			<div class="content">
+				<span class="contentTitle title14">计量单位:</span>
+				<span id="jldw" class="cont title14"></span>
+			</div>
+			<div class="content">
+				<span class="contentTitle title14">采购数量:</span>
+				<span id="cgsl" class="cont title14"></span>
+			</div>
+			<div class="content">
+				<span class="contentTitle title14">招标批次:</span>
+				<span id="zbpc" class="cont title14"></span>
+			</div>
+		</section>
+		<div class="kong" style="height: 0px;"></div>
+		<div class="towerImgs">
+			<ul class="towerImg">
+			</ul>
+		</div>
+		<section class="imgzoom_pack">
+    		<div class="imgzoom_img"><img src="" /></div>
+    	</section>
+	</body>
+	<script>
+		function sectionheight(){
+	    	var indexHight = $('body')[0].offsetHeight;
+			hight3 = indexHight -50;
+			$('body').css("height",hight3+'px')
+    	}
+	</script>
+</html>

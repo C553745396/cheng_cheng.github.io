@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>问题编辑</title>
+		<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+	    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+	    <meta content="yes" name="apple-mobile-web-app-capable">
+	    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+	    <meta content="telephone=no" name="format-detection">
+		<link href="../public/style/alert/css/qikoo.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="../public/style/public.css">
+		<link rel="stylesheet" type="text/css" href="../style/index.css"/>
+ 		<link href="../public/style/slideBar.css" rel="stylesheet" type="text/css">
+		<!--<link href="../css/public/zt_xingliTwo.css" rel="stylesheet" type="text/css">-->
+		<!--<link href="../public/style/alert/css/qikoo.css" rel="stylesheet">-->
+		<script type="text/javascript" src="../cordova.js"></script>
+		<script type="text/javascript" src="../public/js/public.js"></script>
+		<script type="text/javascript" src="../public/js/jquery.js"></script>
+		<script type="text/javascript" src="../js/public/joint.js"></script>
+		<script type="text/javascript" src="../js/AJAX/prodBuild.js"></script>
+		<script type="text/javascript" src="../public/js/jQuery.alertShow.js"></script>
+
+	<script>
+		var tID = window.location.search.split('=')[1];
+		$(function(){
+			var windowSize = $(window).height();		
+			$(window).resize(function(){
+			var windowSizeNow = $(window).height();
+				if(windowSize-windowSizeNow>65){				
+					$(".content").hide();
+				}else{			
+					$(".content").show();
+				}		
+			})
+			document.addEventListener("deviceready", onDeviceReady, false);
+	    	function onDeviceReady () {
+	    		var jsonObj = eval('(' + data.data017.request + ')');
+		    	jsonObj.data.id=tID
+		        var jsonStr = JSON.stringify(jsonObj);
+		        data.data017.request = jsonStr;
+		    	getJSON(url, data.data017, data017);
+	    	}
+	    	function data017(v){
+	    		if(v.data){
+		    		var dataObj = eval(v.data);
+					$('#proName').attr("data-proId",dataObj.pro_id);
+		    		$('#proName').text(dataObj.pro_name);
+		    		
+		    		$('#proType p').attr('data-val',dataObj.prob_type);
+		    		$('#proType p').text(proType(dataObj.prob_type));
+		    		
+		    		$('#shiFou p').attr("data-val",dataObj.prob_report);
+					$('#shiFou p').text(report(dataObj.prob_report));
+		    		
+		    		$('#proDate').val(dataObj.found_date);
+		    		$('#proMiao').val(dataObj.prob_name);
+		    		$('#yiJian').val(dataObj.prob_desc);
+		    		$('#status').val(dataObj.status);
+	    		}
+	    	}
+	    	
+	    	function proType(str){
+	    		if(str==1){
+	    			return "质量"
+	    		}
+	    		if(str==2){
+	    			return "安全"
+	    		}
+	    	}
+	    	function report(str){
+	    		if(str==0){
+	    			return "否"
+	    		}
+	    		if(str==1){
+	    			return "是"
+	    		}
+	    	}
+	    	
+	    	$('.addControl .save').on('click', function() {
+	    		var proType = $('#proType p').attr("data-val");
+	    		var shiFou = $('#shiFou p').attr("data-val");
+	    		var found_date = $('#proDate').val();
+	    		var proMiao = $('#proMiao').val();
+		    	var yiJian = $('#yiJian').val();
+		    	if(!found_date){
+		    		qikoo.dialog.alert("请填写发现时间");
+		    	}else if(!proMiao){
+		    		qikoo.dialog.alert("请填写问题描述");
+//		    	}else if(!yiJian){
+//		    		qikoo.dialog.alert("请填写处理意见");
+		    	}else{
+		    		var jsonObj = eval('(' + data.data009.request + ')');
+			    	jsonObj.data.prob_id=tID;
+			    	jsonObj.data.status=$('#status').val();
+			    	jsonObj.data.pro_id=$('#proName').attr("data-proId");
+			    	jsonObj.data.prob_type=proType;
+			    	jsonObj.data.found_date=found_date;
+			    	jsonObj.data.is_report=shiFou;
+			    	jsonObj.data.prob_name=proMiao;
+			    	jsonObj.data.prob_desc=yiJian;
+			        var jsonStr = JSON.stringify(jsonObj);
+			        data.data009.request = jsonStr;
+			    	getJSON(url, data.data009, data009);
+		    	}
+			});
+			function data009(v){
+		    	var result = v.head.resp;
+	        	if(result==000000){
+	        		history.back()
+	        	}else{
+	        		qikoo.dialog.alert("提交失败");
+	        	}
+		    }
+			$('.addControl .cancel').on('click',function(){
+	    	history.back()
+		})
+			$('.header_btns p').on('click',function(){
+	        	event.stopPropagation()
+	        	var is_img=  $(this).siblings("i").children();
+	        	var is_display=$(this).parent().attr('dis_data');
+	        	
+	        	$('.header_btns').attr('dis_data','0').children('ul').css('display', 'none');
+			    $('.i_coins').attr('src','../img/select_03.png');
+	        	
+	        	if (is_display==0) {
+					$(this).parent().attr('dis_data','1').children('ul').css('display', 'block')
+	        		is_img.attr('src','../img/select_04.png');
+	        	} else{
+					$(this).parent().attr('dis_data','0').children('ul').css('display', 'none')
+	        		is_img.attr('src','../img/select_03.png');
+	        	}
+	        });
+        	
+        	$('.header_btns .i_coins').on('click',function(){
+	        	event.stopPropagation()
+	        	var is_img=  $(this)
+	        	var is_display=$(this).parents(".header_btns").attr('dis_data');
+	        	
+	        	$('.header_btns').attr('dis_data','0').children('ul').css('display', 'none');
+			    $('.i_coins').attr('src','../img/select_03.png');
+	        	
+	        	if (is_display==0) {
+					$(this).parents(".header_btns").attr('dis_data','1').children('ul').css('display', 'block')
+	        		is_img.attr('src','../img/select_04.png');
+	        	} else{
+					$(this).parents(".header_btns").attr('dis_data','0').children('ul').css('display', 'none')
+	        		is_img.attr('src','../img/select_03.png');
+	        	}
+	        });
+        	
+	        $('.header_btns ul').delegate('li','click',function(){
+	        	event.stopPropagation()
+	        	var mus = $(this).text();
+				var val = $(this).attr("data-val");
+				$(this).parent().siblings("p").text(mus);
+				$(this).parent().siblings("p").attr("data-val",val);
+				
+				$(this).parent().hide()
+				$(this).parent().siblings("i").children().attr('src','../img/select_03.png');
+	        })
+	        
+	        $('.content2 textarea').focus(function(){
+	        	$('.header_btns').attr('dis_data','0').children('ul').css('display', 'none');
+			    $('.i_coins').attr('src','../img/select_03.png');
+	        })
+	        $(".srf").focus(function(){
+	        	$(".content").hide();
+	        })
+	         $(".srf").blur(function(){
+	        	$(".content").show();
+	        })
+		});	
+		
+	</script>
+		
+		
+	</head>
+	<body >
+		<div class="indexPage questionIncrease">	
+		<!--<header class="cell-1">
+			<span>确&nbsp;&nbsp;&nbsp;&nbsp;认</span>
+			<span>取&nbsp;&nbsp;&nbsp;&nbsp;消</span>
+		</header>-->
+		<section>
+			<input type="hidden" id="status" value="" />
+			<div class="content">
+				<span class="contentTitle">工程名称:</span>
+	    		<span id="proName" data-proId="" class="cont"></span>
+			</div>
+			<div class="content">
+				<span class="contentTitle">问题类别:</span>
+				<div class="header_btns" id="proType" dis_data="0">
+	    			<p data-val=""></p>
+	    			<i><img src="../img/select_03.png" class="i_coins"></i>
+	    			<ul style="display: none;">
+	    				<li data-val="1">质量</li>
+	    				<li data-val="2">安全</li>
+	    			</ul>
+	    		</div>
+			</div>
+			<div class="content">
+				<span class="contentTitle">公司协助:</span>
+				<div class="header_btns" id="shiFou" dis_data="0">
+	    			<p data-val=""></p>
+	    			<i><img src="../img/select_03.png" class="i_coins"></i>
+	    			<ul style="display: none;">
+	    				<li data-val="0">否</li>
+	    				<li data-val="1">是</li>
+	    			</ul>
+				</div>
+			</div>
+			<div class="content">
+				<span class="contentTitle">发现日期:</span>
+				<input type="date" value="" id="proDate"/>
+			</div>
+			<div class="content2">
+				<span class="contentTitle">问题描述:</span>
+				<textarea id="proMiao" class="srf"></textarea>
+			</div>
+			<div class="content2">
+				<span class="contentTitle">处理意见:</span>
+				<textarea id="yiJian" class="srf"></textarea>
+			</div>
+			
+		</section>
+		<div class="kong" style="height: 0px;"></div>
+		<div class="addControl">
+				<div class="save" style="width: 50%;">
+					<p class="saveImg"></p>
+					<p>保存</p>
+					<p class="border"></p>
+				</div>
+				<div class="cancel" style="width: 50%;">
+					<p class="cancelImg"></p>
+					<p>取消</p>
+				</div>
+			</di
+		</div>
+	</body>
+	<script>
+	$(function(){
+		//底部菜单位置
+		var windowSize = $(window).height();		
+		$(window).resize(function(){
+		var windowSizeNow = $(window).height();
+			if(windowSize-windowSizeNow>65){
+				$('.addControl').css({'display':'static','bottom':'auto'});
+				$('.kong').css({'height':'25px'});
+				$(".content").hide();
+			}else{			
+				$('.addControl').css({'display':'fixed','bottom':'0'});
+//				$('.kong').css({'height':'50px'});
+				$(".content").show();
+			}			
+		})
+	})
+		
+	</script>
+</html>

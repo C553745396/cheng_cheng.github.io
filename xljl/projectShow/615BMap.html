@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+        body, html,#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;}
+        #golist {display: none;}
+        @media (max-device-width: 780px){#golist{display: block !important;}}
+    </style>
+    <link href="../public/style/alert/css/qikoo.css" rel="stylesheet">
+	 <link href="../public/style/slideBar.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="../cordova.js"></script>
+    <script type="text/javascript" src="../js/public.js"></script>
+    <script type="text/javascript" src="../js/public/joint.js"></script>
+    <script type="text/javascript" src="../public/js/jQuery.alertShow.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ED41WD9ZxMj2rBdRfRwnFL11"></script>
+    <script type="text/javascript" src="http://developer.baidu.com/map/jsdemo/demo/convertor.js"></script>
+    <title>地图</title>
+</head>
+<body>
+	<div class="indexPage">	
+<!--<a id="golist" href="/message/802Dateils.html">返回demo列表页</a>-->
+<div id="allmap"></div>
+<div>
+</body>
+</html>
+<script type="text/javascript">
+	var start,end;
+	mylocation();
+    var map = new BMap.Map("allmap");
+    if( window.location.search != null&&window.location.search !=""){
+        var longitude = window.location.search.split('=')[1].split("&")[0];
+        var latitude = window.location.search.split('=')[2];
+        map.centerAndZoom(new BMap.Point(longitude, latitude), 14);
+        //获得marker点的位置
+		var point = new BMap.Point(longitude, latitude);
+		end = point;
+//		var gc = new BMap.Geocoder();
+//		gc.getLocation(point, function(rs){
+//		    var addComp = rs.addressComponents;
+//		    end = addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
+//		});
+//    map.addControl(new BMap.ZoomControl());  //添加地图缩放控件
+        var marker1 = new BMap.Marker(new BMap.Point(longitude, latitude));  //创建标注
+        map.addOverlay(marker1);                 // 将标注添加到地图中
+        //创建信息窗口
+        //var infoWindow1 = new BMap.InfoWindow("普通标注");
+        //marker1.addEventListener("click", function(){this.openInfoWindow(infoWindow1);});
+        marker1.addEventListener("click", function(){
+        	var walking = new BMap.WalkingRoute(map, {renderOptions:{map: map, autoViewport: true}});
+			walking.search(start, end);
+        });
+    }else{
+//        创建地址解析器实例
+        var myGeo = new BMap.Geocoder();
+        // 将地址解析结果显示在地图上,并调整地图视野
+        myGeo.getPoint("南京市软件大道168号", function(point){
+            if (point) {
+                map.centerAndZoom(point, 14);
+                var marker1 = new BMap.Marker(point);
+                map.addOverlay(marker1);
+                marker1.addEventListener("click", function(){
+                	end = "南京市软件大道168号";
+		        	var walking = new BMap.WalkingRoute(map, {renderOptions:{map: map, autoViewport: true}});
+					walking.search(start, end);
+		        });
+            }else{
+                qikoo.dialog.alert("您选择地址没有解析到结果!");
+            }
+        });
+    }
+    function mylocation(){
+    	mam.navigator.openSwitch.lbs(successCallback,errorCallBack);
+		function successCallback(v){
+//	       	start =v.address;
+			start = new BMap.Point(v.longitude,v.latitude)
+		}
+		function errorCallBack(){
+			qikoo.dialog.alert('没有获取到位置');
+		}
+    	
+    	
+//		var longitude,latitude;
+//		mam.navigator.geolocation.getCurrentPosition(successCallback,errorCallback)
+//      function successCallback(position){
+//      	longitude = position.coords.longitude;
+//      	latitude = position.coords.latitude;
+//      	var gpsPoint = new BMap.Point(longitude,latitude);
+//      	
+//      	//坐标转换，地理坐标转换成平面坐标
+//			BMap.Convertor.translate(gpsPoint,0,translateCallback);
+//      	//坐标转换完之后的回调函数
+//			function translateCallback(point){
+//			   // 百度地图API功能
+//			   var point = new BMap.Point(point.lng,point.lat);
+//			   var gc = new BMap.Geocoder();
+//			   gc.getLocation(point, function(rs){
+//			       var addComp = rs.addressComponents;
+//			       start = addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
+//				});
+//			}
+//       }
+//       function errorCallback(){
+//       	qikoo.dialog.alert('没有获取到位置');
+//       }
+	}
+</script>
