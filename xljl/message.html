@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8"/>
+    <title>兴力监理</title>
+    <!--<meta content="text/html; charset=utf-8" http-equiv="Content-Type">-->
+    <!--<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">-->
+    <!--<meta content="yes" name="apple-mobile-web-app-capable">-->
+    <!--<meta content="black" name="apple-mobile-web-app-status-bar-style">-->
+    <!--<meta content="telephone=no" name="format-detection">-->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link href="public/style/alert/css/qikoo.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="public/style/public.css">
+    <link rel="stylesheet" type="text/css" href="style/indexSecond.css"/>
+    <link rel="stylesheet" type="text/css" href="public/style/slideBar.css">
+
+    <!--标准mui.css-->
+    <link rel="stylesheet" href="public/style/mui.min.css">
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="public/js/public.js"></script>
+    <script type="text/javascript" src="public/js/jquery.js"></script>
+    <script type="text/javascript" src="public/js/mui.min.js"></script>
+    <!--<script type="text/javascript" src="js/public/joint.js"></script>-->
+    <script type="text/javascript" src="public/js/jQuery.alertShow.js"></script>
+    <script type="text/javascript" src="js/AJAX/coreBuild.js"></script>
+    <!--<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ED41WD9ZxMj2rBdRfRwnFL11"></script>
+    <script type="text/javascript" src="http://developer.baidu.com/map/jsdemo/demo/convertor.js"></script>-->
+    <style>
+        .pmName {
+            width: 300px;
+            height: 200px;
+            overflow: auto;
+
+        }
+
+        .pmName > label {
+            width: 100%;
+            display: inline-block;
+            text-align: left;
+            position: relative;
+            text-indent: 6%;
+        }
+
+        .pmName > label > input {
+            position: absolute;
+            top: 38%;
+        }
+
+        .pmName > label > span {
+            padding-left: 5%;
+            width: 95%;
+            height: 20px;
+            display: block;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        .pmName > label > span:last-child {
+            color: #28907E;
+        }
+
+        .mui-slider-indicator {
+            bottom: 0;
+        }
+
+        .mui-slider {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+
+
+<body>
+
+</body>
+<script type="text/javascript">
+
+
+    $(function () {
+
+        document.addEventListener("deviceready", onDeviceReady, false);
+        function onDeviceReady() {
+            var obj = new Object();
+            obj.id = localStorage.getItem("userId");
+            var messId = localStorage.getItem(obj.id + "messId");
+            if (messId != null) {
+                var jsonObj = eval('(' + coreData.data013.request + ')');
+                jsonObj.head.userId = obj.id;
+                jsonObj.data.retIds = messId;
+                var jsonStr = JSON.stringify(jsonObj);
+                coreData.data013.request = jsonStr;
+                getJSON(url, coreData.data013, data013)
+            } else {
+                getJSON(url, coreData.data013, data013)
+            }
+            function data013(v2) {
+//                alert(v2)
+                var uId = localStorage.getItem("userId")
+//                alert(1)
+                if (v2.data.cont) {
+//                    alert(2)
+                    var dataObj = eval(v2.data.cont)
+                    var localarr = localStorage.getItem(uId + "messArr")
+//                    alert(3)
+                    if (localarr == null) {
+                        for (var a in dataObj) {
+                            dataObj[a].lookType = '0'
+                            dataObj[a].sendType = '0'
+                        }
+//                        alert(4)
+                        localStorage.setItem(uId + "messArr", JSON.stringify(dataObj))
+                    } else {
+//                        alert(5)
+                        for (var a in dataObj) {
+                            dataObj[a].lookType = '0'
+                            dataObj[a].sendType = '0'
+                        }
+                        localarr = JSON.stringify(dataObj) + "&" + localarr
+                        localStorage.setItem(uId + "messArr", localarr)
+
+                    }
+                    var notiIdStr = "";
+                    for (var i in dataObj) {
+                        var notiId = dataObj[i].ID
+                        if (notiIdStr == "") {
+                            notiIdStr = notiId
+                        } else {
+                            notiIdStr = notiIdStr + "," + notiId
+                        }
+                    }
+                    localStorage.setItem(uId + "messId", notiIdStr)
+                }
+
+                var localarr = localStorage.getItem(uId + "messArr")
+                if (localarr != null) {
+                    var arr = new Array();
+                    arr = localarr.split("&")
+                    var a = 0;
+                    for (var i in arr) {
+                        var jobj = JSON.parse(arr[i])
+                        for (var j in jobj) {
+                            if (jobj[j].lookType == '0') {
+                                a++
+                            }
+                        }
+                    }
+                    if (a != 0) {
+//				    		$('.num').css('display','block')
+//                        document.getElementById("noticeLen").style.display = 'block'
+                    }
+                }
+
+                window.location.href = 'myMessage/201myMessage.html';
+            }
+        }
+
+    })
+
+</script>
+
+</html>
+<!--<script type="text/javascript">
+	$('.indexcell-4').height($('.indexHeader').height()-$('.indexcell-1').height()-$('.indexcell-3').height()-$('.indexFooter').height())
+</script>-->

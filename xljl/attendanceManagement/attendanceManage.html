@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>出勤管理</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <link href="../public/style/public.css" rel="stylesheet" type="text/css">
+    <link href="../style/index.css" rel="stylesheet" type="text/css">
+    <link href="../public/style/alert/css/qikoo.css" rel="stylesheet">
+    <link href="../public/style/slideBar.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="../cordova.js"></script>
+	<script type="text/javascript" src="../public/js/public.js"></script>
+    <script type="text/javascript" src="../public/js/jquery.js"></script>
+    <script type="text/javascript" src="../public/js/jQuery.alertShow.js"></script>
+    <script type="text/javascript" src="../js/public/joint.js"></script>
+    <script type="text/javascript" src="../js/AJAX/coreBuild.js"></script>
+    
+</head>
+<body >
+	<div class="indexPage attendanceManagement">	
+<header class="attendanceHeader">
+    <p><img src="../img/attendance.png"/></p>
+</header>
+<section class="kaoqinSec">
+    <div class="workAttendance">
+        <div>上班签到</div>
+        <p>08:30</p>
+        <span>2016-02-01</span>
+        <!--<i><img src="../images/signOn.png"/></i>-->
+    </div>
+    <div class="ReturnToWork">
+        <p>18:30</p>
+        <span>2016-02-01</span>
+        <!--<i><img src="../images/signOut.png"/></i>-->
+
+        <div>下班签退</div>
+    </div>
+</section>
+<div class="cell-3 attendanceFooter">
+    <p class="cell-1">休假申请</p>
+
+    <p class="cell-1">考勤记录</p>
+</div>
+</div>
+</body>
+</html>
+
+<script type="text/javascript">
+$(function(){
+    document.addEventListener("deviceready", onDeviceReady, false);
+    function onDeviceReady () {
+	
+    }
+    var kaoUserId = localStorage.getItem("userId")
+    var stime = localStorage.getItem(kaoUserId+"startTime");
+    if (stime != null) {
+        var arrstime = stime.split(" ");
+        $('.workAttendance p').text(arrstime[1].substr(0, 5));
+        $('.workAttendance span').text(arrstime[0]);
+        localStorage.setItem(kaoUserId+'startTime', stime);
+    } else {
+        $('.workAttendance p').text("");
+        $('.workAttendance span').text("");
+    }
+
+    var etime = localStorage.getItem(kaoUserId+"endTime");
+    if (etime != null) {
+    	if(etime=='null'){
+    		$('.ReturnToWork p').text("");
+        	$('.ReturnToWork span').text("");
+    	}else{
+    		var arretime = etime.split(" ");
+            $('.ReturnToWork p').text(arretime[1].substr(0, 5));
+            $('.ReturnToWork span').text(arretime[0]);
+            localStorage.setItem(kaoUserId+'endTime', etime);
+    	}
+        
+    } else {
+        $('.ReturnToWork p').text("");
+        $('.ReturnToWork span').text("");
+    }
+    
+	
+	var execType="";
+    $('.workAttendance div').on('click', function () {
+    	if(localStorage.getItem(kaoUserId+"startTime")!=null){
+    		if(localStorage.getItem(kaoUserId+"endTime")==null){		
+    			qikoo.dialog.alert("请签退结束后再签到")
+    			return
+    		}
+    	}
+    	qikoo.dialog.confirm('你确定要签到吗？',function(){
+	    	if(localStorage.getItem(kaoUserId+"startTime")!=null){
+	    		if(localStorage.getItem(kaoUserId+"endTime")==null){
+	    			
+	    		}else{
+	    			localStorage.removeItem(kaoUserId+"endTime")
+	    			$('.ReturnToWork p').text("");
+	        		$('.ReturnToWork span').text("");
+	    		}
+	    	}
+	    	var jsonObj = eval('('+coreData.data003.request+')');
+	    	//加坐标
+			$("body").append('<div class="loading" id="loadingGif" style="display:block"><img src="../img/loading.gif"></div>');
+	        $("body").append('<div class="loadingMoveDiv" id="loadingGifDiv" style="top: 0;"></div>');
+	    	var setTime=setTimeout(function(){ 
+	    		$("#loadingGif").css("display","none");  
+	    		$("#loadingGif").remove();
+	    		
+	    		$("#loadingGifDiv").css("display","none");  
+	    		$("#loadingGifDiv").remove();
+	    	},30000);
+			mam.navigator.openSwitch.lbs(successCallback,errorCallBack);
+			function successCallback(v){
+				$("#loadingGif").css("display","none");
+				$("#loadingGif").remove();
+				$("#loadingGifDiv").css("display","none");
+				$("#loadingGifDiv").remove();
+				clearTimeout(setTime);
+				jsonObj.data.posy=v.longitude
+				jsonObj.data.posx=v.latitude
+				jsonObj.data.locationStr=v.address
+				var jsonStr = JSON.stringify(jsonObj);
+				coreData.data003.request = jsonStr;
+		        getJSON(url, coreData.data003, function (data) {
+		            var workId = data.data.dutykey;
+		            localStorage.setItem(kaoUserId+"dutykey",workId)
+		            var exceId = data.data.dutyexcp;
+		            execType = '0'
+		            if(exceId!='0'){
+		            	if(exceId=='1'){
+		            		mam.navigator.openSwitch.openSwitch(successQiandao,errorQiaodao,1,"100");
+		            		jobReason()
+		            	}else{
+		            		var arretime = data.data.dutytime.split(" ");
+				        	$('.workAttendance p').text(arretime[1].substr(0, 5));
+				        	$('.workAttendance span').text(arretime[0]);
+				            localStorage.setItem(kaoUserId+'startTime', data.data.dutytime);
+				            mam.navigator.openSwitch.openSwitch(successQiandao,errorQiaodao,1,"100");
+		            		otherReason(exceId)
+		            	}
+		            }else{
+			            var arretime = data.data.dutytime.split(" ");
+			        	$('.workAttendance p').text(arretime[1].substr(0, 5));
+			        	$('.workAttendance span').text(arretime[0]);
+			            localStorage.setItem(kaoUserId+'startTime', data.data.dutytime);
+		            	qikoo.dialog.alert('签到成功');
+		            	mam.navigator.openSwitch.openSwitch(successQiandao,errorQiaodao,1,"100");
+		            	
+		            }
+		        })
+			}
+			function errorCallBack(){
+				$("#loadingGif").css("display","none");
+				$("#loadingGif").remove();
+				$("#loadingGifDiv").css("display","none");
+				$("#loadingGifDiv").remove();
+				clearTimeout(setTime);
+				jsonObj.data.posy=""
+				jsonObj.data.posx=""
+				jsonObj.data.locationStr=""
+				var jsonStr = JSON.stringify(jsonObj);
+				coreData.data003.request = jsonStr;
+		        getJSON(url, coreData.data003, function (data) {
+		            var workId = data.data.dutykey;
+		            localStorage.setItem(kaoUserId+"dutykey",workId)
+		            var exceId = data.data.dutyexcp;
+		            execType = '0'
+		             if(exceId!='0'){
+		            	if(exceId=='1'){
+		            		mam.navigator.openSwitch.openSwitch(successQiandao,errorQiaodao,1,"100");
+		            		jobReason()
+		            	}else{
+		            		var arretime = data.data.dutytime.split(" ");
+				        	$('.workAttendance p').text(arretime[1].substr(0, 5));
+				        	$('.workAttendance span').text(arretime[0]);
+				            localStorage.setItem(kaoUserId+'startTime', data.data.dutytime);
+				            mam.navigator.openSwitch.openSwitch(successQiandao,errorQiaodao,1,"100");
+		            		otherReason(exceId)
+		            	}
+		            }else{
+			            var arretime = data.data.dutytime.split(" ");
+			        	$('.workAttendance p').text(arretime[1].substr(0, 5));
+			        	$('.workAttendance span').text(arretime[0]);
+			            localStorage.setItem(kaoUserId+'startTime', data.data.dutytime);
+		            	qikoo.dialog.alert('签到成功');
+		            	mam.navigator.openSwitch.openSwitch(successQiandao,errorQiaodao,1,"100");
+		            	
+		            }
+		        })
+			}
+        },function(){
+			
+		}); 
+    });
+	function successQiandao(v){}
+    function errorQiaodao(v){}
+    $('.ReturnToWork div').on('click', function () {
+    	if(localStorage.getItem(kaoUserId+"startTime")==null||
+	    	localStorage.getItem(kaoUserId+"startTime")=='null'){
+    		qikoo.dialog.alert("请先签到")
+    		return
+    	}
+	    var test1 = localStorage.getItem(kaoUserId+"endTime")
+	    if(test1!=null){
+    		qikoo.dialog.alert('您已经签退过');
+    		return
+    	}
+    	qikoo.dialog.confirm('你确定要签退吗？',function(){
+	    	if(test1==null){
+	    		var jsonObj = eval('('+coreData.data004.request+')');
+				jsonObj.data.dutykey = localStorage.getItem(kaoUserId+"dutykey");
+				$("body").append('<div class="loading" id="loadingGif" style="display:block"><img src="../img/loading.gif"></div>');
+		        $("body").append('<div class="loadingMoveDiv" id="loadingGifDiv" style="top: 0;"></div>');
+		    	var setTime=setTimeout(function(){ 
+		    		$("#loadingGif").css("display","none");  
+		    		$("#loadingGif").remove();
+		    		
+		    		$("#loadingGifDiv").css("display","none");  
+		    		$("#loadingGifDiv").remove();
+		    	},30000);
+				mam.navigator.openSwitch.lbs(successCallback,errorCallBack);
+				function successCallback(v){
+					$("#loadingGif").css("display","none");
+					$("#loadingGif").remove();
+					$("#loadingGifDiv").css("display","none");
+					$("#loadingGifDiv").remove();
+					clearTimeout(setTime);
+					jsonObj.data.posy=v.longitude
+					jsonObj.data.posx=v.latitude
+					jsonObj.data.locationStr=v.address
+					var jsonStr = JSON.stringify(jsonObj);
+					coreData.data004.request = jsonStr;
+		    		getJSON(url, coreData.data004, function (data) {
+			            var exceId = data.data.dutyexcp;
+			            execType = '1'
+			            if(exceId!='0'){
+			            	if(exceId=='1'){
+			            		mam.navigator.openSwitch.openSwitch(successQiantui,errorQiantui,0,"100");
+			            		jobReason()
+			            	}else{
+			            		var arretime = data.data.dutytime.split(" ");
+					        	$('.ReturnToWork p').text(arretime[1].substr(0, 5));
+					        	$('.ReturnToWork span').text(arretime[0]);
+					            localStorage.setItem(kaoUserId+'endTime', data.data.dutytime);
+					            mam.navigator.openSwitch.openSwitch(successQiantui,errorQiantui,0,"100");
+			            		otherReason(exceId)
+			            	}
+			            }else{
+				            var arretime = data.data.dutytime.split(" ");
+				        	$('.ReturnToWork p').text(arretime[1].substr(0, 5));
+				        	$('.ReturnToWork span').text(arretime[0]);
+				            localStorage.setItem(kaoUserId+'endTime', data.data.dutytime);
+				            qikoo.dialog.alert('签退成功');
+				            mam.navigator.openSwitch.openSwitch(successQiantui,errorQiantui,0,"100");
+				            
+			            }
+		            })
+				}
+				function errorCallBack(){
+					$("#loadingGif").css("display","none");
+					$("#loadingGif").remove();
+					$("#loadingGifDiv").css("display","none");
+					$("#loadingGifDiv").remove();
+					clearTimeout(setTime);
+					jsonObj.data.posy=""
+					jsonObj.data.posx=""
+					jsonObj.data.locationStr=""
+					var jsonStr = JSON.stringify(jsonObj);
+					coreData.data004.request = jsonStr;
+		    		getJSON(url, coreData.data004, function (data) {
+			            var exceId = data.data.dutyexcp;
+			            execType = '1'
+			            if(exceId!='0'){
+			            	if(exceId=='1'){
+			            		mam.navigator.openSwitch.openSwitch(successQiantui,errorQiantui,0,"100");
+			            		jobReason()
+			            	}else{
+			            		var arretime = data.data.dutytime.split(" ");
+					        	$('.ReturnToWork p').text(arretime[1].substr(0, 5));
+					        	$('.ReturnToWork span').text(arretime[0]);
+					            localStorage.setItem(kaoUserId+'endTime', data.data.dutytime);
+					            mam.navigator.openSwitch.openSwitch(successQiantui,errorQiantui,0,"100");
+			            		otherReason(exceId)
+			            	}
+			            }else{
+				            var arretime = data.data.dutytime.split(" ");
+				        	$('.ReturnToWork p').text(arretime[1].substr(0, 5));
+				        	$('.ReturnToWork span').text(arretime[0]);
+				            localStorage.setItem(kaoUserId+'endTime', data.data.dutytime);
+				            qikoo.dialog.alert('签退成功');
+				            mam.navigator.openSwitch.openSwitch(successQiantui,errorQiantui,0,"100");
+				            
+			            }
+		            })
+				}
+	    	}else if(test1!='null'){
+	    		
+	    	}
+    	},function(){
+			
+		}); 
+    	
+    });
+	function successQiantui(v){}
+    function errorQiantui(v){}
+	function jobReason(){
+		if(execType=='0'){
+			qikoo.dialog.confirm('加班异常，是否重新签到？',function(){
+				
+				var jsonObj = eval('('+coreData.data003.request+')');
+				jsonObj.data.flag='1'
+				//加坐标
+				$("body").append('<div class="loading" id="loadingGif" style="display:block"><img src="../img/loading.gif"></div>');
+		        $("body").append('<div class="loadingMoveDiv" id="loadingGifDiv" style="top: 0;"></div>');
+		    	var setTime=setTimeout(function(){ 
+		    		$("#loadingGif").css("display","none");  
+		    		$("#loadingGif").remove();
+		    		
+		    		$("#loadingGifDiv").css("display","none");  
+		    		$("#loadingGifDiv").remove();
+		    	},30000);
+				mam.navigator.openSwitch.lbs(successCallback,errorCallBack);
+				function successCallback(v){
+					$("#loadingGif").css("display","none");
+					$("#loadingGif").remove();
+					$("#loadingGifDiv").css("display","none");
+					$("#loadingGifDiv").remove();
+					clearTimeout(setTime);
+					jsonObj.data.posy=v.longitude
+					jsonObj.data.posx=v.latitude
+					jsonObj.data.locationStr=v.address
+					var jsonStr = JSON.stringify(jsonObj);
+					coreData.data003.request = jsonStr;
+					getJSON(url, coreData.data003, function (data) {
+						var workId = data.data.dutykey;
+		            	localStorage.setItem(kaoUserId+"dutykey",workId)
+						var arretime = data.data.dutytime.split(" ");
+			        	$('.workAttendance p').text(arretime[1].substr(0, 5));
+			        	$('.workAttendance span').text(arretime[0]);
+			            localStorage.setItem(kaoUserId+'startTime', data.data.dutytime);
+		            	qikoo.dialog.alert('签到成功');
+					})
+				}
+				function errorCallBack(){
+					$("#loadingGif").css("display","none");
+					$("#loadingGif").remove();
+					$("#loadingGifDiv").css("display","none");
+					$("#loadingGifDiv").remove();
+					clearTimeout(setTime);
+					jsonObj.data.posy=""
+					jsonObj.data.posx=""
+					jsonObj.data.locationStr=""
+					var jsonStr = JSON.stringify(jsonObj);
+					coreData.data003.request = jsonStr;
+					getJSON(url, coreData.data003, function (data) {
+						var workId = data.data.dutykey;
+		            	localStorage.setItem(kaoUserId+"dutykey",workId)
+						var arretime = data.data.dutytime.split(" ");
+			        	$('.workAttendance p').text(arretime[1].substr(0, 5));
+			        	$('.workAttendance span').text(arretime[0]);
+			            localStorage.setItem(kaoUserId+'startTime', data.data.dutytime);
+		            	qikoo.dialog.alert('签到成功');
+					})
+				}
+			},function(){
+				
+			});
+		}else{
+			qikoo.dialog.confirm('加班异常，是否重新签退？',function(){	
+				var jsonObj = eval('('+coreData.data004.request+')');
+				jsonObj.data.flag='1'
+				jsonObj.data.dutykey = localStorage.getItem(kaoUserId+"dutykey");
+				//加坐标
+				$("body").append('<div class="loading" id="loadingGif" style="display:block"><img src="../img/loading.gif"></div>');
+		        $("body").append('<div class="loadingMoveDiv" id="loadingGifDiv" style="top: 0;"></div>');
+		    	var setTime=setTimeout(function(){ 
+		    		$("#loadingGif").css("display","none");  
+		    		$("#loadingGif").remove();
+		    		
+		    		$("#loadingGifDiv").css("display","none");  
+		    		$("#loadingGifDiv").remove();
+		    	},30000);
+				mam.navigator.openSwitch.lbs(successCallback,errorCallBack);
+				function successCallback(v){
+					jsonObj.data.posy=v.longitude
+					jsonObj.data.posx=v.latitude
+					jsonObj.data.locationStr=v.address
+					var jsonStr = JSON.stringify(jsonObj);
+					coreData.data004.request = jsonStr;
+					getJSON(url, coreData.data004, function (data) {
+			            var arretime = data.data.dutytime.split(" ");
+		        	$('.ReturnToWork p').text(arretime[1].substr(0, 5));
+		        	$('.ReturnToWork span').text(arretime[0]);
+		            localStorage.setItem(kaoUserId+'endTime', data.data.dutytime);
+		            qikoo.dialog.alert('签退成功');
+					})
+				}
+				function errorCallBack(){
+					jsonObj.data.posy=""
+					jsonObj.data.posx=""
+					jsonObj.data.locationStr=""
+					var jsonStr = JSON.stringify(jsonObj);
+					coreData.data004.request = jsonStr;
+					getJSON(url, coreData.data004, function (data) {
+			            var arretime = data.data.dutytime.split(" ");
+		        	$('.ReturnToWork p').text(arretime[1].substr(0, 5));
+		        	$('.ReturnToWork span').text(arretime[0]);
+		            localStorage.setItem(kaoUserId+'endTime', data.data.dutytime);
+		            qikoo.dialog.alert('签退成功');
+					})
+				}
+			},function(){
+				
+			});
+		}
+		
+	}
+	function otherReason(exceId){
+		var dialogType = ''
+		if(exceId=='2'){
+			dialogType='2'
+		}
+		if(exceId=='4'){
+			dialogType='4'
+		}
+		qikoo.dialog.confirm2(dialogType,function(){
+			var reason = document.getElementById("confirmText").value
+//			if(reason==""){
+////				document.getElementById("confirmText").placeholder='请输入异常原因'
+//				return
+//			}else{
+				qikoo.dialog.hide()
+//			}
+			var jsonObj = eval('('+coreData.data006.request+')');
+			jsonObj.data.dutykey = localStorage.getItem(kaoUserId+"dutykey");
+			jsonObj.data.dutytype = execType;
+			jsonObj.data.exception = reason;
+			var jsonStr = JSON.stringify(jsonObj);
+			coreData.data006.request = jsonStr;
+			getJSON(url, coreData.data006, function (data) {
+				if(execType=='0'){
+					qikoo.dialog.alert('签到成功');
+				}else{
+		            qikoo.dialog.alert('签退成功');
+				}
+	            
+	        })
+		},function(){
+			
+		});	
+		
+	}
+})
+</script>
