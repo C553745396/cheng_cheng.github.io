@@ -1,0 +1,766 @@
+/**
+ *首页样式开始 
+ */
+/**
+ *首页样式结束 
+ */
+/**
+ *考勤管理样式开始 
+ */
+.oneName{
+	font-size: 14px;
+/*	color: #444;*/
+}
+.twoName{
+	font-size: 12px;
+	/*color: #888;*/
+}
+.arcell-1 {
+	float: left;
+	width: 100%;
+	background: #27a6e8;
+	line-height: 3em;
+	padding: 0.5em 0;
+	margin-top: 1.2em;
+}
+.arcell-1 i {
+	float: left;
+	width: 10%;
+	margin-left: 20%;
+}
+.arcell-1 i img {
+	width: 100%;
+	vertical-align: middle;
+}
+#ARtime {
+	float: left;
+	width: 55%;
+	font-size: 27px;
+	color: white;
+	letter-spacing: 2px;
+	margin-left: 4%;
+	font-family: arial;
+}
+.ARdate {
+	float: left;
+	width: 55%;
+	font-size: 18px;
+	color: white;
+	letter-spacing: 2px;
+	margin-left: 5%;
+	font-family: arial;
+}
+.arcell-2 {
+	/*float: left;*/
+	/*width: 90%;*/
+	/*background: #27a6e8;*/
+	/*line-height: 2em;*/
+	text-align: center;
+}
+.arcell-2 span {
+	float: left;
+	border-radius: 4px;
+	font-size: 16px;
+	letter-spacing: 1px;
+	border: 1px solid white;
+	color: white;
+	width: 70%;
+	margin: 0 15%;
+	margin-top: 2rem;
+	padding: .6em 0;
+	font-size: 18px;
+}
+
+.arcell-2 span:last-of-type {
+	margin: 1rem 15% 2.8rem;
+}
+.arcell-2 p:first-of-type {
+	float: left;
+	/*margin-top: -2.8rem;*/
+	text-align: center;
+	color: white;
+	width: 100%;
+	font-size: 12px;
+	padding-top: 0.5em;
+}
+.arcell-2 p:last-of-type {
+	float: left;
+	margin-top: -2.8rem;
+	text-align: center;
+	width: 100%;
+}
+.arcell-2 p:last-child {
+	color: white;
+	font-size: 12px;
+	padding-top: 0.5em;
+}
+.arcell-3 {
+	float: left;
+	width: 100%;
+	height: auto;
+	overflow: auto;
+}
+.arcell-3 i {
+	float: left;
+	padding: 12%;
+	width: 25%;
+	margin-top: -1.5em;
+}
+.arcell-3 i:last-of-type {
+	margin-left: -1px;
+}
+.arcell-3 i img {
+	width: 100%;
+}
+/**
+ *考勤管理样式结束 
+ */
+/**
+ *工程一览样式开始 
+ */
+
+.plcell-1 {
+	/*margin-top: .8rem;*/
+	width: 100%;
+	overflow-y: auto;
+	background-color: #ededed;
+}
+.plcell-1 ul li {
+	height: 2.8rem;
+	line-height: 2.8rem;
+	overflow: hidden;
+	border-bottom: 1px solid #D6D6D6;
+}
+.plcell-1 ul li p:nth-child(2n-1) {
+	float: left;
+	width: 25%;
+	margin-left: 5%;
+	padding: .5em 0;
+	line-height: 2.2em;
+	/*border-bottom: 1px solid #c8c8c8;*/
+	color: #4c4b4b;
+}
+.plcell-1 ul li p:nth-child(2n) {
+	float: left;
+	width: 65%;
+	color: #7c7c7c;
+	padding: .5em 0;
+	
+	border-top: -1px;
+	margin-right: 5%;
+	line-height: 2.2em;
+	overflow-x: auto;
+	overflow-y: hidden;
+	white-space: nowrap;
+}
+/*.plcell-2 {
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+	line-height: 3rem;
+	border-bottom: 1px solid #c8c8c8;
+	box-shadow: 0px 1.5rem 0px #f5f5f5;
+}
+.plcell-2 p {
+	border-right: 1px solid #c8c8c8;
+	color: #7c7c7c;
+	float: left;
+	font-size: 1.1em;
+	line-height: 2rem;
+	margin: 0.5em 1%;
+	width: 22.7%;
+}
+.i1 {
+	margin-left: .5em;
+}
+.i2 {
+	margin: 0 .2em;
+}
+.i3 {
+	margin-left: .2em;
+}
+.plcell-2 p i img {
+	width: 12%;
+	height: auto;
+}*/
+
+.plcell-2 {
+	width: 100%;
+	height: 50px;
+	overflow: hidden;
+	border-bottom: 1px solid #c8c8c8;
+	box-shadow: 0px .8rem 0px #f5f5f5;
+	background-color: #fff;
+}
+.navi li {
+	width: 25%;
+	height: 50px;
+	float: left;
+	text-align: center;
+}
+.navi li div {
+	width: 100%;
+	height: 50%;
+	/*box-sizing: border-box;
+	border-right: 1px solid #dfe1e2;*/
+	position: relative;
+	top: 25%;
+}
+/*.navi li:last-child div {
+	border-right: none;
+}*/
+.navi_name {
+	color: #878787;
+	font-size: 12px;
+	width: 85%;
+	height: 100%;
+	display: inline-block;
+	line-height: 25px;
+	color: #ffffff;
+	box-shadow: 0px 1px 5px #888888;
+	background: -moz-linear-gradient(top, #88d3ff, #6bc4f8);
+	background: -webkit-gradient(linear, 0 0, 0 100%, from(#88d3ff), to(#6bc4f8));
+	background: linear-gradient(top, #88d3ff, #6bc4f8);
+}
+/*.navi .dot {
+	width: 8px;
+	height: 8px;
+	background: url('../../img/plRound.png');
+	background-size: contain;
+	position: relative;
+	top: -2px;
+}*/
+/*.navi .sanjiao {
+	width: 8px;
+	height: 4px;
+	display: inline-block;
+	background: url('../../img/plTriangle.png') no-repeat;
+	background-size: contain;
+	position: relative;
+	top: -3px;
+	left: 0.2em;
+}*/
+.plcell-3 {
+	background: #f5f5f5 none repeat scroll 0 0;
+	display: block;
+	height: 17rem;
+	overflow: auto;
+	position: absolute;
+	width: 100%;
+	z-index: 11;
+	box-shadow: 0 0 2px #D2D2D2;
+}
+.plcell-3 >p>img {
+	height: auto;
+	margin-left: 7.5rem;
+	width: 1rem;
+}
+.pl3-left {
+	float: left;
+	width: 40%;
+	background: #fff none repeat scroll 0 0;
+	height: 16rem;
+	overflow-y: auto;
+}
+.pl3-left p {
+	color: #4c4b4b;
+	border-bottom: 1px solid #f5f5f5;
+	line-height: 3rem;
+	padding-left: 1em;
+}
+.pl3-left p:nth-of-type(1) {
+	background: #f5f5f5 none repeat scroll 0 0;
+}
+.pl3-right {
+	float: left;
+	width: 56%;
+	height: 16rem;
+	padding: 0.5em 2%;
+}
+.pl3-right span {
+	float: left;
+	color: #878787;
+}
+.pl3-right span:nth-child(odd) {
+	width: 28%;
+	text-align: center;
+	padding: 0.5em 0;
+	margin: .8em 0;
+}
+.pl3-right span:nth-child(even) {
+	padding: 0.5em 6%;
+	width: 46%;
+	height: 14px;
+	margin: .8em 4%;
+	background: #fff none repeat scroll 0 0;
+	border-radius: 5px;
+	
+}
+.pl3-right span i {
+	float: right;
+}
+.pl3-right span i img {
+	width: 55%;
+	margin-bottom: 0.2em;
+}
+.pl3-right strong {
+	float: left;
+	width: 60%;
+	margin: .8em 0;
+}
+.pl3-right strong i:nth-of-type(1) {
+	float: left;
+	width: 30%;
+	margin-left: 20%;
+}
+.pl3-right strong i:nth-of-type(2) {
+	float: left;
+	width: 30%;
+	margin-left: 5%;
+}
+.pl3-bottom {
+	width: 100%;
+}
+.pl3-right p {
+	float: left;
+	width: 60%;
+	margin-left: 30%;
+	margin-right: 10%;
+	background: #4ab3f0;
+	text-align: center;
+	color: white;
+	border-radius: 5px;
+	line-height: 1.8rem;
+}
+.shield {
+	background: rgba(0, 0, 0, 0.4) none repeat scroll 0 0;
+	display: none;
+	height: 100%;
+	left: 0;
+	margin-top: 20%;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 10;
+}
+.pl3-right span input {
+	border: medium none;
+	float: left;
+	height: auto;
+	width: 100%;
+	color: #878787;
+}
+.plUl-1 {
+	height: auto;
+	overflow-y: auto;
+	position: absolute;
+	right: 1.85em;
+	top: 3.5em;
+	width: 32%;
+	z-index: 10;
+	color: #878787;
+	/*border-radius: 5px;*/
+	border: 1px solid #a09f9f;
+	background-color: #fafafa;
+}
+.plUl-1 li {
+	float: left;
+	line-height: 1.2em;
+	text-indent: .6em;
+	width: 100%;
+	overflow-x: auto;
+	overflow-y: hidden;
+	white-space: nowrap;
+	border-bottom: 1px dashed #a09f9f;
+	padding-top: .2rem;
+	padding-bottom: .2rem;
+}
+.plUl-1 li:last-child{
+	border-bottom: none;
+}
+/*.plUl-2 {
+	height: auto;
+	overflow: hidden;
+	position: absolute;
+	right: 1.8em;
+	top: 4.3em;
+	width: 32%;
+	z-index: 10;
+	color: #878787;
+	border-radius: 5px;
+}*/
+/*.plUl-2 li {
+	background: #ffffff none repeat scroll 0 0;
+	border-bottom: 1px solid #fff;
+	float: left;
+	line-height: 1.2em;
+	text-indent: 1em;
+	width: 100%;
+}*/
+/**
+ *工程一览样式结束 
+ */
+/**
+ *查看消息  checkMess.html 
+ */
+
+.sendMessage {
+	width: 100%;
+	overflow: hidden;
+	border-top: 2px solid #e2e2e2;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	background: #fff;
+}
+.sendMessage p {
+	float: left;
+	height: 0rem;
+	margin: 0.1em 0.1em 0 0;
+	position: relative;
+	right: 3.2em;
+	top: -0.1em;
+	width: 2rem;
+	color: #8b8b8b;
+}
+/*.sendMessage-cell1 {
+	float: left;
+	width: 100%;
+	line-height: 4em;
+	background-image: url('../img/messageBackground.png');
+	background-repeat: no-repeat;
+	background-size: 100% 4em;
+}
+.sendMessage-cell1 textarea {
+	width: 80%;
+	height: 2.5em;
+	overflow: hidden;
+	border: 1px solid #c6c6c6;
+	border-radius: 2.4em;
+	margin-top: .6em;
+	margin-left: 1em;
+	text-indent: .8em;
+	float: left;
+	resize: none;
+}
+.sendMessage-cell1 span {
+	width: 10%;
+	float: left;
+	margin-left: .5em;
+	text-align: center;
+}
+.sendMessage-cell1 span i {
+	background: white;
+	padding: 0.6rem 0.6rem;
+	border-radius: 5rem;
+	color: white;
+}
+.sendMessage-cell1 span i img {
+	width: 40%;
+}*/
+
+.sendMessage-cell1 {
+	background-image: url("../../img/messageBackground.png");
+	background-repeat: no-repeat;
+	background-size: 100% 4.3em;
+	float: left;
+	line-height: 4.3em;
+	width: 100%;
+	height: 4.3em;
+}
+.sendMessage-border {
+	float: left;
+	width: 80%;
+	height: 4rem;
+	line-height: 3rem;
+	margin-left: 3%;
+}
+.sendMessage-border textarea {
+	border: none;
+	float: left;
+	margin-top: .5em;
+	/*margin-left: 2em;*/
+	overflow: hidden;
+	resize: none;
+	text-indent: 1em;
+	/*margin: 0.5em 0;*/
+	width: 65%;
+	height: 2.8rem;
+	line-height: 1.2em;
+	border-bottom: 1px solid #c6c6c6;
+	border-top: 1px solid #c6c6c6;
+	border-left: 1px solid #c6c6c6;
+	border-top-left-radius: 1em;
+	border-bottom-left-radius: 1em;
+}
+.sendMessage-border >span {
+	background: white;
+	color: #8b8b8b;
+	resize: none;
+	width: 27%;
+	border-bottom: 1px solid #c6c6c6;
+	border-top: 1px solid #c6c6c6;
+	border-right: 1px solid #c6c6c6;
+	border-top-right-radius: 1em;
+	border-bottom-right-radius: 1em;
+	text-align: center;
+	float: left;
+	margin: 0.5em 0;
+	height: 2.8rem;
+}
+.sendMessage-cell1 >span {
+	float: left;
+	margin-left: 0.5em;
+	/*text-align: center;*/
+	width: 10%;
+	height: 100%;
+	/*line-height: 4rem;*/
+}
+.sendMessage-cell1 >span>img {
+	width: 100%;
+}
+.sendMessage span img {
+	width: 100%;
+	height: auto;
+}
+.sendMessage-cell {
+	float: left;
+	width: 100%;
+	display: none;
+}
+.sendMessage-cell span {
+	float: left;
+	width: 33%;
+	text-align: center;
+	padding: 1.5em 0;
+}
+.sendMessage-cell span img {
+	width: 50%;
+}
+.messageDetails {
+	float: left;
+	margin-left: 5%;
+	margin-right: 10%;
+	line-height: 2.5em;
+	border-radius: 6px;
+	margin: 1em 6% 2em 12%;
+	width: 82%;
+}
+.messageDetails span {
+	color: white;
+	float: left;
+	font-size: 1em;
+	padding: 0.4em 0 0.4em 3%;
+	width: 97%;
+	font-size: 16px;
+	background: #33b4f5;
+	margin-bottom: .8em;
+	border-bottom-left-radius: 6px;
+	border-bottom-right-radius: 6px;
+	margin-bottom: 2em;
+}
+.reply {
+	font-size: 18px;
+	float: left;
+	color: white;
+	line-height: 2em;
+	padding-left: 3%;
+	width: 97%;
+	background: #33b4f5;
+	border-bottom: 1px solid white;
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
+	word-wrap: break-word;
+}
+.messageReciver {
+	float: left;
+	width: 85%;
+	margin-left: 5%;
+	margin-right: 10%;
+	background: #e7e7e7;
+	line-height: 2.5em;
+	border-radius: 6px;
+	margin-bottom: 2em;
+	margin-top: 1.8em;
+}
+.messageReciver span {
+	color: #8b8b8b;
+	float: left;
+	font-size: 1em;
+	padding: 0.4em .5em;
+	width: 100%;
+	font-size: 16px;
+}
+.reciver {
+	font-size: 18px;
+	float: left;
+	width: 94%;
+	color: #8b8b8b;
+	line-height: 2.5em;
+	margin-left: 3%;
+	margin-right: 3%;
+	border-bottom: 1px solid white;
+}
+/**
+ *查看消息  checkMess.html 
+ */
+/**
+ * 考勤记录 attendanceManage.html
+ */
+
+.attendanceTitle {
+	float: left;
+	width: 100%;
+	line-height: 2rem;
+	background: white;
+}
+.attendanceTitle span:nth-of-type(1) {
+	float: left;
+	width: 30%;
+	color: #77d1ff;
+	font-size: 20px;
+	margin-left: 5%;
+}
+.attendanceTitle span:nth-of-type(2) {
+	float: left;
+	width: 65%;
+	font-size: 14px;
+	color: #929292;
+}
+.Dates {
+	float: left;
+	height: auto;
+	width: 100%;
+	background: white;
+}
+.Dates span {
+	color: #d5d5d5;
+	float: left;
+	font-size: 14px;
+	height: 2.5rem;
+	line-height: 3em;
+	margin: -1px 0 0 -1px;
+	overflow: hidden;
+	position: relative;
+	text-align: center;
+	width: 14.5%;
+}
+.signInDate {
+	float: left;
+	width: 100%;
+	height: auto;
+	background: #f2f2f2 none repeat scroll 0 0;
+}
+.signInDate span {
+	color: #525252;
+	float: left;
+	font-size: 18px;
+	height: 3.2rem;
+	line-height: 3em;
+	margin: -1px 0 0 -1px;
+	overflow: hidden;
+	position: relative;
+	text-align: center;
+	width: 14.5%;
+}
+.signInDate span:nth-of-type(1) {
+	color: #d5d5d5;
+}
+.signInDate span:nth-of-type(2) {
+	color: #d5d5d5;
+}
+.signInDate span:nth-of-type(33) {
+	color: #d5d5d5;
+}
+.signInDate span:nth-of-type(34) {
+	color: #d5d5d5;
+}
+.signInDate span:nth-of-type(35) {
+	color: #d5d5d5;
+}
+.signInDate span strong {
+	font-weight: normal;
+}
+.dayStyle01 {
+	background: #c296ff;
+	padding: 0.4rem 0.8rem;
+	border-radius: 5rem;
+	color: white;
+}
+.dayStyle02 {
+	background: #77d1ff;
+	padding: 0.4rem 0.8rem;
+	border-radius: 5rem;
+	color: white;
+}
+.dayStyle03 {
+	background: #ffaf64;
+	padding: 0.4rem 0.8rem;
+	border-radius: 5rem;
+	color: white;
+}
+.dayStyle04 {
+	background: #c6c6c6;
+	padding: 0.8rem 1.2rem;
+	border-radius: 5rem;
+	color: white;
+}
+.dayStyle05 {
+	background: #77d1ff none repeat scroll 0 0;
+	border-radius: 1rem;
+	float: left;
+	height: 0.5rem;
+	margin: 0.1em 0.1em 0 0;
+	overflow: hidden;
+	position: relative;
+	right: -1.5em;
+	top: 1.9em;
+	width: 0.4rem;
+}
+.attendanceBottom-cell1 {
+	float: left;
+	height: 4em;
+	line-height: 2rem;
+	color: #525252;
+	background: white;
+	height: 9em;
+	width: 100%;
+	padding: 1em 1.5em;
+	overflow: auto;
+	margin-bottom: 1em;
+}
+.attendanceBottom-cell1 p:nth-of-type(1) {
+	font-size: 20px;
+	color: #77d1ff;
+}
+.attendanceBottom-cell1 p:nth-of-type(2) {
+	font-size: 14px;
+	color: #525252;
+}
+/**
+ * 考勤记录 attendanceManage.html
+ */
+/**
+ *知识查看 
+ */
+
+.knowledge>p {
+	text-align: center;
+	font-size: 16px;
+	line-height: 3rem;
+}
+
+.knowledge-cell2 {
+	margin-top: 2em;
+	padding: .5em .5em;
+	background: white;
+	border: 1px solid #b5b5b5;
+	height: 15em;
+	overflow-y: auto;
+	word-break: break-all;
+	margin-left: 1.5em;
+	margin-right: 1.5em;
+}
+/**
+ * 知识查看
+ */

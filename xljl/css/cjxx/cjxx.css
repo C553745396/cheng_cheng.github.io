@@ -1,0 +1,233 @@
+.btn_query {
+	background-color: #2196F3;
+	height: 40px;
+	padding-top: 1px;
+	padding-bottom: 5px;
+	margin-top: 8px;
+	width: 25%;
+	height: 1.5rem;
+	line-height:1.5rem ;
+	border-radius:.2rem ;
+	text-align: center;
+	color: white;
+    font-size:14px;
+}
+
+.cjBodyheader{
+	width: 100%;
+	height: 4.8rem;
+    
+}
+.cjBody_header .btns{	
+ 	 /*border-bottom: 12px solid #f5f5f5;*/
+ 	 float: left;
+ 	 font-size: 1em; 
+ 	 height: 1.8rem;
+ 	 padding: 0 0 0.4em;
+ 	 color:#878787 ;
+ 	 line-height:1.8rem ;
+ 	 padding: .4rem 0;
+ 	 position: relative;
+ 	 background-color: #fff;
+}
+/*-----厂家列表------begin-----*/
+.cjShow{
+	/*overflow: auto;*/
+	background-color:#ededed ;
+	margin-top: 1.5%;
+	height: 90%;
+}
+.cj_items {
+	width:100% ;
+	height: auto;
+	overflow-x:hidden ;
+	color:#878787
+}
+.cj_items .cj{
+	/*width:90% ;
+	height: 2rem;
+	margin-left: 5%;
+	margin-top: 2%;*/
+	/*border: 1px solid #b5b5b5;*/
+	border-radius: .1rem;
+	font-size: 1em;
+	background-color: #FFFFFF;
+	padding: .2rem 0;
+}
+
+.cj_items .cj_span{
+	width: 90%;
+	height:100% ;
+	display: inline-block;
+	float: left;
+	/*border: 1px solid black;*/
+}
+.cj_items .jiantou{
+	width: 17px;
+	height: 29px ;
+	display: inline-block;
+	margin-top: 2px;
+	/*border: 1px solid black;*/
+	/*float: left;*/
+}
+.cj_items .jiantou img{
+	width: 100%;
+	height: 100%;	
+}
+.cj_items .cj_span div{
+	width: 100%;
+	height: 80%;
+}
+.cj_items .cj_span span{
+	height: 100%;
+	display: inline-block;
+	/*line-height: 2.5em;*/
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.cj_items .cj_span .cjmc{
+	width: 90%;
+	margin-left: 5%;
+	/*color: #2196F3;*/
+}
+.cj_items .cj_span .dz{
+	width: 95%;
+	margin-left: 6%;
+}
+
+.contentOne {
+    padding-top: 8px;
+    line-height: 26px;
+}
+.contentTwo {
+    height: 24px;
+    line-height: 15px;
+}
+/*-----厂家列表---------end-----*/
+
+/*-----厂家联系人列表------begin-----*/
+.cjlxrShow{
+	/*overflow: auto;*/
+	/*background-color:white ;*/
+	margin-top: 1.5%;
+	height: 90%;
+}
+.cjlxr_items {
+	width:100% ;
+	height: auto;
+	overflow-x:hidden ;
+	color:#878787
+}
+.cjlxr_items .cjlxr{
+	/*width:90% ;
+	height: 1rem;
+	margin-left: 5%;
+	margin-top: 1%;
+	border: 1px solid #b5b5b5;*/
+	border-radius: .1rem;
+	font-size: 1em;
+	background-color: white;
+	padding-top: .35rem;
+	height: 24px;
+}
+
+.cjlxr_items .cjlxr_span{
+	width: 99%;
+	height:100% ;
+	display: inline-block;
+	float: left;
+	/*border: 1px solid black;*/
+}
+.cjlxr_items .cjlxr_span div{
+	width: 100%;
+	height: 100%;
+}
+.cjlxr_items .cjlxr_span span{
+	height: 100%;
+	display: inline-block;
+	line-height: 1.1em;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.cjlxr_items .cjlxr_span .xm{
+	width: 35%;
+	margin-left: 5%;
+}
+.cjlxr_items .cjlxr_span .dh{
+	width: 60%;
+}
+/*-----厂家联系人列表---------end-----*/
+
+/*-----监造人员列表-----------begin-----*/
+
+.zjryShow{
+	/*overflow: auto;*/
+	background-color:#ededed ;
+	margin-top: 1.5%;
+	height: 90%;
+}
+
+.zjry_items {
+	width:100% ;
+	height: auto;
+	overflow-x:hidden ;
+	color:#878787
+}
+.zjry_items .zjry{
+	width:99% ;
+	/*height: 3rem;*/
+	margin-left: 5%;
+	/*margin-top: 2%;*/
+	/*border: 1px solid #b5b5b5;*/
+	border-radius: .1rem;
+	font-size: 1em;
+	background-color: #FFFFFF;
+	padding: .2rem 0;
+}
+
+.zjry_items .zjry_span{
+	width: 90%;
+	height:100% ;
+	display: inline-block;
+	float: left;
+	/*border: 1px solid black;*/
+}
+.zjry_items .jiantou{
+	width: 17px;
+	height: 29px ;
+	display: inline-block;
+	margin-top: 10px;
+	/*border: 1px solid black;*/
+	/*float: left;*/
+}
+.zjry_items .jiantou img{
+	width: 100%;
+	height: 100%;	
+}
+.zjry_items .zjry_span div{
+	width: 100%;
+	height: 50%;
+}
+.zjry_items .zjry_span span{
+	height: 100%;
+	display: inline-block;
+	line-height: 2em;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+.zjry_items .zjry_span .xm{
+	width: 45%;
+	margin-left: 5%;
+}
+.zjry_items .zjry_span .cszy{
+	width: 45%;
+}
+.zjry_items .zjry_span .gzsj{
+	width: 80%;
+	margin-left: 5%;
+}
+
+/*-----监造人员列表-----------end-----*/
