@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>通讯录</title>
+		<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+        <meta content="yes" name="apple-mobile-web-app-capable">
+        <meta content="black" name="apple-mobile-web-app-status-bar-style">
+        <meta content="telephone=no" name="format-detection">
+        <link href="../public/style/public.css" rel="stylesheet" type="text/css">
+        <link href="../style/index.css" rel="stylesheet" type="text/css">
+        <!--<link href="../style/rounds.css" rel="stylesheet" type="text/css">-->
+        <link rel="stylesheet" href="../style/mui.min.css" />
+        <link href="../public/style/alert/css/qikoo.css" rel="stylesheet">
+        <link href="../public/style/slideBar.css" rel="stylesheet" type="text/css">
+        <script type="text/javascript" src="../cordova.js"></script>
+        <script type="text/javascript" src="../js/public.js"></script>
+        <script type="text/javascript" src="../public/js/public.js"></script>
+        <script type="text/javascript" src="../public/js/jquery.js"></script>
+        <script type="text/javascript" src="../public/js/jQuery.alertShow.js"></script>
+        <script type="text/javascript" src="../js/public/joint.js"></script>
+        <script type="text/javascript" src="../js/AJAX/prodBuild.js"></script>
+        <style type="text/css">
+        	body{
+        		background-color: #f7f7f7;
+        	}
+        	.tongControl{
+        		z-index: 5;
+        		width: 100%;
+        		height: 50px;
+        		box-shadow: 0px 1px 2px 2px #DCDCDC;
+        	}
+        	.tongControl div{
+        		width: 33.33%;
+        		height: 100%;
+        		display: inline-block;
+        		float: left;
+        	}
+        	.tongControl div span{
+        		width: 50%;
+        		height: 50%;
+        		display: inline-block;
+        		position: relative;
+        		top: 25%;
+        		left: 25%;
+        		background-color: #28907E;
+        		color: #fff;
+        		text-align: center;
+        		line-height: 190%;
+        	}
+        	.tongDetails{
+        		z-index: 5;
+        		width: 100%;
+        		/*height: 85%;*/
+        		overflow-x: hidden;
+        		overflow-y: auto;
+        	}
+        	.tongDetails ul{
+        		width: 100%;
+        		height: auto;
+        	}
+        	.tongDetails ul li{
+        		width: 100%;
+        		height: 40px;
+        		display: inline-block;
+        		float: left;
+        		font-size: 14px;
+        		
+        		line-height: 300%;
+        		position: relative;
+        		border-bottom: 1px solid #D6D6D6;
+        		box-sizing: border-box;
+        	}
+        	.tongDetails ul li span{
+        		height: 100%;
+        		display: inline-block;
+        		float: left;
+        		overflow-x: auto;
+        		overflow-y: hidden;
+        		white-space: nowrap;
+        	}
+        	.tongDetails ul li span:nth-child(1){
+        		width: 30%;
+        		text-indent: 2%;
+        		margin-left: 10%;
+        	}
+        	.tongDetails ul li span:nth-child(2){
+        		width: 30%;
+        		text-indent: 2%;
+        		/*color: #00ABA9;*/
+        	}
+        	.tongDetails ul li span:nth-child(3){
+        		width: 30%;
+        		text-indent: 2%;
+        		/*color: #0f8e49;*/
+        	}
+        	.tongDetails ul li span:nth-child(4){
+        		width: 30%;
+        		text-indent: 2%;
+        		color: #28907E;
+        	}
+        	.change{
+        		height: 100%;
+			    width:10%;
+			    float: left;
+			    margin: 0;
+			    padding: 0;
+        	}
+        	.mui-checkbox.mui-left input[type=checkbox], .mui-radio.mui-left input[type=radio] {
+   				 left: 5px;
+   				 top:8px;
+		}
+        </style>
+	</head>
+	<body>
+		
+		<div class="indexPage">	
+		<!--<div id="ditu">地图</div>
+		<div id="zhaop">照片</div>-->
+	
+		<div class="tongControl">
+			<div><span class="chooseAll">全选</span></div>
+			<div><span class="add">导入</span></div>
+			<div><span class="delete">删除</span></div>
+		</div>
+		<div class="tongDetails " >
+			<ul>
+				<!--<li id="1">
+					<div class="mui-input-row mui-checkbox mui-left change">
+						<input name="checkbox" value="Item 1" type="checkbox" >
+					</div>
+					<span class="dept">财务部</span>
+					<span class="name">张三1</span>
+					<span class="tel">13800000111</span>
+				</li>
+				<li id="2">
+					<div class="mui-input-row mui-checkbox mui-left change">
+						<label></label>
+						<input name="checkbox" value="Item 1" type="checkbox" >
+					</div>
+				</li>
+				<li id="2">
+					<span class="choose">
+						<input type="checkbox" data-dept="财务部" data-name="张三1" data-tel="13800000111"/>
+					</span>
+					<span class="dept">财务部</span>
+					<span class="name">张三1</span>
+					<span class="tel">13800000111</span>
+				</li>-->
+			</ul>
+		</div>
+		<!--<div class="loading" id="loadingGif"><img src="../img/loading.gif"></div>
+		<div class="loadingMoveDiv" id="loadingGifDiv"></div>-->
+	 </div>
+	</body>
+</html>
+<script type="text/javascript">
+	var setTime;
+	$(function(){
+		tongDetails();
+		
+		document.addEventListener("deviceready", onDeviceReady, false);
+		var jsonObj = eval('(' + data.data031.request + ')');
+        var jsonStr = JSON.stringify(jsonObj);
+        data.data031.request = jsonStr;
+	    function onDeviceReady () {
+	    	getJSON(url, data.data031, data031);
+	    }
+		
+		
+		$('.chooseAll').on('click',function(){
+        	if($('.tongDetails input:checked').length<$('.tongDetails input').length){
+	        	$('.tongDetails input').prop('checked',true)
+	        	$(this).text("反选")
+        	}else{
+        		$('.tongDetails input').prop('checked',false)
+        		$(this).text("全选")
+        	}
+        })
+        $('.tongDetails input').on('click',function(){
+        	if($('.tongDetails input:checked').length<$('.tongDetails input').length){
+	        	$('.chooseAll').text("全选")
+        	}else{
+        		$('.chooseAll').text("反选")
+        	}
+        })
+        
+        $('.add').on('click',function(){
+        	var inputs = $('.tongDetails input:checked');
+        	var length = inputs.length;
+        	$("body").append('<div class="loading" id="loadingGif"><img src="../img/loading.gif"></div>');
+		   	$("body").append('<div class="loadingMoveDiv" id="loadingGifDiv"></div>');
+			setTime=setTimeout(function(){ 
+	    		$("#loadingGif").remove();
+			   	$("#loadingGifDiv").remove();
+			},10000*length);
+        	if (length==0) {
+        		qikoo.dialog.alert('请选择要导入的联系人');
+        	}else{
+        		
+        		
+        		var data = new Array();
+        		for(var i = 0;i < length;i++){
+        			var dept = inputs[i].getAttribute("data-dept")
+        			var name = inputs[i].getAttribute("data-name")
+        			var phone = inputs[i].getAttribute("data-tel")
+        			var one = new Object();
+        			var tong = new Object();
+        			one.group = dept;
+        			tong.name = name;
+        			tong.tel = phone;
+        			one.contact = [tong];
+        			
+        			data.push(one);
+        		}
+        		add(data,length,0)
+        	}
+        })
+        function add(dataArr,length,n){
+        	var contact = new Object();
+        	var step = 20;
+        	var min = Math.floor(length/step);
+        	var max = Math.ceil(length/step);
+        	
+        	if (n == min) {
+		        contact.data = dataArr.slice(n*step,length);		
+        	}else{
+	    		contact.data = dataArr.slice(n*step,(n+1)*step);
+        	}
+        	mam.navigator.contactUtils.add(successCallback1,errorCallback1, JSON.stringify(contact))
+        	
+        	
+	        function successCallback1(v){
+	        	n = n + 1;
+	        	if (n == max) {
+					qikoo.dialog.alert('联系人导入成功');
+					
+					$("#loadingGif").remove();
+					$("#loadingGifDiv").remove();
+					clearTimeout(setTime);
+	        	}else{
+	        		add(dataArr,length,n)
+	        	}
+			}
+			function errorCallback1(v){
+				qikoo.dialog.alert('联系人导入失败');
+				
+				$("#loadingGif").remove();
+				$("#loadingGifDiv").remove();
+				clearTimeout(setTime);
+				
+				return;
+			}
+        }
+        $('.delete').on('click',function(){
+        	var inputs = $('.tongDetails input:checked');
+        	var length = inputs.length;
+        	if (length==0) {
+        		qikoo.dialog.alert('请选择要删除的联系人');
+        	}else{
+        		$("body").append('<div class="loading" id="loadingGif" style="display:block"><img src="../img/loading.gif"></div>');
+			   	$("body").append('<div class="loadingMoveDiv" id="loadingGifDiv" style="top: 0;"></div>');
+				var setTime=setTimeout(function(){ 
+		    		$("#loadingGif").remove();
+				   	$("#loadingGifDiv").remove();
+				},10000*length);
+        		
+        		var contact = new Object();
+        		contact.data = new Array();
+        		for(var i = 0;i < length;i++){
+        			var name = inputs[i].getAttribute("data-name")
+        			var phone = inputs[i].getAttribute("data-tel")
+        			var one = new Object();
+        			one.name = name;
+        			one.tel = phone;
+        			
+        			contact.data.push(one);
+        		}
+        		mam.navigator.contactUtils.deleteContact(successCallback2,errorCallback2, JSON.stringify(contact))
+        	
+        	}
+        })
+        function successCallback2(v){
+			qikoo.dialog.alert('联系人删除成功');
+			
+			$("#loadingGif").remove();
+			$("#loadingGifDiv").remove();
+			clearTimeout(setTime);
+		}
+		function errorCallback2(v){
+			qikoo.dialog.alert('联系人删除失败');
+			
+			$("#loadingGif").remove();
+			$("#loadingGifDiv").remove();
+			clearTimeout(setTime);
+		}
+		
+		$('#ditu').on('click',function(){
+			mam.navigator.openSwitch.lbs(successCallback,errorCallBack);
+			function successCallback(v){
+				mam.navigator.openSwitch.toMap(successCallback3,errorCallback3,v.longitude,v.latitude);
+			}
+			function errorCallBack(v){
+				qikoo.dialog.alert("没有获取到位置")
+			}
+		})
+		$('#zhaop').on('click',function(){
+			mam.navigator.openSwitch.openApk (successCallback4,errorCallback4,"com.watercamera.camera");
+		})
+		function successCallback3(v){
+//			alert(JSON.stringify(v))
+		}
+		function errorCallback3(v){
+//			alert(JSON.stringify(v))
+		}
+		function successCallback4(v){
+//			alert(JSON.stringify(v))
+		}
+		function errorCallback4(v){
+//			alert(JSON.stringify(v))
+		}
+        
+	})
+	
+	//动态设置高度
+	function tongDetails(){
+		var indexHight = $('body')[0].offsetHeight;
+		var hight1 = $('.tongControl')[0].offsetHeight;
+		
+		var hight2 = indexHight - hight1;
+		$('.tongDetails').css("height",hight2+'px')
+	}
+	
+	function data031(v){
+		if(v.data.cont){
+			var datas = v.data.cont
+			for(var i in datas){
+				var org = datas[i].org
+				var name = datas[i].name
+				var phone = datas[i].phone
+				var id = datas[i].id
+				$('.tongDetails ul').append('<li id="'+id+'"><div class="mui-input-row mui-checkbox mui-left change"><input name="checkbox" type="checkbox" data-dept="'+org+'" data-name="'+name+'" data-tel="'+phone+'" /></div><span class="dept">'+org+'</span><span class="name">'+name+'</span><span class="tel">'+phone+'</span></li>')
+			}
+		}
+	}
+</script>
+<script src="../public/js/mui.min.js"></script>
+	<script>
+		mui.init({
+			swipeBack:true //启用右滑关闭功能
+		});
+		mui('.choose').on('change', 'input', function() {
+			var value = this.checked?"true":"false";
+			//this.previousElementSibling.innerText = "checked："+value;
+		});
+	</script>

@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>知识库</title>
+		<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+        <meta content="yes" name="apple-mobile-web-app-capable">
+        <meta content="black" name="apple-mobile-web-app-status-bar-style">
+        <meta content="telephone=no" name="format-detection">
+        <link href="../public/style/public.css" rel="stylesheet" type="text/css">
+        <!--<link href="../style/index.css" rel="stylesheet" type="text/css">-->
+        <link href="../style/rounds.css" rel="stylesheet" type="text/css">
+        <link href="../public/style/alert/css/qikoo.css" rel="stylesheet">
+         <link href="../public/style/slideBar.css" rel="stylesheet" type="text/css">
+        <script type="text/javascript" src="../cordova.js"></script>
+        <script type="text/javascript" src="../js/public.js"></script>
+        <script type="text/javascript" src="../public/js/jquery.js"></script>
+        <script type="text/javascript" src="../public/js/jQuery.alertShow.js"></script>
+        <script type="text/javascript" src="../js/public/joint.js"></script>
+        <script type="text/javascript" src="../js/AJAX/prodBuild.js"></script>
+        
+        <style type="text/css">
+        	body{
+        		background-color: #F2F2F2;
+        	}
+        	.tongDetails{
+        		z-index: 5;
+        		width: 100%;
+        		height: 92%;
+        		overflow-x: hidden;
+        		overflow-y: auto;
+        	}
+        	.tongDetails ul{
+        		width: 100%;
+        		height: auto;
+        		overflow: hidden;
+        		background-color: #FFFFFF;
+        	}
+        	.tongDetails ul li{
+        		width: 100%;
+        		height: 50px;
+        		display: inline-block;
+        		float: left;
+        		font-size: 14px;
+        		
+        		line-height: 50px;
+        		position: relative;
+        		
+        		border-bottom: 1px solid #D2D2D2;
+        		box-sizing: border-box;
+        		overflow-y: hidden;
+        	}
+        	.tongDetails ul li span{
+        		height: 50px;
+        		display: inline-block;
+        		float: left;
+        		overflow-x: auto;
+				overflow-y: hidden;
+				white-space: nowrap;
+				/*text-overflow: ellipsis;*/
+        	}
+        	.tongDetails ul li span:nth-child(1){
+        		width: 10%;
+        		text-align: center;
+        		margin-left: 5%;
+        	}
+        	.tongDetails ul li span:nth-child(2){
+        		width: 65%;
+        		text-indent: 2%;
+        	}
+        	.tongDetails ul li span:nth-child(3){
+        		width: 12%;
+        		box-sizing: border-box;
+        		text-align: center;
+        		height: 30px;
+        		line-height: 30px;
+        		border: 1px solid #FFFFFF;
+        		border-radius: 3px;
+        		margin-top: 10px;
+        		margin-left: 3%;
+        		color: #FFFFFF;
+        		float: right;
+    			margin-right: 10px;
+        	}
+        	.messControll{
+			width: 100%;
+			height: 50px;
+			position: fixed;
+			bottom: 0;
+			/*background-color: #FFF;*/
+		}
+		.messControll div{
+			width: 33.33%;
+			height: 100%;
+			float: left;
+			text-align: center;
+		}
+		.messControll span{
+			width: 50%;
+			height: 50%;
+			display: inline-block;
+			float: left;
+			position: relative;
+			top: 25%;
+			left: 25%;
+			border-radius: 5px;
+			color: #fff;
+			line-height: 1.9em;
+		}
+		.messControll .edit{
+			background-color: #C0C0C0;
+		}
+		.messControll .checkAll{
+			background-color: #C0C0C0;
+		}
+		.messControll .delete{
+			background-color: #C0C0C0;
+		}
+		.mulu{
+		    width: 100%;
+		    font-size: 14px;
+		    line-height: 50px;
+		    position: relative;
+		    border-bottom: 1px solid #D2D2D2;
+		    box-sizing: border-box;
+		    height: 50px;
+		    display: inline-block;
+		    float: left;
+		    overflow-x: auto;
+			overflow-y: hidden;
+			white-space: nowrap;
+			/*text-overflow: ellipsis;*/
+		    box-shadow: 0 0 2px 2px #D6D6D6;
+		}
+		.mulu span{
+		        /*margin: 0 2%;*/
+		    	text-align: center;
+		}
+    </style>
+	</head>
+	<body>
+		<div class="indexPage">	
+		<div class="mulu">
+			<span data-val="-1" style="margin-left: 5%;">/全部目录</span>
+			<!--<span>目录</span>
+			<span>目录</span>
+			<span>目录</span>
+			<span>目录目录目录目录目录目录目录目录目录目录目录目录目录目录目录目录目录目录</span>-->
+		</div>
+		<div class="tongDetails">
+			<ul>
+			</ul>
+		</div>
+		<!--<div class="loading" id="loadingGif"><img src="../img/loading.gif"></div>
+		<div class="loadingMoveDiv" id="loadingGifDiv"></div>-->
+		<!--<div class="messControll">
+			<div><span class="edit">返回</span></div>
+			<div><span class="checkAll" style="display: none;">全选</span></div>
+			<div><span class="delete" style="display: none;">删除</span></div>
+		</div>-->
+		</div>
+	</body>
+</html>
+<script>
+
+var root = "XLJL";
+$(function(){
+	document.addEventListener("deviceready", onDeviceReady, false);
+	var parId="-1"
+    function onDeviceReady () {
+	    getJSON(url, data.data265, data265);
+    }
+    
+    function data265(v){
+    	var path = v.data.filepath;
+    	var datas = v.data.cont;
+    	$('.tongDetails ul').find('li').remove()
+    	for(var i in datas){
+    		var isfile = datas[i].isFile;
+    		parId = datas[0].parentId;
+    		var fileurl = datas[i].url;
+    		var filename = datas[i].name;
+    		var fileversion = datas[i].version;
+    		var extension = datas[i].extension;
+    		var filedown = path+"#"+fileurl+"#"+filename+"#"+fileversion+"#"+extension
+    		
+    		if(isfile=='1'){
+    			$('.tongDetails ul').append('<li id="'+datas[i].nodeId+"@"+isfile+"@"+filedown+'"><span class="dept" style="background: url(../img/floder.png) no-repeat center;background-size: auto 60%;"></span><span data-val='+datas[i].name+' class="name">'+datas[i].name+'</span></li>');
+    		}
+    		var compareVersion = localStorage.getItem(datas[i].nodeId)
+    		if(isfile=='2'){
+    			if(compareVersion){
+	    			if(compareVersion==fileversion){
+	    				//查看
+    					$('.tongDetails ul').append('<li id="'+datas[i].nodeId+"@"+isfile+"@"+filedown+'"><span class="dept" style="background: url(../img/file.png) no-repeat center;background-size: auto 60%;"></span><span class="name">'+datas[i].name+'</span><span class="chakan" style="background-image: url(../img/look.png);background-repeat: no-repeat;background-size: 60% auto"></span></li>')
+	    			}
+	    			if(compareVersion<fileversion){
+	    				//更新
+	    				$('.tongDetails ul').append('<li id="'+datas[i].nodeId+"@"+isfile+"@"+filedown+'"><span class="dept" style="background: url(../img/file.png) no-repeat center;background-size: auto 60%;"></span><span class="name">'+datas[i].name+'</span><span class="gengxin" style="background-image: url(../img/Update.png);background-repeat: no-repeat;background-size: 60% auto"></span></li>')			
+	    			}
+	    		}else{
+	    			//下载
+	    			$('.tongDetails ul').append('<li id="'+datas[i].nodeId+"@"+isfile+"@"+filedown+'"><span class="dept" style="background: url(../img/file.png) no-repeat center;background-size: auto 60%;"></span><span class="name">'+datas[i].name+'</span><span class="xiazai" style="background-image: url(../img/upload2.png);background-repeat: no-repeat;background-size: 60% auto"></span></li>')	
+	    		}
+    		}
+    	}
+    }
+    var setTime;
+    $('.tongDetails ul').delegate('.xiazai','click',function(e){
+    	var tID = e.target.id;
+        if(!tID){
+        	tID = e.target.parentNode.id;
+        }
+        if(!tID){
+        	tID = e.target.parentNode.parentNode.id;
+        }
+        var strs = tID.split("@")
+        var filedown = strs[2].split("#")
+    	var filepath = root+filedown[0]
+    	var fileurl = filedown[1]
+    	var filename = filedown[2]+filedown[4]
+    	var fileversion = filedown[3]
+    	
+    	$("body").append('<div class="loading" id="loadingGif" style="display:block"><img src="../img/loading.gif"></div>');
+	   	$("body").append('<div class="loadingMoveDiv" id="loadingGifDiv" style="top: 0;"></div>');
+		setTime=setTimeout(function(){ 
+    		$("#loadingGif").remove();
+		   	$("#loadingGifDiv").remove();
+		},60000);
+    	download(strs[0],fileversion,fileurl,filepath,filename);
+
+    })
+    $('.tongDetails ul').delegate('.gengxin','click',function(e){
+    	var tID = e.target.id;
+        if(!tID){
+        	tID = e.target.parentNode.id;
+        }
+        if(!tID){
+        	tID = e.target.parentNode.parentNode.id;
+        }
+        var strs = tID.split("@")
+        var filedown = strs[2].split("#")
+    	var filepath = root+filedown[0]
+    	var fileurl = filedown[1]
+    	var filename = filedown[2]+filedown[4]
+    	var fileversion = filedown[3]
+    	$("body").append('<div class="loading" id="loadingGif" style="display:block"><img src="../../img/loading.gif"></div>');
+	   	$("body").append('<div class="loadingMoveDiv" id="loadingGifDiv" style="top: 0;"></div>');
+		setTime=setTimeout(function(){ 
+    		$("#loadingGif").remove();
+		   	$("#loadingGifDiv").remove();
+		},60000);
+    	download(strs[0],fileversion,fileurl,filepath,filename);
+
+    })
+    $('.tongDetails ul').delegate('.chakan','click',function(e){
+		var tID = e.target.id;
+        if(!tID){
+        	tID = e.target.parentNode.id;
+        }
+        if(!tID){
+        	tID = e.target.parentNode.parentNode.id;
+        }
+        var strs = tID.split("@")
+        var filedown = strs[2].split("#")
+    	var filepath = root+filedown[0]
+    	var filename = filedown[2]+filedown[4]
+    	var dakaifile = filepath+"/"+filename
+
+    	navigator.down.openByThirdPartyApp(sss,eee,dakaifile)
+    	function sss(e){
+    	}
+    	function eee(e){
+//            alert(e);
+    		qikoo.dialog.alert("打开文件失败")
+    	}
+    	
+    })
+    $('.tongDetails ul').delegate('li','click',function(e){
+    	var tID = e.target.id;
+        if(!tID){
+        	tID = e.target.parentNode.id;
+        }
+        if(!tID){
+        	tID = e.target.parentNode.parentNode.id;
+        }
+        var strs = tID.split("@")
+        if(strs[1]=='2'){
+        	
+//      	var filedown = strs[2].split("#")
+//	    	var filepath = root+filedown[0]
+//	    	var filename = filedown[2]+filedown[4]
+//	    	var dakaifile = filepath+"/"+filename
+//	    	navigator.down.openByThirdPartyApp(sss,eee,dakaifile)
+//	    	function sss(e){
+//	    	}
+//	    	function eee(e){
+//	    		qikoo.dialog.alert("打开文件失败")
+//	    	}
+        }else{
+        	$('<span data-val="'+strs[0]+'">/'+$(this).find(".name").html()+'</span>').appendTo('.mulu');
+        	var jsonObj = eval('('+data.data265.request+')');
+			jsonObj.data.nodeId = strs[0];
+			var jsonStr = JSON.stringify(jsonObj);
+		    data.data265.request = jsonStr;
+		    getJSON(url, data.data265, data265);
+        }
+    })
+    function download(wenjianId,fileversion,url,path,fileName){
+//       var  fileTransfer = new FileTransfer();
+//       alert(fileTransfer);
+//        alert("url"+url);
+//
+//        path = "/storage/emulated/1/";
+//        alert("path"+path);
+//        alert("fileName"+fileName);
+		navigator.down.down(successCallback2,errorCallback2,url,path,fileName)
+		function successCallback2(v){
+//			qikoo.dialog.alert("操作成功")
+			localStorage.setItem(wenjianId,fileversion)
+			var jsonObj = eval('('+data.data265.request+')');
+			jsonObj.data.nodeId = parId;
+			var jsonStr = JSON.stringify(jsonObj);
+		    data.data265.request = jsonStr;
+		    getJSON(url, data.data265, data265);
+			$("#loadingGif").remove();
+			$("#loadingGifDiv").remove();
+			clearTimeout(setTime);
+		}
+		function errorCallback2(v){
+			var str;
+			if (v==-1) {
+				str = "参数错误"
+			}else if(v==999){
+				str = "内部错误"
+			}else if(v==1000){
+				str = "下载失败"
+			}else if(v==1001){
+				str = "sdcard 异常或者空间不足"
+			}else if(v==1002){
+				str = "写文件失败"
+			}
+			qikoo.dialog.alert(str)
+			$("#loadingGif").remove();
+			$("#loadingGifDiv").remove();
+			clearTimeout(setTime);
+		}
+	}
+    $('.edit').on('click',function(){
+    	if(parId=="-1"){
+    		qikoo.dialog.alert("已是顶层目录")
+    		return
+    	}
+    	var jsonObj = eval('('+data.data266.request+')');
+		jsonObj.data.parentId = parId;
+		var jsonStr = JSON.stringify(jsonObj);
+	    data.data266.request = jsonStr;
+	    getJSON(url, data.data266, data265);
+    })
+    $(document).on('click','.mulu span',function(){
+    		$(this).nextAll().remove();
+    		$(this).prevAll().css("color", "#666");
+    		$(this).css("color","#28907E");
+    		var jsonObj = eval('('+data.data265.request+')');
+			jsonObj.data.nodeId = $(this).attr('data-val');
+			var jsonStr = JSON.stringify(jsonObj);
+		    data.data265.request = jsonStr;
+		    getJSON(url, data.data265, data265);
+    })
+})
+</script>

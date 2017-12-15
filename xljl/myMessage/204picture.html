@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>选择照片</title>
+		<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+        <meta content="yes" name="apple-mobile-web-app-capable">
+        <meta content="black" name="apple-mobile-web-app-status-bar-style">
+        <meta content="telephone=no" name="format-detection">
+        <link href="../public/style/public.css" rel="stylesheet" type="text/css">
+        <!--<link href="../style/index.css" rel="stylesheet" type="text/css">-->
+        <link href="../style/rounds.css" rel="stylesheet" type="text/css">
+        <link href="../public/style/alert/css/qikoo.css" rel="stylesheet">
+         <link href="../public/style/slideBar.css" rel="stylesheet" type="text/css">
+        <script type="text/javascript" src="../cordova.js"></script>
+        <script type="text/javascript" src="../js/public.js"></script>
+        <script type="text/javascript" src="../public/js/jquery.js"></script>
+        <script type="text/javascript" src="../public/js/jQuery.alertShow.js"></script>
+        <script type="text/javascript" src="../js/public/joint.js"></script>
+        <!--<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ED41WD9ZxMj2rBdRfRwnFL11"></script>
+    	<script type="text/javascript" src="http://developer.baidu.com/map/jsdemo/demo/convertor.js"></script>-->
+		<style>
+		.photoControls div{
+			width:33.333%
+		}	
+		</style>
+		
+	</head>
+	<body >
+		<div class="indexPage" style="background-color: #eeeeee;">	
+		<div class="photos">
+			<ul>
+				<li class="camera">
+					<img class="cameraImg" src='../img/picList1.jpg'></img>
+				</li>
+				<li>
+				</li>
+				<!--<li class="camera shuiyin">
+					<img class="cameraImg" src='../img/picList2.jpg'></img>
+				</li>-->
+				<label for="doc-form-file">
+					
+				<li class="localPicture">
+					<input id="doc-form-file" type="file"  onchange="onchengfun()"  accept="image/*" >
+					<img class="localPictureImg" src='../img/picList3.png'></img>
+				</li>
+				</label>
+				
+				<!--<li>
+					<img class="pict" src="../img/picList2.jpg"/>
+					<input type="checkbox" value="../img/picList2.jpg"/>
+					<img class="checkImg" src="../img/dui.png"/>
+					<img class="editType" src="../img/redactBtn.png">
+				</li>-->
+			</ul>
+		</div>
+		
+		<div class="photoControls myMessage">
+			<div class="checkAll">
+				<span class="checkAllImg"></span>
+				<span>全选</span>
+				<span class="border"></span>
+			</div>
+			<div class="delete">
+				<span class="deleteImg"></span>
+				<span>删除</span>
+				<span class="border"></span>
+			</div>
+			<div class="upload">
+				<span class="uploadImg"></span>
+				<span>确定</span>
+				<span class="checkNum mes">0</span>
+			</div>
+		</div>
+		</div>
+	</body>
+</html>
+<script>
+	var messId = window.location.search.split('=')[1];
+	var piclists=[];
+    var filename;
+    var picPath;
+	
+	$(function(){
+		photoList();
+		
+		var pictureSource;		//图片来源
+        var destinationType;		//设置返回值的格式
+		document.addEventListener("deviceready", onDeviceReady, false);
+		
+		function onDeviceReady() {
+            pictureSource = mam.navigator.camera.PictureSourceType;
+            destinationType = mam.navigator.camera.DestinationType;
+            
+        }
+		
+		$('.photos .camera').on('click',function(){
+//			 alert("正在启动照相机设备 是否启动");
+	         mam.navigator.camera.getPicture(onSuccess, onError, {quality: 100});
+		})
+		$('.photos .shuiyin').on('click',function(){
+//			 alert("正在启动照相机设备 是否启动");
+	         mam.navigator.openSwitch.openApk (successCallback4,errorCallback4,"com.watercamera.camera");
+		})
+		function successCallback4(v){
+		    $("body").append('<div class="loading" id="loadingGif" style="display:block"><img src="../img/loading.gif"></div>');
+		   	$("body").append('<div class="loadingMoveDiv" id="loadingGifDiv" style="top: 0;"></div>');
+			var setTime=setTimeout(function(){ 
+	    		$("#loadingGif").remove();
+			   	$("#loadingGifDiv").remove();
+			},10000);
+			//需要和照片绑定的数据
+//			var posy;
+//			var posx;
+			mylocation1(imageData);
+		}
+		function errorCallback4(v){
+//			alert(JSON.stringify(v))
+		}
+		function onSuccess(imageData) {
+			$("body").append('<div class="loading" id="loadingGif" style="display:block"><img src="../img/loading.gif"></div>');
+		   	$("body").append('<div class="loadingMoveDiv" id="loadingGifDiv" style="top: 0;"></div>');
+			var setTime=setTimeout(function(){ 
+	    		$("#loadingGif").remove();
+			   	$("#loadingGifDiv").remove();
+			},10000);
+			//需要和照片绑定的数据
+//			var posy;
+//			var posx;
+			mylocation1(imageData);
+			
+	    }
+	
+	    function onError(cameraError) {
+	        console.log("onError() cameraError:" + cameraError);
+	    }
+	})
+	
+	function onchengfun(){
+		if($('#doc-form-file').val()){
+			var file = document.getElementById('doc-form-file').files[0];
+			var reader = new FileReader();
+			reader.onload = function (e) {
+				var dataURL = e.target.result;
+			  	navigator.ContentCompression.getPicturePath(pathsuccessCallback,patherrorCallback,dataURL.split('base64,')[1]);
+			  	function pathsuccessCallback(v){
+			  		$("body").append('<div class="loading" id="loadingGif" style="display:block"><img src="../img/loading.gif"></div>');
+				   	$("body").append('<div class="loadingMoveDiv" id="loadingGifDiv" style="top: 0;"></div>');
+					var setTime=setTimeout(function(){ 
+			    		$("#loadingGif").remove();
+					   	$("#loadingGifDiv").remove();
+					},10000);
+					//需要和照片绑定的数据
+					var imageData =v.result;
+//					var posy;
+//					var posx;
+					mylocation2(imageData);
+					
+				}	
+			    function patherrorCallback(){
+		            qikoo.dialog.alert("图片处理失败，请重试");
+		            $('#doc-form-file').val('');
+		        }
+			}
+			     reader.readAsDataURL(file);
+		}
+	}
+	//获取当前地址、经度、纬度
+    function mylocation1(imageData){
+    	mam.navigator.openSwitch.lbs(successCallback,errorCallBack);
+		function successCallback(v){
+			var posy = v.longitude;
+		   	var posx = v.latitude;
+		   	var time = new Date().getTime();
+			
+        	$('<li><img class="pict" src="'+imageData+'"/><input type="checkbox" value="'+time+'"/><img class="checkImg" src="../img/dui.png"/></li>').appendTo('.photos ul')
+        	$('.photos ul li').css('height',$('.photos ul li').width());
+			//把需要的数据放到以time为键的sessionstorage中
+			window.sessionStorage.setItem(time,posy+','+posx+','+imageData);
+			
+			//把时间放到巡视记录id下的sessionStorage中
+			var times = window.sessionStorage.getItem('mess'+messId);
+			if(times){
+				times = times +','+time;
+			}else{
+				times = time;
+			}
+			window.sessionStorage.setItem('mess'+messId,times);
+	       	
+	       	$("#loadingGif").remove();
+			$("#loadingGifDiv").remove();
+			clearTimeout(setTime);
+		}
+		function errorCallBack(){
+			qikoo.dialog.alert('没有获取到位置');
+         	
+         	$("#loadingGif").remove();
+			$("#loadingGifDiv").remove();
+			clearTimeout(setTime);
+		}
+    	
+//		var longitude,latitude;
+//		mam.navigator.geolocation.getCurrentPosition(successCallback,errorCallback)
+//      function successCallback(position){
+//      	longitude = position.coords.longitude;
+//      	latitude = position.coords.latitude;
+//      	var gpsPoint = new BMap.Point(longitude,latitude);
+//      	
+//      	//坐标转换，地理坐标转换成平面坐标
+//			BMap.Convertor.translate(gpsPoint,0,translateCallback);
+//      	//坐标转换完之后的回调函数
+//			function translateCallback(point){
+//			   // 百度地图API功能
+//			   	posy = point.lng;
+//			   	posx = point.lat;
+//			   	var time = new Date().getTime();
+//				
+//	        	$('<li><img class="pict" src="'+imageData+'"/><input type="checkbox" value="'+time+'"/><img class="checkImg" src="../img/dui.png"/></li>').appendTo('.photos ul')
+//	        	$('.photos ul li').css('height',$('.photos ul li').width());
+//				//把需要的数据放到以time为键的sessionstorage中
+//				window.sessionStorage.setItem(time,posy+','+posx+','+imageData);
+//				
+//				//把时间放到巡视记录id下的sessionStorage中
+//				var times = window.sessionStorage.getItem('mess'+messId);
+//				if(times){
+//					times = times +','+time;
+//				}else{
+//					times = time;
+//				}
+//				window.sessionStorage.setItem('mess'+messId,times);
+//				$("#loadingGif").remove();
+//				$("#loadingGifDiv").remove();
+//				clearTimeout(setTime);
+//			}
+//       }
+//       function errorCallback(){
+//       	qikoo.dialog.alert('没有获取到位置');
+//       }
+	}
+	//获取当前地址、经度、纬度
+    function mylocation2(imageData){
+    	mam.navigator.openSwitch.lbs(successCallback,errorCallBack);
+		function successCallback(v){
+			var posy = v.longitude;
+		   	var posx = v.latitude;
+		   	var time = new Date().getTime();
+			
+        	$('<li><img class="pict" src="'+imageData+'"/><input type="checkbox" value="'+time+'"/><img class="checkImg" src="../img/dui.png"/></li>').appendTo('.photos ul')
+        	$('.photos ul li').css('height',$('.photos ul li').width());
+			//把需要的数据放到以time为键的sessionstorage中
+			window.sessionStorage.setItem(time,posy+','+posx+','+imageData);
+			
+			//把时间放到巡视记录id下的sessionStorage中
+			var times = window.sessionStorage.getItem('mess'+messId);
+			if(times){
+				times = times +','+time;
+			}else{
+				times = time;
+			}
+			window.sessionStorage.setItem('mess'+messId,times);
+	       	$('#doc-form-file').val('');
+	       	$("#loadingGif").remove();
+			$("#loadingGifDiv").remove();
+			clearTimeout(setTime);
+		}
+		function errorCallBack(){
+			qikoo.dialog.alert('没有获取到位置');
+         	
+         	$("#loadingGif").remove();
+			$("#loadingGifDiv").remove();
+			clearTimeout(setTime);
+		}
+    	
+//		var longitude,latitude;
+//		mam.navigator.geolocation.getCurrentPosition(successCallback,errorCallback)
+//      function successCallback(position){
+//      	longitude = position.coords.longitude;
+//      	latitude = position.coords.latitude;
+//      	var gpsPoint = new BMap.Point(longitude,latitude);
+//      	
+//      	//坐标转换，地理坐标转换成平面坐标
+//			BMap.Convertor.translate(gpsPoint,0,translateCallback);
+//      	//坐标转换完之后的回调函数
+//			function translateCallback(point){
+//			   // 百度地图API功能
+//			   	posy = point.lng;
+//			   	posx = point.lat;
+//			   
+//				var time = new Date().getTime();
+//				
+//	        	$('<li><img class="pict" src="'+imageData+'"/><input type="checkbox" value="'+time+'"/><img class="checkImg" src="../img/dui.png"/></li>').appendTo('.photos ul')
+//	        	$('.photos ul li').css('height',$('.photos ul li').width());
+//				//把需要的数据放到以time为键的sessionstorage中
+//				window.sessionStorage.setItem(time,posy+','+posx+','+imageData);			
+//				
+//				//把时间放到巡视记录id下的sessionStorage中
+//				var times = window.sessionStorage.getItem('mess'+messId);
+//				if(times){
+//					times = times +','+time;
+//				}else{
+//					times = time;
+//				}
+//				window.sessionStorage.setItem('mess'+messId,times);
+//				$('#doc-form-file').val('');
+//				$("#loadingGif").remove();
+//				$("#loadingGifDiv").remove();
+//				clearTimeout(setTime);
+//			}
+//       }
+//       function errorCallback(){
+//       	qikoo.dialog.alert('没有获取到位置');
+//       }
+	}
+	
+	//查看本地是否有未提交照片
+	function photoList(){
+		var times = window.sessionStorage.getItem('mess'+messId);
+		if(times){
+			var time = times.split(",");
+			var len = time.length;
+			for(var i = 0;i < len;i++){
+				var temp = window.sessionStorage.getItem(time[i]);
+				if(temp){
+					var url = temp.split(",")[2];
+					$('<li><img class="pict" src="'+url+'"/><input type="checkbox" value="'+time[i]+'"/><img class="checkImg" src="../img/dui.png"/></li>').appendTo('.photos ul')
+					
+				}
+			}
+		}
+		//设置li的高度
+		$('.photos ul li').css('height',$('.photos ul li').width());
+//		choose();
+	}
+	function choose(){
+		var choose = window.sessionStorage.getItem('choose'+messId);
+		if(choose){
+			var inputs = $('.photos ul li input');
+			var len = inputs.length;
+			for(var i = 0;i<len;i++){
+				if(choose.indexOf(inputs[i].val())){
+//					inputs[i].checked=true;
+					inputs[i].prop('checked',true)
+				}
+			}
+			$('.photoControls .upload .checkNum').text($('.photos ul li input:checked').length);
+			
+		}
+	}
+	
+	
+	//点击图片提示勾选标记、上传按钮右上角的数量变化
+	$('.photos ul').delegate('li .pict', 'click', function(){
+		var input = $(this).next();
+		if(input.prop('checked')){
+			input.prop('checked',false);
+		}else{	
+			input.prop('checked',true);
+		}	
+		input.next().toggle();
+		$('.photoControls .upload .checkNum').text($('.photos ul li input:checked').length);
+	})
+	//全选功能
+	$('.photoControls .checkAll').on('click',function(){
+		$('.photos ul li input').prop('checked',true);
+		$('.photos ul li .checkImg').show();
+		$('.photoControls .upload .checkNum').text($('.photos ul li input:checked').length);
+	})
+	//删除功能
+	$('.photoControls .delete').on('click',function(){
+		var inputs = $('.photos ul li input:checked');
+		if(!inputs[0]){
+			qikoo.dialog.alert('未选择图片');
+		}else{
+			var len = inputs.length;
+			var times = window.sessionStorage.getItem('mess'+messId);
+			for(var i = 0;i<len ;i++){
+				var time = inputs[i].value;
+				
+				if(times.indexOf(time+",")!=-1){
+					times=times.replace(time+",","");
+				}else if(times.indexOf(","+time)!=-1){
+					times=times.replace(","+time,"");
+				}else{
+					times=times.replace(time,"");
+				}
+				window.sessionStorage.removeItem(time);
+			}
+			$('.photos ul li input:checked').parent().remove();
+			$('.photoControls .upload .checkNum').text($('.photos ul li input:checked').length);
+			if(times!=""){
+				window.sessionStorage.setItem('mess'+messId,times);
+			}else{
+				window.sessionStorage.removeItem('mess'+messId);
+			}
+		}
+	})
+	//确定按钮功能
+	$('.photoControls .upload').on('click',function(){
+		var inputs = $('.photos ul li input:checked');
+		if(!inputs[0]){
+			qikoo.dialog.alert('未选择图片');
+		}else{
+			var len = inputs.length;
+			var choose = "";
+			for(var i = 0;i<len ;i++){
+				var time = inputs[i].value;
+				var temp = window.sessionStorage.getItem(time);
+				var t =temp.split(",");
+				var l = t.length;
+				if(t[2].indexOf("file:///storage/emulated/0")==-1){
+		           	t[2] = t[2].replace("file:///storage/sdcard0", "/storage/sdcard0");
+		        }else{
+		            t[2] = t[2].replace("file:///storage/emulated/0", "/storage/emulated/0");
+		        }
+				for(var j = 0;j<l;j++){
+					if(j==0){
+						temp = t[j];
+					}else{
+						temp = temp +","+t[j];
+					}
+				}
+				window.sessionStorage.setItem(time,temp)
+				if(i==0){
+					choose = time
+				}else{
+					choose = choose +","+time;
+				}
+			}
+			window.sessionStorage.setItem("choose"+messId,choose);
+			history.back();
+		}
+	})
+</script>

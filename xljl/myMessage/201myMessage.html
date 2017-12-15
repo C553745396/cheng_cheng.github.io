@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>我的消息</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <link href="../public/style/alert/css/qikoo.css" rel="stylesheet">
+    <link href="../public/style/public.css" rel="stylesheet" type="text/css">
+    <link href="../style/index.css" rel="stylesheet" type="text/css">
+    <link href="../public/style/slideBar.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="../cordova.js"></script>
+	<script type="text/javascript" src="../public/js/public.js"></script>
+    <script type="text/javascript" src="../public/js/jquery.js"></script>
+    <script type="text/javascript" src="../js/public/joint.js"></script>
+    <script type="text/javascript" src="../js/AJAX/coreBuild.js"></script>
+    <script type="text/javascript" src="../public/js/jQuery.alertShow.js"></script>
+    <script type="text/javascript" src="../public/js/mui.min.js"></script>
+	<link href="../style/mui.min.css" rel="stylesheet" type="text/css">
+<style>
+    	.mymessageSection {
+		    width: 100%;
+		    height: 82%;
+		    overflow-x: hidden;
+		    overflow-y: auto;
+		    position: relative;
+		    background-color: #FFFFFF;
+		    top: 10px;
+		}
+		.contentOne{
+			padding-top: 8px;
+			line-height: 26px;
+		}
+		.contentTwo{
+			height: 24px;
+			line-height: 15px;
+		}
+		.contentHeight{
+			height: 60px;
+		}
+		.mymessageSection ul {
+		    width: 100%;
+		    height: auto;
+		}
+		
+		.mymessageSection ul li {
+		    width: 100%;
+		    overflow: hidden;
+		    border-bottom: 1px solid #D2D2D2;
+		}
+		.mymessageSection ul li .check{
+			width: 6%;
+			height: 100%;
+			display: inline-block;
+			float: left;
+		}
+		.mymessageSection ul li .check input{
+			width: 100%;
+			height: auto;
+			display: none;
+			float: center;
+			position: relative;
+			top: 30%;
+		}
+		.mymessageSection ul li div{
+			/*width: 90%;*/
+			/*height: 100%;
+			display: inline-block;*/
+		}
+		.mymessageSection ul li div .noticeImg{
+			width: 25px;
+			height: 25px;
+			display: inline-block;
+			float: left;
+			margin-left: 10px;
+			position: relative;
+			top: 7px;
+		}
+		.mymessageSection ul li div .noticeImg.replyunread{
+			background: url(../img/replyunread.png)no-repeat center;
+			background-size: 20px;
+		}
+		.mymessageSection ul li div .noticeImg.noticeunread{
+			background: url(../img/noticeunread.png)no-repeat center;
+			background-size: 20px;
+		}
+		.mymessageSection ul li div .noticeImg.replyread{
+			background: url(../img/replyread.png)no-repeat center;
+			background-size: 20px;
+		}
+		.mymessageSection ul li div .noticeImg.noticeread{
+			background: url(../img/noticeread.png)no-repeat center;
+			background-size: 20px;
+		}
+		.mymessageSection ul li div .noticeTitle{
+			width: 55%;
+			/*height: 60%;*/
+			margin-left: 5px;
+			display: inline-block;
+			float: left;
+			/*font-size: 14px;*/
+			/*line-height: 300%;*/
+			overflow-x: hidden;
+			overflow-y: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+		}
+		.mymessageSection ul li div .noticeTime{
+			/*width: 23%;*/
+			/*height: 60%;*/
+			margin-left: 5%;
+			display: inline-block;
+			float: left;
+			/*font-size: 12px;*/
+			/*line-height: 300%;*/
+		}
+		.mymessageSection ul li div .noticeDetail{
+			width: 85%;
+			/*height: 40%;*/
+			display: inline-block;
+			float: left;
+			margin-left: 40px;
+			/*font-size: 14px;*/
+			overflow-x: hidden;
+			overflow-y: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+		}
+		.noticeDiv{
+			width: 100%;
+			height: 50px;
+			background-color: #FFFFFF;
+		}
+		.noticeNum {
+		    width: 80%;
+		    height: 60%;
+		    font-size: 14px;
+		    margin: 0 auto;
+		    position: relative;
+		    top: 15%;
+		    
+		}
+		.noticeNum p {
+		    width: 50%;
+		    height: 100%;
+		    float: left;
+		    line-height: 220%;
+		    text-align: center;
+		    border: 1px solid #32B16C;
+		    box-sizing: border-box;
+		    color: #32B16C;
+		    background: #FFFFFF;
+		    position: relative;
+		}
+		.noticeNum p:first-child {
+			border-radius: 1rem 0 0 1rem;	
+			/*background-color: #32B16C;*/
+		    /*color: #fff;*/
+		    border-right: none;
+		}
+		.yidu {
+		    border-radius: 0 1rem 1rem 0;
+		    border-left: none;
+		}
+		#redcircle{
+			position: absolute;
+			/*display: inline-block;*/
+			height: 5px;
+			width: 5px;
+			border-radius: 50%;
+			background-color: red;
+			top: 13px;
+			left: 36%;
+			display: none;
+		}
+		
+		.noticeNum p:first-child i {
+		    position: absolute;
+		    top: 0.2rem;
+		    right: .2rem;
+		    font-size: .6em;
+		}
+		
+		.messControll{
+			width: 100%;
+			height: 50px;
+			position: fixed;
+			bottom: 0;
+			/*background-color: #FFF;*/
+		}
+		.messControll div{
+			width: 50%;
+			height: 100%;
+			float: left;
+			text-align: center;
+		}
+		.messControll span{
+			width: 50%;
+			height: 50%;
+			display: inline-block;
+			float: left;
+			position: relative;
+			top: 25%;
+			left: 25%;
+			border-radius: 5px;
+			color: #fff;
+			line-height: 1.9em;
+		}
+		.messControll .edit{
+			background-color: #C0C0C0;
+		}
+		.messControll .checkAll{
+			background-color: #C0C0C0;
+		}
+		.messControll .delete{
+			background-color: #C0C0C0;
+		}
+    </style>
+</head>
+<body >
+<div class="indexPage replyMessage">	
+<div class="noticeDiv">	
+<div class="cell-1 noticeNum">
+	
+    <p id="noticeLen">未读消息</p>
+    <p class="yidu">已读消息</p>
+    <!--<p>已发消息</p>-->
+    <span id="redcircle"></span>
+</div>
+</div>
+	<section class="cell-8  mymessageSection">
+		<ul class="mui-table-view" id="OA_task_1">
+			<!--<li class="cell-1 contentHeight mui-table-view-cell" id="11">
+				<div class="mui-slider-handle">
+					<span class="noticeImg replyunread"></span>
+					<span class="noticeTitle oneName contentOne">公司通知</span>
+					<span class="noticeTime oneName contentOne">2016-12-12</span>
+					<span class="noticeDetail twoName contentTwo">的经销商的年出生的农村教师的</span>
+				</div>
+				<div  class="mui-slider-right mui-disabled"><a class="mui-btn mui-btn-red">删除</a></div>
+			</li>-->
+		</ul>
+	</section>
+</div>
+</body>
+<script type="text/javascript">
+	var uId = localStorage.getItem("userId")
+			mui.init();
+			(function($) {
+				$('#OA_task_1').on('tap', '.mui-btn', function(event) {
+					var elem = this;
+					var li = elem.parentNode.parentNode;
+					var delId = event.target.id;
+			        if(!delId){
+			        	delId = event.target.parentNode.id;
+			        }
+			        if(!delId){
+			        	delId = event.target.parentNode.parentNode.id;
+			        }
+			        if(!delId){
+			        	delId = event.target.parentNode.parentNode.parentNode.id;
+			        }
+					qikoo.dialog.confirm('确认删除该条消息？',function(){
+						
+						var localarr = localStorage.getItem(uId+"messArr")
+		    			var delarr = ""
+						if(localarr!=null){
+							var arr = new Array();
+							arr = localarr.split("&")
+							for(var i in arr){
+								var jobj = JSON.parse(arr[i])
+								for(var j in jobj){
+			        				if(jobj[j]){
+				        				if(jobj[j].ID==delId){
+											delete jobj[j]
+										}
+			        				}
+								}
+								
+								var bakarr = ""
+								for(var b=0; b<jobj.length;b++){
+									if(jobj[b]){
+										if(bakarr==""){
+											bakarr = JSON.stringify(jobj[b])
+										}else{
+											bakarr = bakarr +","+ JSON.stringify(jobj[b])
+										}
+									}
+								}
+								if(delarr==""){
+									if(bakarr)
+										delarr = "["+bakarr+"]"
+								}else{
+									if(bakarr)
+										delarr = delarr + "&" + "["+bakarr+"]"
+								}
+							}
+							qikoo.dialog.hide();
+							li.parentNode.removeChild(li);
+							if(delarr!=""){
+								localarr = delarr
+								localStorage.setItem(uId+"messArr",localarr)
+							}else{
+								localStorage.removeItem(uId+"messArr")
+							}
+							var localarr = localStorage.getItem(uId+"messArr")
+				        	if(localarr!=null){
+					        	var arr = new Array();
+					        	arr = localarr.split("&")
+					        	var a=0;
+						    	for(var i in arr){
+						    		var jobj = JSON.parse(arr[i])
+						    		for(var j in jobj){
+						    			if(jobj[j].lookType=='0'){
+						    				a++
+						    			}
+						    		}
+						    	}
+						    	if(a!=0){
+						    		document.getElementById("redcircle").style.display='block'
+						    	}else{
+						    		document.getElementById("redcircle").style.display='none'
+						    	}
+				        	}else{
+				        		document.getElementById("redcircle").style.display='none'
+				        	}
+				        	
+						}
+						
+					},function(){
+						setTimeout(function() {
+							$.swipeoutClose(li);
+						}, 0);
+					});
+				});
+			})(mui);
+    $(function () {
+    	mymessageSectionHeight();
+        document.addEventListener("deviceready", onDeviceReady, false);
+        function onDeviceReady () {
+            var localarr = localStorage.getItem(uId+"messArr")
+			if(localarr!=null){
+	        	var arr = new Array();
+	        	arr = localarr.split("&")
+	        	var a=0;
+		    	for(var i in arr){
+		    		var jobj = JSON.parse(arr[i])
+		    		for(var j in jobj){
+		    			if(jobj[j].lookType=='0'){
+		    				a++
+		    			}
+		    		}
+		    	}
+		    	if(a!=0){
+					document.getElementById("redcircle").style.display='block'
+		    	}
+	        	
+	        	$('.mymessageSection ul').find('li').remove();
+	        	var xiaoType = localStorage.getItem("xiaoType")
+	        	var showType = "1"
+	        	if(xiaoType!=null){
+	        		if(xiaoType=="1"){
+	        			showType = "0"
+	        		}
+	        		if(xiaoType=="2"){
+	        			showType = "1"
+	        		}
+	        		if(xiaoType=="3"){
+	        			showType = "2"
+	        		}
+	        	}else{
+	        		showType = "0"
+	        	}
+	        	for(var i in arr){
+	        		var jobj = JSON.parse(arr[i])
+	        		for(var j in jobj){
+	        			var notty = jobj[j].TYPE
+	        			if(showType!="2"){
+	        				
+        					if(showType=="0"){
+        						$('.noticeNum p').eq(0).css('background','#32B16C');
+					        	$('.noticeNum p').eq(0).css('color','#fff');
+					    		$('.noticeNum p').eq(1).css('background','#fff');
+					    		$('.noticeNum p').eq(1).css('color','#32B16C');
+//					    		$('.noticeNum p').eq(2).css('background','#fff');
+//					    		$('.noticeNum p').eq(2).css('color','#32B16C');
+        						if(jobj[j].lookType==showType){
+			        				if(notty=='1'){
+				        				$('<li class="cell-1 contentHeight mui-table-view-cell" id="' + jobj[j].ID + '"><div class="mui-slider-handle"><span class="noticeImg replyunread"></span><span class="noticeTitle oneName contentOne">' + jobj[j].TITLE + '</span><span class="noticeTime oneName contentOne">' + jobj[j].SEND_TIME.substr(0,10) + '</span><span class="noticeDetail twoName contentTwo">' + jobj[j].CONTENT + '</span></div><div  class="mui-slider-right mui-disabled"><a class="mui-btn mui-btn-red">删除</a></div></li>').appendTo('.mymessageSection ul')
+				        			}else{
+				        				$('<li class="cell-1 contentHeight mui-table-view-cell" id="' + jobj[j].ID + '"><div class="mui-slider-handle"><span class="noticeImg noticeunread"></span><span class="noticeTitle oneName contentOne">' + jobj[j].TITLE + '</span><span class="noticeTime oneName contentOne">' + jobj[j].SEND_TIME.substr(0,10) + '</span><span class="noticeDetail twoName contentTwo">' + jobj[j].CONTENT + '</span></div><div  class="mui-slider-right mui-disabled"><a class="mui-btn mui-btn-red">删除</a></div></li>').appendTo('.mymessageSection ul')
+				        			}
+			        			}
+        					}else{
+        						$('.noticeNum p').eq(1).css('background','#32B16C');
+					        	$('.noticeNum p').eq(1).css('color','#fff');
+					    		$('.noticeNum p').eq(0).css('background','#fff');
+					    		$('.noticeNum p').eq(0).css('color','#32B16C');
+//					    		$('.noticeNum p').eq(2).css('background','#fff');
+//					    		$('.noticeNum p').eq(2).css('color','#32B16C');
+        						if(jobj[j].lookType==showType){
+			        				if(notty=='1'){
+				        				$('<li class="cell-1 contentHeight mui-table-view-cell" id="' + jobj[j].ID + '"><div class="mui-slider-handle"><span class="noticeImg replyread"></span><span class="noticeTitle oneName contentOne">' + jobj[j].TITLE + '</span><span class="noticeTime oneName contentOne">' + jobj[j].SEND_TIME.substr(0,10) + '</span><span class="noticeDetail twoName contentTwo">' + jobj[j].CONTENT + '</span></div><div  class="mui-slider-right mui-disabled"><a class="mui-btn mui-btn-red">删除</a></div></li>').appendTo('.mymessageSection ul')	
+				        			}else{
+				        				$('<li class="cell-1 contentHeight mui-table-view-cell" id="' + jobj[j].ID + '"><div class="mui-slider-handle"><span class="noticeImg noticeread"></span><span class="noticeTitle oneName contentOne">' + jobj[j].TITLE + '</span><span class="noticeTime oneName contentOne">' + jobj[j].SEND_TIME.substr(0,10) + '</span><span class="noticeDetail twoName contentTwo">' + jobj[j].CONTENT + '</span></div><div  class="mui-slider-right mui-disabled"><a class="mui-btn mui-btn-red">删除</a></div></li>').appendTo('.mymessageSection ul')
+				        			}
+	        					}
+		        			}
+	        			}	
+//	        			}else{
+//	        				
+//      					$('.noticeNum p').eq(2).css('background','#32B16C');
+//				        	$('.noticeNum p').eq(2).css('color','#fff');
+//				    		$('.noticeNum p').eq(1).css('background','#fff');
+//				    		$('.noticeNum p').eq(1).css('color','#32B16C');
+//				    		$('.noticeNum p').eq(0).css('background','#fff');
+//				    		$('.noticeNum p').eq(0).css('color','#32B16C');
+//	        				if(jobj[j].sendType=='1'){
+//			        			$('<li class="cell-1 contentHeight mui-table-view-cell" id="' + jobj[j].ID + '"><div class="mui-slider-handle"><span class="noticeImg replyread"></span><span class="noticeTitle  oneName contentOne">' + jobj[j].TITLE + '</span><span class="noticeTime  oneName contentOne">' + jobj[j].SEND_TIME.substr(0,10) + '</span><span class="noticeDetail twoName contentTwo">' + jobj[j].CONTENT + '</span></div><div  class="mui-slider-right mui-disabled"><a class="mui-btn mui-btn-red">删除</a></div></li>').appendTo('.mymessageSection ul')	
+//		        			}
+//	        			}
+	        			
+	        		}
+	        	}
+        	}
+   		}
+        
+        $('.mymessageSection ul').delegate('li','click', function (e) {
+        	var tID = e.target.id;
+	        if(!tID){
+	        	tID = e.target.parentNode.id;
+	        }
+	        if(!tID){
+	        	tID = e.target.parentNode.parentNode.id;
+	        }
+	        if(!tID){
+	        	tID = e.target.parentNode.parentNode.parentNode.id;
+	        }
+        	var localarr = localStorage.getItem(uId+"messArr")
+        	if(localarr!=null){
+	        	var lookarr = "";
+	        	var arr = new Array();
+	        	arr = localarr.split("&")
+	        	for(var i in arr){
+	        		var jobj = JSON.parse(arr[i])
+	        		for(var j in jobj){
+	        			if(tID==jobj[j].ID){
+	        				jobj[j].lookType='1'
+	        				var notty = jobj[j].TYPE
+	        				if(notty=='1'){
+	        					window.location.href = '202reply.html?tID='+tID+'&type='+jobj[j].TYPE
+	        				}else{
+	        					window.location.href = '203Notice.html?tID='+tID
+	        				}
+	        				
+	        			}
+	        		}
+	        		if(lookarr==""){
+	        			lookarr = JSON.stringify(jobj)
+	        		}else{
+	        			lookarr = lookarr + "&" + JSON.stringify(jobj)
+	        		}
+	        		
+	        	}
+	        	localStorage.setItem(uId+"messArr",lookarr)
+        	}
+        	
+        })
+        $('.noticeNum').delegate('p:eq(0)','click', function (e) {
+        	localStorage.setItem("xiaoType","1")
+        	$('.noticeNum p').eq(0).css('background','#32B16C');
+        	$('.noticeNum p').eq(0).css('color','#fff');
+    		$('.noticeNum p').eq(1).css('background','#fff');
+    		$('.noticeNum p').eq(1).css('color','#32B16C');
+//  		$(".mymessageSection ul li div .noticeImg.replyunread").css({'background':'url(../img/replyunread.png)no-repeat center 10px','background-size':'80% auto'});
+//  		$('.noticeNum p').eq(2).css('background','#fff');
+//  		$('.noticeNum p').eq(2).css('color','#32B16C');
+        	var localarr = localStorage.getItem(uId+"messArr")
+        	if(localarr!=null){
+	        	var arr = new Array();
+	        	arr = localarr.split("&")
+	        	$('.mymessageSection ul').find('li').remove();
+	        	for(var i in arr){
+	        		var jobj = JSON.parse(arr[i])
+	        		for(var j in jobj){
+	        			var notty = jobj[j].TYPE
+	        			if(jobj[j].lookType=='0'){
+	        				if(notty=='1'){
+		        				$('<li class="cell-1 contentHeight mui-table-view-cell" id="' + jobj[j].ID + '"><div class="mui-slider-handle"><span class="noticeImg replyunread"></span><span class="noticeTitle oneName contentOne">' + jobj[j].TITLE + '</span><span class="noticeTime oneName contentOne">' + jobj[j].SEND_TIME.substr(0,10) + '</span><span class="noticeDetail twoName contentTwo">' + jobj[j].CONTENT + '</span></div><div  class="mui-slider-right mui-disabled"><a class="mui-btn mui-btn-red">删除</a></div></li>').appendTo('.mymessageSection ul')	
+		        			}else{
+		        				$('<li class="cell-1 contentHeight mui-table-view-cell" id="' + jobj[j].ID + '"><div class="mui-slider-handle"><span class="noticeImg noticeunread"></span><span class="noticeTitle oneName contentOne">' + jobj[j].TITLE + '</span><span class="noticeTime oneName contentOne">' + jobj[j].SEND_TIME.substr(0,10) + '</span><span class="noticeDetail twoName contentTwo">' + jobj[j].CONTENT + '</span></div><div  class="mui-slider-right mui-disabled"><a class="mui-btn mui-btn-red">删除</a></div></li>').appendTo('.mymessageSection ul')	
+		        			}
+	        			}
+	        		}
+	        	}
+        	}
+        })
+        $('.noticeNum').delegate('p:eq(1)','click', function (e) {
+        	localStorage.setItem("xiaoType","2")
+        	$('.noticeNum p').eq(1).css('background','#32B16C');
+        	$('.noticeNum p').eq(1).css('color','#fff');
+//      	$(".mymessageSection ul li div .noticeImg.replyunread").css({'background':'url(../img/replyread.png)no-repeat center 10px','background-size':'80% auto'});
+    		$('.noticeNum p').eq(0).css('background','#fff');
+    		$('.noticeNum p').eq(0).css('color','#32B16C');
+//  		$('.noticeNum p').eq(2).css('background','#fff');
+//  		$('.noticeNum p').eq(2).css('color','#32B16C');
+        	var localarr = localStorage.getItem(uId+"messArr")
+        	if(localarr!=null){
+	        	var arr = new Array();
+	        	arr = localarr.split("&")
+	        	$('.mymessageSection ul').find('li').remove();
+	        	for(var i in arr){
+	        		var jobj = JSON.parse(arr[i])
+	        		for(var j in jobj){
+	        			var notty = jobj[j].TYPE
+	        			if(jobj[j].lookType=='1'){
+	        				if(notty=='1'){
+		        				$('<li class="cell-1 contentHeight mui-table-view-cell" id="' + jobj[j].ID + '"><div class="mui-slider-handle"><span class="noticeImg replyread"></span><span class="noticeTitle oneName contentOne">' + jobj[j].TITLE + '</span><span class="noticeTime oneName contentOne">' + jobj[j].SEND_TIME.substr(0,10) + '</span><span class="noticeDetail twoName contentTwo">' + jobj[j].CONTENT + '</span></div><div  class="mui-slider-right mui-disabled"><a class="mui-btn mui-btn-red">删除</a></div></li>').appendTo('.mymessageSection ul')	
+		        			}else{
+		        				$('<li class="cell-1 contentHeight mui-table-view-cell" id="' + jobj[j].ID + '"><div class="mui-slider-handle"><span class="noticeImg noticeread"></span><span class="noticeTitle oneName contentOne">' + jobj[j].TITLE + '</span><span class="noticeTime oneName contentOne">' + jobj[j].SEND_TIME.substr(0,10) + '</span><span class="noticeDetail twoName contentTwo">' + jobj[j].CONTENT + '</span></div><div  class="mui-slider-right mui-disabled"><a class="mui-btn mui-btn-red">删除</a></div></li>').appendTo('.mymessageSection ul')
+		        			}
+	        			}
+	        		}
+	        	}
+        	}
+        })
+//      $('.noticeNum').delegate('p:eq(2)','click', function (e) {
+//      	localStorage.setItem("xiaoType","3")
+//      	$('.noticeNum p').eq(2).css('background','#32B16C');
+//      	$('.noticeNum p').eq(2).css('color','#fff');
+//  		$('.noticeNum p').eq(0).css('background','#fff');
+//  		$('.noticeNum p').eq(0).css('color','#32B16C');
+//  		$('.noticeNum p').eq(1).css('background','#fff');
+//  		$('.noticeNum p').eq(1).css('color','#32B16C');
+////  		$(".mymessageSection ul li div .noticeImg.replyunread").css({'background':'url(../img/replyunread.png)no-repeat center 10px','background-size':'80% auto'});
+//      	var localarr = localStorage.getItem(uId+"messArr")
+//      	if(localarr!=null){
+//	        	var arr = new Array();
+//	        	arr = localarr.split("&")
+//	        	$('.mymessageSection ul').find('li').remove();
+//	        	for(var i in arr){
+//	        		var jobj = JSON.parse(arr[i])
+//	        		for(var j in jobj){
+//	        			var notty = jobj[j].TYPE
+//	        			if(jobj[j].sendType=='1'){
+//		        			$('<li class="cell-1 contentHeight mui-table-view-cell" id="' + jobj[j].ID + '"><div class="mui-slider-handle"><span class="noticeImg replyread"></span><span class="noticeTitle  oneName contentOne">' + jobj[j].TITLE + '</span><span class="noticeTime  oneName contentOne">' + jobj[j].SEND_TIME.substr(0,10) + '</span><span class="noticeDetail twoName contentTwo">' + jobj[j].CONTENT + '</span></div><div  class="mui-slider-right mui-disabled"><a class="mui-btn mui-btn-red">删除</a></div></li>').appendTo('.mymessageSection ul')	
+//	        			}
+//	        		}
+//	        	}
+//      	}
+//      })
+        
+    })
+    function mymessageSectionHeight(){
+		var hight1 = $('body')[0].offsetHeight;
+		var hight2 = $('.noticeDiv')[0].offsetHeight;
+//		var hight4 = $('.messControll')[0].offsetHeight;
+		
+		var hight3 = hight1 - hight2  - 10;
+		$('.mymessageSection').css("height",hight3+'px')
+	}
+</script>    
+</html>
