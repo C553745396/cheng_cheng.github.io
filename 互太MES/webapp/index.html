@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>MES系统</title>
+    <link rel="stylesheet" href="./plugins/layui/css/layui.css" media="all">
+    <!--<link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">-->
+    <link rel="stylesheet" href="./build/css/app.css" media="all">
+<style>
+    /*.layui-tab-title{
+        display:none;
+    }
+    .kit-tab-tool{
+        display:none;
+    }
+    .layui-fluid{
+        display: none;
+    }*/
+    .layui-tab, .layui-tab-card, .kit-tab{background-color: rgb(238,238,238)!important;}
+    .layui-tab-title,.kit-tab-tool{display: none;background-color: rgb(238,238,238)!important;}
+   #span{width: 10%;height: 24%;display: inline-block;z-index: 999;margin-left: 15%;}
+   .span{background: url(build/images/t1.png) no-repeat;}
+   .span1{
+   	/*background: url(build/images/b.png) no-repeat;*/
+    
+   }
+   .dd1{margin-left: 10%}
+   .layui-nav-itemed .layui-nav-child{background: none !important;}
+   .layui-nav-tree .layui-nav-child dd.layui-this, .layui-nav-tree .layui-nav-child dd.layui-this a, .layui-nav-tree .layui-this, .layui-nav-tree .layui-this>a, .layui-nav-tree .layui-this>a:hover{background: none;}
+   .layui-nav .layui-nav-child dd.layui-this a, .layui-nav-child dd.layui-this{background: none;}
+</style>
+</head>
+
+<body>
+    <div class="layui-layout layui-layout-admin kit-layout-admin">
+        <div class="layui-header">
+            <!-- <div class="layui-logo">KIT ADMIN</div> -->
+            <div class="layui-logo kit-logo-mobile">K</div>
+            <ul class="layui-nav layui-layout-left kit-nav">
+                <!-- <li class="layui-nav-item"><a href="javascript:;">控制台</a></li>
+                <li class="layui-nav-item"><a href="javascript:;">商品管理</a></li>
+                <li class="layui-nav-item"><a href="javascript:;" id="pay"><i class="fa fa-gratipay" aria-hidden="true"></i> 捐赠我</a></li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">其它系统</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">邮件管理</a></dd>
+                        <dd><a href="javascript:;">消息管理</a></dd>
+                        <dd><a href="javascript:;">授权管理</a></dd>
+                    </dl>
+                </li> -->
+            </ul>
+            <ul class="layui-nav layui-layout-right kit-nav">
+                <li class="layui-nav-item">
+                    <a href="javascript:;">
+                        <img src="http://m.zhengjinfan.cn/images/0.jpg" class="layui-nav-img">
+                        <span id="loginName">Van</span>
+                    </a>
+                    <!-- <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">基本资料</a></dd>
+                        <dd><a href="javascript:;">安全设置</a></dd>
+                    </dl> -->
+                </li>
+                <li class="layui-nav-item"><a href="javascript:;" id="logout"><i class="fa fa-sign-out" aria-hidden="true"></i> $t('登出')</a></li>
+            </ul>
+        </div>
+
+        <div class="layui-side layui-bg-black kit-side">
+            <div class="layui-side-scroll">
+                <div class="kit-side-fold"><i class="fa fa-navicon" aria-hidden="true"></i></div>
+                <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+                <ul class="layui-nav layui-nav-tree" lay-filter="kitNavbar" kit-navbar>
+                    <li class="layui-nav-item">
+                        <a class="" href="javascript:;"><i class="fa fa-plug" aria-hidden="true"></i><span> $t("经 编")</span></a>
+                        <dl class="layui-nav-child">
+                            <dd>
+                                <a href="javascript:;" data-options="{url:'dispatching.html',icon:'&#xe6c6;',title:'經編織胚工單派工',id:'1'}" class="navli">
+                                <i class="layui-icon">&#xe6c6;</i><span> $t("經編織胚工單派工")</span></a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" data-options="{url:'jobBooking.html',icon:'fa-user',title:'整经盘头质检报工',id:'2'}" class="navli">
+                                <i class="fa fa-user" aria-hidden="true"></i><span> $t("整经盘头质检报工")</span></a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" data-options="{url:'touModelMaintenance.html',icon:'&#xe628;',title:'盘头型号维护',id:'3'}" class="navli">
+                                <i class="layui-icon">&#xe628;</i><span> $t("盘头型号维护")</span></a>
+                            </dd>
+                            <!-- <dd>
+                                <a href="javascript:;" data-url="of.html" data-icon="&#xe614;" data-title="经编交班表维护报表" data-id='4'><i class="layui-icon">&#xe614;</i><span> 经编交班表维护报表</span></a>
+                            </dd> -->
+                            <dd>
+                                <a href="javascript:;" data-options="{url:'shiteTable.html',icon:'&#xe658;',title:'经编整经交班表维护报表',id:'5'}" class="navli">
+                                <i class="layui-icon">&#xe658;</i><span> $t("经编整经交班表维护报表")</span></a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" data-options="{url:'greigeJobBooking.html',icon:'&#xe658;',title:'經編胚布報工',id:'6'}" class="navli">
+                                <i class="layui-icon">&#xe658;</i><span> $t("經編胚布報工")</span></a>
+                            </dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a href="javascript:;"><i class="fa fa-plug" aria-hidden="true"></i><span> $t("纬 编")</span></a>
+                        <dl class="layui-nav-child">
+                            <dd>
+                                <a href="javascript:;" data-options="{url:'parameterGeneralization.html',icon:'&#xe658;',title:'緯編機台調校參數概覽',id:'7'}" class="navli">
+                                <i class="layui-icon">&#xe658;</i><span>$t("緯編機台調校參數概覽")</span></a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" data-options="{url:'weftShiftTable.html',icon:'&#xe658;',title:'交班表',id:'8'}" class="navli">
+                                <i class="layui-icon">&#xe658;</i><span> $t("交班表")</span></a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" data-options="{url:'engineeringSchool.html',icon:'&#xe658;',title:'緯編織胚工單派工',id:'9'}" class="navli">
+                                <i class="layui-icon">&#xe658;</i><span> $t("緯編織胚工單派工")</span></a>
+                            </dd>
+                            
+                     <!--纬 编 下面的子集下拉框-->     
+                        
+                    <li class="layui-nav-item layui-nav-itemed">
+                        		
+
+                        		
+                        <!--<a href="javascript:;"><i class="layui-icon">&#xe658;</i><span> 胚布质检报工界面</span></a>-->
+                        <dl class="layui-nav-child dl">
+                        	
+                        	<dd class="dd" ><a href="javascript:;" data-options="{url:'weftEditor.html',icon:'&#xe658;',title:'纬编胚布质检报工',id:'14'}"><i class="layui-icon">&#xe658;</i><span> $t("胚布质检报工界面")</span><span class="span" id="span"></span></a></dd>
+                        	
+                            <dd class="dd1"><a href="javascript:;" data-options="{url:'weftEditor.html',icon:'&#xe658;',title:'纬编胚布质检报工',id:'14'}" class="navli"><i class="layui-icon">&#xe658;</i><span> $t("纬编胚布质检报工")</span></a></dd>
+                            <dd class="dd1"><a href="javascript:;" data-options="{url:'weftPersonnelMaintenance.html',icon:'&#xe658;',title:'纬编质检人员维护',id:'15'}" class="navli"><i class="layui-icon">&#xe658;</i><span> $t("纬编质检人员维护")</span></a></dd>
+                            <dd class="dd1"><a href="javascript:;" data-options="{url:'standardMaintenance.html',icon:'&#xe658;',title:'纬编胚布质检标准维护',id:'16'}" class="navli"><i class="layui-icon">&#xe658;</i><span> $t("纬编胚布质检标准维护")</span></a></dd>
+                            <dd class="dd1"><a href="javascript:;" data-options="{url:'matchingUnlocking.html',icon:'&#xe658;',title:'緯編質檢匹號解鎖',id:'17'}" class="navli"><i class="layui-icon">&#xe658;</i><span> $t("緯編質檢匹號解鎖")</span></a></dd>
+                            <dd class="dd1"><a href="javascript:;" data-options="{url:'causeMaintenance.html',icon:'&#xe658;',title:'緯編質量原因維護',id:'18'}" class="navli"><i class="layui-icon">&#xe658;</i><span> $t("緯編質量原因維護")</span></a></dd>
+                        </dl>
+                    </li>
+                         
+                            
+                            
+                            
+                            <dd><a href="javascript:;" data-options="{url:'useRatio.html',icon:'&#xe658;',title:'圆机布票使用倍率',id:'11'}" class="navli"><i class="layui-icon">&#xe658;</i><span> $t("圆机布票使用倍率")</span></a></dd>
+                            <dd><a href="javascript:;" data-options="{url:'productionReport.html',icon:'&#xe658;',title:'纬编机台产量报表',id:'12'}" class="navli"><i class="layui-icon">&#xe658;</i><span> $t("纬编机台产量报表")</span></a></dd>
+                            <dd><a href="javascript:;" data-options="{url:'concluding.html',icon:'&#xe658;',title:'緯編機台信息概覽',id:'13'}" class="navli"><i class="layui-icon">&#xe658;</i><span> $t("緯編機台信息概覽")</span></a></dd>
+                        </dl>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="layui-body" id="container">
+            <!-- 内容主体区域 -->
+            <div style="padding: 15px;">主体内容加载中,请稍等...</div>
+        </div>
+
+        <div class="layui-footer">
+            <!-- 底部固定区域 -->
+            <!-- 2017 &copy; -->
+            <!-- <a href="http://kit.zhengjinfan.cn/">kit.zhengjinfan.cn/</a> MIT license -->
+
+        </div>
+    </div>
+    <script type="text/javascript">
+        // var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+        // document.write(unescape("%3Cspan id='cnzz_stat_icon_1264021086'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s22.cnzz.com/z_stat.php%3Fid%3D1264021086%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script src="build/js/di18n.js"></script>
+    <script src="build/js/lang.js"></script>
+    <script src="./plugins/layui/layui.js"></script>
+    <script src="build/js/jquery.js"></script>
+    <!-- <script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.11.3.min.js"></script> -->
+    <script>
+        // window.console = {
+        //     log: function(){},
+        //     debug: function(){},
+        //     info: function(){},
+        //     warn: function(){},
+        //     error: function(){}
+        // };
+        // if (!sessionStorage.loginName) {
+        //     alert('请先登录');
+        //     window.location.href='login.html';
+        // }
+        
+        $('#loginName').text(sessionStorage.loginName);
+        $('#logout').on('click',function(){
+            //登出操作
+            sessionStorage.removeItem('loginName');
+            window.location.href='login.html';
+        })
+
+
+        var message;
+        layui.config({
+            base: 'build/js/'
+        }).use(['app', 'message'], function() {
+            var app = layui.app,
+                $ = layui.jquery,
+                layer = layui.layer;
+            //将message设置为全局以便子页面调用
+            message = layui.message;
+            //主入口
+            app.set({
+                type: 'iframe'
+            }).init();
+            $('#pay').on('click', function() {
+                layer.open({
+                    title: false,
+                    type: 1,
+                    content: '<img src="/build/images/pay.png" />',
+                    area: ['500px', '250px'],
+                    shadeClose: true
+                });
+            });
+        });
+        
+        
+        // console.log(encodeURIComponent("http://www.w3school.com.cn"))
+        // console.log(encodeURIComponent("http://www.w3school.com.cn/p 1/"))
+        // console.log(encodeURIComponent(",/?:@&=+$#"))
+
+        //点击左侧导航胚布质检报工界面功能
+        $(function(){
+        	$('.dl .dd').click(function(){
+        		
+        		$('.dl .dd #span').toggleClass('span1');
+        	
+        		$('.dd1').toggle();
+        		
+        		
+        		
+        	})
+
+            $('.navli').click(function(){
+                // console.log($(this).data('options'));
+                var str = $(this).data('options');
+                var turl = str.split('url:')[1].split(',')[0].replace(/'/g,"")
+                // console.log(turl);
+
+                var frame = $('.layui-show').find('iframe')[0];
+                // console.log(frame);
+
+                frame.src = 'about:blank';
+                // frame.contentwindow.document.write('')
+                // frame.contentwindow.document.close();
+
+                $('.layui-show').find('iframe')[0].src = turl;
+                // console.log(JSON.parse(str).url)
+            })
+
+        })
+    </script>
+</body>
+
+</html>

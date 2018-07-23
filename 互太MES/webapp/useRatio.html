@@ -1,0 +1,324 @@
+<!-- <!DOCTYPE html> -->
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>圆機布票使用倍率</title>
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="format-detection" content="telephone=no">
+		<script type="text/javascript" src="plugins/servies.js" ></script>
+		<link rel="stylesheet" href="plugins/layui/css/layui.css" media="all" />
+		<!--<link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">-->
+	</head>
+
+	<body>
+	<!-- 弹出框 -->
+        <div id="kk" style="display:none;padding:25px;">
+		    <div class="m1">
+		    	<label for="layui-form-label">$t('分配织胚数量(公斤)')</label>
+		    	<input type="text" id="num1">
+		    </div>
+		    <div class="m1">
+		    	<label for="layui-form-label">$t('分配织胚数量(公斤)')</label>
+		    	<input type="text" id="num2">
+		    </div>
+		    <div class="m1">
+		    	<label for="layui-form-label">$t('布票使用倍率')<span class="v_d">(公斤)</span></label>
+		    	<input type="text" id="num3">
+		    </div>
+		</div>
+		<div id="edi" style="display:none;padding:25px;">
+		    <div class="m1">
+		    	<label for="layui-form-label">$t('分配织胚数量(公斤)')</label>
+		    	<input type="text" id="num4">
+		    </div>
+		    <div class="m1">
+		    	<label for="layui-form-label">$t('分配织胚数量(公斤)')</label>
+		    	<input type="text" id="num5">
+		    </div>
+		    <div class="m1">
+		    	<label for="layui-form-label">$t('布票使用倍率')<span class="v_d">(公斤)</span></label>
+		    	<input type="text" id="num6">
+		    </div>
+		</div>
+
+
+
+		<div class="m">
+			<div class="top">
+				<span>$t('圆機布票使用倍率')</span>
+			</div>
+			<table id="demo" lay-filter="test" lay-data="{id: 'idTest1'}"></table>
+			<i class="layui-icon shou st" id='shou1'>&#xe654;</i>&nbsp;&nbsp;<i class="layui-icon shou st" id='edit'>&#xe642;</i> &nbsp;&nbsp;<i class="layui-icon shou st" id='shou2'>&#xe640;</i> 
+		</div>
+
+		
+		
+		<script type="text/javascript" src="plugins/layui/layuis.all.js"></script>
+        <script type="text/javascript" src="plugins/layui/lay/modules/tables.js" ></script>
+        <script type="text/javascript" src="build/js/jquery.js" ></script>
+        <script src="build/js/di18n.js"></script>
+    	<script src="build/js/lang.js"></script>
+        <script>
+            //多语言动态生成
+        var colArr = [ //表头
+			      {radio:true}
+			      ,{field: 'counter', title: '', width:100,}
+			      ,{field: 'qntyAllottedFrom', title: '分配织胚数量(公斤)', width:180}
+			      ,{field: 'qntyAllottedTo', title: '分配织胚数量', width:180}
+			      ,{field: 'rate', title: '布票使用倍率', width:180} 
+			    ];
+        arrchangeL(colArr);
+        </script>
+		<script>
+		    var name,qnty_allotted_from1,qnty_allotted_to1,rate1;
+			layui.use(['table','layer'],function(){
+			  var table = layui.table;
+			  var layer = layui.layer;
+			  //第一个实例
+			  table.render({
+			    elem: '#demo'
+			    ,height: 415
+			    ,url: getAjaxURL('/roundMachineRateData/listRoundMachineData') //数据接口
+			    // ,page: true //开启分页
+			    ,response: {
+                    statusName: 'status' //数据状态的字段名称，默认：code
+                    ,statusCode: 200 //成功的状态码，默认：0
+                    ,msgName: 'message' //状态信息的字段名称，默认：msg
+                    ,countName: 'totals' //数据总数的字段名称，默认：count
+                    ,dataName: 'data' //
+                }
+			    ,cols: [colArr]
+			    ,done: function(res, curr, count){
+					$("[data-field='counter']").css('display','none');
+					$('.layui-table-cell')[0].style.zIndex = '-2';
+				}
+			    ,id:'idTest11'
+			    // ,limit:10
+			    // ,limits:[10,30,50],
+			  });
+			  // 点击复选框
+			  table.on('radio(test)', function(obj){
+				  // console.log(obj.checked); //当前是否选中状态
+				  console.log(obj.data); //选中行的相关数据
+				  // console.log(obj.type); //如果触发的是全选，则为：all，如果触发的是单选，则为：one
+				  qnty_allotted_from1 = obj.data.qntyAllottedFrom;
+				  qnty_allotted_to1 = obj.data.qntyAllottedTo;
+				  rate1 = obj.data.rate;
+				  if(obj.checked == true){
+                      name = obj.data.counter;
+                      console.log(name)
+				  };
+				  if(obj.checked == false){
+                      name = '';
+                      console.log(name)
+				  };
+			  });
+			  // 删除行
+			  $('#shou2').click(function(){
+			  	  if(name !== ''){
+				  	  layer.open({
+					  	  // shadeClose:true,
+					  	  area: ['200px', '150px']
+		                  ,title:strchangeL('删除')
+		                  ,type:1
+		                  ,content: strchangeL('你确定删除吗')
+						  ,btn: [strchangeL('删除'), strchangeL('取消')]
+						  ,yes: function(index, layero){
+						    //按钮【按钮一】的回调
+						    // return true
+						    $.ajax({
+						      	  url:getAjaxURL('/roundMachineRateData/delteRoundMachineData'),
+						      	  data:{
+	                                  counter:name
+						      	  },
+						      	  success:function(data){
+	                                  console.log(data)
+	                                  layer.alert(data.message,{title: "提示"});
+	                                  // 表格重载
+	                                  table.reload('idTest11', {
+										  url:getAjaxURL('/roundMachineRateData/listRoundMachineData') 
+									  });
+									  name = '';
+									  layer.close(index);
+						      	  }
+						      })
+						    
+						  }
+						  ,btn2: function(index, layero){
+					  	  	  layer.closeAll();
+						  }
+					  });
+				  }else{
+			  	  	  layer.alert(strchangeL('请选择删除行'),{title: "提示"});
+			  	  }
+			  });
+			  // 编辑行
+			  $('#edit').click(function(){
+			  	  if(name !== ''){
+                      $("#num4").val(qnty_allotted_from1);
+                      $("#num5").val(qnty_allotted_to1);
+                      $("#num6").val(rate1);
+				  	  layer.open({
+					  	  // shadeClose:true,
+					  	  area: ['400px', '250px']
+		                  ,title:strchangeL('删除')
+		                  ,type:1
+		                  ,content: $("#edi")
+						  ,btn: [strchangeL('确定'), strchangeL('取消')]
+						  ,yes: function(index, layero){
+						    //按钮【按钮一】的回调
+						    // return true
+						    // $.ajax({
+						    //   	  url:getAjaxURL('/mes/roundMachineRateData/delteRoundMachineData'),
+						    //   	  data:{
+	         //                          counter:name
+						    //   	  },
+						    //   	  success:function(data){
+	         //                          console.log(data)
+	         //                          layer.alert(data.message,{title: "提示"});
+	         //                          // 表格重载
+	         //                          table.reload('idTest11', {
+										//   url:getAjaxURL('/mes/roundMachineRateData/listRoundMachineData') 
+									 //  });
+									 //  name = '';
+									 //  layer.close(index);
+						    //   	  }
+						    //   })
+						    $('#edi').css('display','none')
+						  }
+						  ,btn2: function(index, layero){
+					  	  	  layer.closeAll();
+					  	  	  $('#edi').css('display','none')
+						  }
+					  });
+				  }else{
+			  	  	  layer.alert(strchangeL('请选择编辑行'),{title: "提示"});
+			  	  }
+			  })
+			  // 新增弹出层
+			  $('#shou1').click(function(){
+			  	  layer.open({
+				  	  // shadeClose:true,
+				  	  area: ['400px', '280px']
+	                  ,title:strchangeL('新增')
+	                  ,type:1
+	                  ,content: $('#kk')
+					  ,btn: [strchangeL('保存'), strchangeL('取消')]
+					  ,cancel: function(){ 
+					  	  layer.closeAll();
+					      $('#kk').css('display','none')
+					  }
+					  ,yes: function(index, layero){
+					    //按钮【按钮一】的回调
+					  	   var num1 = parseFloat($("#num1").val()),
+					  	    num2 = parseFloat($("#num2").val()),
+					  	    num3 = parseFloat($("#num3").val());
+					      if(num1==''||num2==''||num3==''){
+				              layer.alert(strchangeL('请填写完所有数据'),{title: "提示"});
+				              // return false
+				          }else{
+				              if(/^\d+(\.\d{1,1})?$/.test(num1)){
+				              	console.log(123)
+				                if(!isNaN(num3)&&!isNaN(num2)){
+				                     $.ajax({
+								      	  url:getAjaxURL('/roundMachineRateData/saveOrUpdateRoundMachineData'),
+								      	  data:{
+			                                  qnty_allotted_from:document.getElementById('num1').value,
+			                                  qnty_allotted_to:document.getElementById('num2').value,
+			                                  rate:document.getElementById('num3').value,
+								      	  },
+								      	  success:function(data){
+			                                  console.log(data)
+			                                  layer.alert(data.message, {
+		                                          title: strchangeL("提示")
+		                                      });
+			                                  // 表格重载
+			                                  table.reload('idTest11', {
+												  url: getAjaxURL('/roundMachineRateData/listRoundMachineData')
+											  });
+			                                  document.getElementById('num1').value = "";
+			                                  document.getElementById('num2').value = "";
+			                                  document.getElementById('num3').value = "";
+			                                  layer.close(index);
+			                                  $('#kk').css('display','none')
+								      	  }
+								      })
+				                }else{
+				                    layer.alert(strchangeL('分配织胚数量请填写数字'),{title: "提示"});
+				                    // return false
+				                }
+				              }else{
+				                  layer.alert(strchangeL('布票使用倍率小数点保留1位小数或整数'),{title: "提示"});
+				                  // return false
+				              }
+				          }
+					  },btn2: function(index, layero){
+					  	  layer.closeAll();
+					      $('#kk').css('display','none')
+					  }
+				  });
+			  })
+			});
+		</script>
+	</body>
+
+</html>
+
+<style scoped>
+    .layui-form-checkbox{
+    	disabled:disabled;
+    }
+	.m{
+		margin:15px;
+	}
+	*{
+    	margin: 0;
+    	padding: 0;
+    }
+	.top{
+		height: 22px;
+		line-height: 22px;
+		font-size: 16px;
+		border-bottom: 1px rgb(26,160,148) solid;
+	}
+	.layui-input{
+		height: 25px;
+	}
+	.v_d{
+		visibility:hidden;
+	}
+	.layui-input-inline{
+		padding: 9px 0;
+		width: 170px!important;
+	}
+	.layui-form-label{
+		width: auto;
+	}
+	.clearfix:after{
+		content: '';
+		display: table;
+		clear:both;
+		visibility: hidden;
+	}
+	.f{
+		float: left;
+	}
+	.r{
+		color: red;
+	}
+	.st{
+		cursor: pointer;
+	}
+	.m1{
+		margin: 10px 0;
+	}
+	.layui-form-radio{
+		margin: 0px;
+	}
+</style>

@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>engineeringSchoolProduce</title>
+	<meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="stylesheet" href="plugins/layui/css/layui.css" media="all" />
+    <!--<link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">-->
+</head>
+<body>
+    <div class="tou">$t('布票產生及打印')</div>
+    <button class="layui-btn layui-btn-small btn" id="cbarcodeNo">$t('產生布票')</button>
+    <button class="layui-btn layui-btn-small btn" id="printn">$t('打印布票')</button>
+    <button class="layui-btn layui-btn-small btn" id="getn">$t('選擇最新布票')</button>
+    <div style="margin:10px 20px;">
+        <label for="">$t('落布要求'):</label><input type="text" id="lbyq">&nbsp;&nbsp;&nbsp;
+        <label for="">$t('布票數量'):</label><input type="text" id="bpsl">&nbsp;&nbsp;&nbsp;
+        <label for="">$t('現有布票可織胚數'):</label><input type="text" disabled id="canusep">&nbsp;&nbsp;&nbsp;
+        <label for="">$t('機頭紙編號'):</label><input type="text" disabled id="JOB_SHEET_NO">
+    </div>
+
+    <table id="demo" lay-filter="test"></table>
+</body>
+	<!-- <script type="text/javascript" src="plugins/layui/layui.js"></script> -->
+    <script src="plugins/servies.js"></script>
+    <script type="text/javascript" src="plugins/layui/layui.all.js"></script>
+    <script type="text/javascript" src="plugins/layui/lay/modules/table.js"></script>
+    <script src="build/js/jquery.js"></script>
+    <script src="build/js/di18n.js"></script>
+    <script src="build/js/lang.js"></script>
+    <!-- <script src="build/js/dependencies/rsvp-3.1.0.min.js"></script>
+    <script src="build/js/dependencies/sha-256.min.js"></script>
+    <script type="text/javascript" src="build/js/qz-tray.js"></script> -->
+    <script>
+        function timestampToTime(timestamp) {
+            var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+            // console.log(date)
+            Y = date.getFullYear() + '-';
+            M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+            D = date.getDate() + ' ';
+            return Y+M+D;
+        }
+        /// QZ Config ///
+        // var cfg = null;
+        // // 0 qz 公共配置信息
+        // function getUpdatedConfig() {
+        //     if (cfg == null) {
+        //         cfg = qz.configs.create(null);
+        //     }
+        //     cfg.reconfigure({
+        //                 altPrinting: false,
+        //                 encoding: "",
+        //                 endOfDoc: "",
+        //                 perSpool: "",
+        //                 colorType: "color",
+        //                 copies: 1,
+        //                 density: "",
+        //                 duplex: false,
+        //                 interpolation: "",
+        //                 jobName: "",
+        //                 margins: 0,
+        //                 orientation: "",
+        //                 paperThickness: "",
+        //                 printerTray: "",
+        //                 rasterize: true,
+        //                 rotation: 0,
+        //                 scaleContent: true,
+        //                 size: null,
+        //                 units: "in"
+        //             });
+        //     return cfg;
+        // }
+
+        // // 1 连接QZ print
+        // function con2qz(){
+        //     qz.websocket.connect().then(function() {
+        //     }).catch(displayError);
+        // }
+        // //var config = getUpdatedConfig();
+        // // 2 连接打印机
+        // // 
+        //  // var file ='http://172.30.20.145:8080/MES/demo/assets/pdf_sample.pdf';
+        // // var file ='assets/2018031117162477-05c1c353-f531-41bc-a4a3-0392b317c99c.pdf';
+        // // var file ='http://172.30.20.126:8080/mes/pdf_upload/2018031117162477-05c1c353-f531-41bc-a4a3-0392b317c99c.pdf';
+        // function con2printer(){
+        //     // var printer = document.getElementById("printer").value;
+        //     qz.websocket.connect().then(function() {
+        //     console.log(qz.websocket.isActive());
+        //    return qz.printers.getDefault();              // Pass the printer name into the next Promise
+        //     }).then(function(printer) {
+        //         config = getUpdatedConfig();
+        //         config.setPrinter(printer);
+        //         console.log(file);
+                
+        //        var data = [
+        //             { type: 'pdf', data: file}
+        //         ];
+        //         return qz.print(config, data);
+            
+        //     }).catch(function(e) { console.error(e); });
+
+        // }
+    </script>
+    <script>
+        var printParams = {};
+        // console.log(window.location.href.split('?')[1].split('&'))
+        if (window.location.href.split('?')[1]) {
+            window.location.href.split('?')[1].split('&').forEach(function(item,idx){
+                var k = item.split('=')[0];
+                var v = item.split('=')[1];
+                printParams[k] = v;
+            })
+        }
+        console.log(printParams);
+        $('#JOB_SHEET_NO').val(printParams.JOB_SHEET_NO);
+        var colArr1 = [ //表头
+            {checkbox: true},
+            {title: '序號', width:60,templet: '<div><span class="printFlag">{{d.printFlag}}</span>{{d.LAY_TABLE_INDEX+1}}</div>'}
+            // {title: '序號', width:60,templet: '#indexTpl'}
+            // {field: 'printFlag', title: '序號', width:60}
+            ,{field: 'barcodeNo', title: '布票號(批次號)', width:200}
+            ,{field: 'prodWtPerRoll', title: '落布要求', width:120, event:'edit',style:'cursor: pointer;'}
+            // ,{field: 'prodWtPerRoll', title: '落布要求', width:120,edit: 'text',style:'cursor: pointer;'}
+            ,{field: 'mchnNo', title: '生產機號', width:120} 
+            ,{field: 'createDate', title: '生產日期', width: 120,templet: '<div>{{ timestampToTime(d.createDate) }}</div>'}
+            ,{field: 'confirmQnty', title: '報工數量', width: 120}
+            ,{field: 'confirmDate', title: '報工日期', width: 120,templet: '<div>{{ timestampToTime(d.confirmDate) }}</div>'}
+            // ,{field:"printFlag",width:0,style:"display:none"}
+        ]
+        var printData;
+
+        arrchangeL(colArr1);
+
+        $(document).ready(function(){
+            //获取落布要求
+            $.ajax({
+                type:'POST',
+                url:getAjaxURL('/weftMachineJobSheet/getWeightPerRoll'),
+                data:{
+                    OrderNo:printParams.OrderNo
+                },
+                success:function(data){
+                    if (data.status == 200) {
+                        $('#lbyq').val(data.data);
+                    } else {
+                        layer.alert(data.message,{title:'提示'})
+                    }
+
+                }
+            })
+
+            //获取布票数量
+            $.ajax({
+                type:'POST',
+                url:getAjaxURL('/weftMachineJobSheet/getGreigeBarcodeLabels'),
+                data:{
+                    OrderNo:printParams.OrderNo,
+                    MachineNo:printParams.MACHINE_NO,
+                    QuantityAllotted:printParams.QUANTITY_ALLOTTED,
+                    MachineJobSheetNo:printParams.JOB_SHEET_NO,
+                    DataFlag:1
+                },
+                success:function(data){
+                    if (data.status == 200) {
+                        $('#bpsl').val(data.data.NO_OF_LABELS);
+                    } else {
+                        layer.alert(data.message,{title:'提示'})
+                    }
+
+                }
+            })
+
+            //列表
+            layui.use(['laydate','table'], function(){
+                var table = layui.table;
+                table.render({
+                    elem: '#demo'
+                    ,height: 315
+                    ,url: getAjaxURL('/weftMachineJobSheet/getGreigeBarcodeLabelsGrid') //数据接口
+                    ,response: {
+                        statusName: 'status' //数据状态的字段名称，默认：code
+                        ,statusCode: 200 //成功的状态码，默认：0
+                        ,msgName: 'message' //状态信息的字段名称，默认：msg
+                        ,countName: 'length' //数据总数的字段名称，默认：count
+                        ,dataName: 'data' //数据列表的字段名称，默认：data
+                    }  //数据接口
+                    ,method: 'POST'
+                    ,page:false
+                    ,where:{
+                        OrderNo:printParams.OrderNo,
+                        MachineNo:printParams.MACHINE_NO,
+                        MachineJobSheetNo:printParams.JobSheetNo,
+                        DataFlag:2
+                    }
+                    ,cols: [colArr1]
+                    ,id:'aaa' 
+                    ,done:function(res,curr,count){
+                        $('.layui-table-cell')[0].style.zIndex = '-2';
+                        if (res.status == 200) {
+                            // console.log(res.data);
+                            $('#canusep').val(res.TotalQnty);
+                            printData = [];
+                        }else{
+                            layer.alert(res.message,{title:'提示'})
+                        }
+                    }
+                });
+                
+                // var clickData = '';
+                //监听单元格修改落布要求
+                table.on('tool(test)', function(obj){
+                    // clickData = obj.data;
+                    console.log(obj)
+                    var params = obj.data;
+                    if(obj.event === 'edit'){
+                        layer.prompt({
+                            formType: 2
+                            ,title: '修改 布票号 为 ['+ params.barcodeNo+'] 的落布要求'
+                            ,value: params.prodWtPerRoll
+                        }, function(value, index){
+                            if (value == '' || !Number(value) && Number(value) != 0) {
+                                layer.alert('请输入有效的落布要求',{title:'提示'})
+                                return
+                            }
+                            //Ajax
+                            $.ajax({
+                                type:'POST',
+                                url:getAjaxURL('/weftMachineJobSheet/updateWtPerRoll'),
+                                data:{
+                                    BarcodeNo:params.barcodeNo,
+                                    ProdWtPerRoll:value,
+                                },
+                                success:function(data){
+                                    if (data.status == 200) {
+                                        //刷新
+                                        table.reload('aaa', {
+                                            url:getAjaxURL('/weftMachineJobSheet/getGreigeBarcodeLabelsGrid'),
+                                        });
+                                        layer.close(index);
+                                    } else {
+                                        layer.alert(data.message,{title:'提示'})
+                                    }
+                                }
+                            })  
+
+                            //同步更新表格和缓存对应的值
+                            // obj.update({
+                            //   prodWtPerRoll: value
+                            // });
+                        });
+                    }
+
+                });
+
+                
+                // $("#tab+.layui-form .layui-table>tbody>tr>td[data-filed='totalQty']").delegate('input','keydown',function(e){
+                //     console.log(111)
+                // })
+                
+                table.on('edit(test)', function(obj){ //注：edit是固定事件名，test是table原始容器的属性 lay-filter="对应的值"
+                    // var nobj = JSON.parse(JSON.stringify(obj));
+                    // nobj.data[nobj.field] = '123';
+                    // console.log(nobj)
+                    // console.log(obj)
+                    // var initValue = nobj.data[nobj.field];
+                    // console.log(initValue)
+                    console.log('---------')
+                    console.log($(this).prev().text());//修改前的值
+                    console.log(obj.value); //得到修改后的值
+                    console.log(obj.field); //当前编辑的字段名
+                    console.log(obj.data); //所在行的所有相关数据  
+
+                    if (!Number(obj.value) && obj.value !=0 ) {
+                        layer.alert(strchangeL("请输入有效数字"),{title: "提示"});
+                        // obj.value = '';
+                        table.reload('aaa', {
+                            url:getAjaxURL('/weftMachineJobSheet/getGreigeBarcodeLabelsGrid'),
+                        });
+                        return
+                    }
+
+                    $.ajax({
+                        type:'POST',
+                        url:getAjaxURL('/weftMachineJobSheet/updateWtPerRoll'),
+                        data:{
+                            BarcodeNo:obj.data.barcodeNo,
+                            ProdWtPerRoll:obj.value,
+                        },
+                        success:function(data){
+                            if (data.status == 200) {
+                                layer.alert('修改成功',{title:'提示'});
+                                //刷新
+                                // table.reload('aaa', {
+                                //     url:getAjaxURL('/weftMachineJobSheet/getGreigeBarcodeLabelsGrid'),
+                                // });
+                            } else {
+                                layer.alert(data.message,{title:'提示'});
+                                table.reload('aaa', {
+                                    url:getAjaxURL('/weftMachineJobSheet/getGreigeBarcodeLabelsGrid'),
+                                });
+                            }
+                        }
+                    })  
+
+                });
+
+                // $('.layui-table').delegate('td','dblclick',function(){
+                //     var em = $(this);
+                //     var val = em.attr('data-field');
+                //     // console.log(clickData)
+                //     console.log(123)
+
+                // })
+
+                var checkedidx;
+                //复选框
+                table.on('checkbox(test)', function(obj){
+                    // console.log(obj)
+                    // console.log(obj.checked); //当前是否选中状态
+                    // console.log(obj.data); //选中行的相关数据
+                    // console.log(obj.type); //如果触发的是全选，则为：all，如果触发的是单选，则为：one
+                    
+                    //全选建忽略
+                    if (!obj.data) {
+                        return
+                    }
+
+                    // //取消其餘的點亮
+                    // if (obj.checked) {
+                    //     console.log(true)
+                    //     if (checkedidx) {
+                    //         console.log(checkedidx)
+                    //         console.log($('tr .layui-form-checkbox').eq(checkedidx))
+                    //         $('tr .layui-form-checkbox').eq(checkedidx).click()
+                    //     }
+                    //     checkedidx = obj.data.LAY_TABLE_INDEX+1;
+                    // } else {
+                    //     checkedidx = '';
+                    // }
+
+
+                    if (obj.checked) {
+                        var nd = JSON.parse(JSON.stringify(obj.data));
+                        printData.push(nd);
+                    } else {
+                        for (var i = 0; i < printData.length; i++) {
+                            if (printData[i].LAY_TABLE_INDEX == obj.data.LAY_TABLE_INDEX) {
+                                printData.splice(i,1);
+                                break
+                            }
+                        }
+                    }
+                    
+                });
+
+                //产生布票
+                $('#cbarcodeNo').click(function(){
+
+                    if ($('#bpsl').val() == '' || !Number($('#bpsl').val()) ) {
+                        layer.alert('请输入有效的布票数量',{title:'提示'})
+                        return 
+                    }
+                    if ($('#lbyq').val() == '' || !Number($('#lbyq').val()) ) {
+                        layer.alert('请输入有效的落布要求',{title:'提示'})
+                        return 
+                    }
+
+                    $.ajax({
+                        type:'POST',
+                        url:getAjaxURL('/weftMachineJobSheet/createGreigreBarcodeLabel'),
+                        data:{
+                            OrderNo:printParams.OrderNo,
+                            MachineNo:printParams.MACHINE_NO,
+                            MachineJobSheetNo:printParams.JOB_SHEET_NO,
+                            NoOfLabels:$('#bpsl').val(),
+                            WtPerRoll:$('#lbyq').val(),
+                        },
+                        success:function(data){
+                            if (data.status == 200) {
+                                //刷新
+                                table.reload('aaa', {
+                                    url:getAjaxURL('/weftMachineJobSheet/getGreigeBarcodeLabelsGrid'),
+                                });
+
+                            } else {
+                                layer.alert(data.message,{title:'提示'})
+                            }
+
+                        }
+                    })
+                })
+            })          
+
+            //打印布票
+            $('#printn').click(function(){
+                console.log(printData);
+                
+                // console.log(printParams);
+                if (printData.length == 0) {
+                    layer.alert('请选择打印',{title:'提示'});
+                    return
+                }
+
+                var pd = JSON.parse(JSON.stringify(printData));
+                pd.forEach(function(item,idx){
+                    delete item.LAY_CHECKED;
+                    delete item.LAY_TABLE_INDEX;
+                })
+                // console.log(JSON.stringify(printData))
+                console.log(pd)
+                
+
+                $.ajax({
+                	type:'POST',
+         	        // dataType:"jsonp",
+                    url:getAjaxURL('/weftMachineJobSheet/printGreigeBarcodeLabel'),
+                    data:{
+                        orderNo:printParams.OrderNo,
+                        username:"peter",
+                        // username:sessionStorage["loginName"]
+                        // JobSheetNo:printParams.JOB_SHEET_NO,
+                        // MACHINE_NO:printParams.MACHINE_NO,
+                        list:JSON.stringify(pd)
+                    },
+                    success:function(data){
+                        console.log(data)
+                        // con2qz();
+                        // con2printer();
+                        // file = data.data;
+                        // con2printer(file)
+                        if (data.status == 200) {
+                            file=data.data;
+                            for(var par=0;par<file.length;par++){
+                                // window.open(site_config.debug_url+file[par]);
+                                window.open(file[par]);
+                            }
+                        }else{
+                            layer.alert(data.message, {
+                                title: "提示"
+                            });
+                        }
+
+                    }
+                })
+            })
+
+            // 選擇最新布票
+            $("#getn").click(function(){
+                //清空 全选键
+                $('tr .layui-form-checkbox').eq(0).click();
+                $('tr .layui-form-checkbox').eq(0).click();
+                printData = [];
+
+                $('.printFlag').each(function(index, value) {
+
+                    if(value.innerText == 0) {
+                        //点击 注意或需要忽略第一个全选键
+                        $('tr .layui-form-checkbox').eq(index+1).click();
+                    }
+                })
+            });
+
+
+
+
+
+
+        })
+    </script>
+    
+</html>
+<style>
+    .printFlag{
+        display: none;
+    }
+    .laytable-cell-10001-1{
+        text-align: center;
+    }
+    .tou{
+        padding: 3px 10px;
+        border-bottom: 1px rgb(30,140,195) solid;
+    }
+    .btn{
+        margin: 7px 10px;
+        /*padding: 3px 15px;*/
+    }
+    .layui-table-click {
+        background-color: #FFF !important;
+    }
+</style>

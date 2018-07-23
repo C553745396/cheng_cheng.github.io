@@ -1,0 +1,83 @@
+.m {
+	margin: 0 15px;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+.top {
+	height: 22px;
+	line-height: 22px;
+	font-size: 16px;
+	border-bottom: 1px rgb(26, 160, 148) solid;
+}
+
+.layui-form-label {
+	width: auto;
+	padding: 0;
+	line-height: 26px;
+}
+
+.layui-input {
+	height: 25px;
+	width:150px;
+}
+
+.layui-form-item {
+	/*padding: 4px 0;
+	margin: 0;*/
+	margin-top: 10px;
+}
+
+.v_d {
+	visibility: hidden;
+}
+
+.layui-input-inline {
+	width: 150px!important;
+}
+.layui-form-item .layui-input-inline{
+	margin-right: 0px !important;
+}
+.layui-form-select .layui-edge {
+	position: absolute;
+	right: 8px;
+}
+.panel.window {  
+   z-index: 1000 !important;  
+}  
+  
+     
+  
+.window-shadow {  
+  z-index: 999 !important;  
+}  
+.window-mask {  
+  z-index: 998 !important;  
+}  
+.layui-btn{
+	color: #000000;
+}
+.txtFieldDisable{
+	/*color:#BAD2E8;*/
+	background:#EBEBE4 ;
+	border:1px solid #D2D2D2 ;
+}
+.bg{
+	color:#000000;
+	/*background:#EBEBE4 ;*/
+	border:1px solid #D2D2D2 ;
+}
+
+.layui-form-select dl dd.layui-this{
+	background: #FFF9EC;
+	color: #000000;
+}
+.layui-select-disabled .layui-disabled{
+	background: #EBEBE4;
+}
+.layui-disabled{
+	color: #000000 !important;
+}

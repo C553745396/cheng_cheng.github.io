@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>纬编质检人员维护</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+   
+    <link rel="stylesheet" href="plugins/layui/css/layui.css" media="all" />
+    <!-- <link rel="stylesheet" href="css/global.css" media="all"> -->
+    <!--<link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">-->
+
+</head>
+<body>
+    <div class="m">
+        <div class="top">
+            <span>$t('纬编质检人员维护')</span>
+        </div>
+        <div class="layui-form-item">
+                <label class="layui-form-label">$t('工號')</label>
+                <div class="layui-input-inline">
+                  <input type="test" disabled name="password" required lay-verify="required" autocomplete="off" class="layui-input ys" id="inp1">
+                </div>
+                <div class="layui-input-inline">
+                  <input type="password" disabled name="password" required lay-verify="required" autocomplete="off" class="layui-input ys" id="inp2">
+                </div>
+                <button class="layui-btn layui-btn-small" id="pass">$t('修改密碼')</button>
+                <button class="layui-btn layui-btn-small" id="pass2">$t('保存')</button>
+                <button class="layui-btn layui-btn-small" id="pass3">$t('取消')</button>
+        </div>
+        <div style="margin:0 15px">
+            <table id="demo" lay-filter="test"></table>
+            <i class="layui-icon shou c_b" id='shou1'>&#xe654;</i>&nbsp;&nbsp;<i class="layui-icon shou c_b" id='shou2'>&#xe642;</i>&nbsp;&nbsp;<i class="layui-icon shou c_b" id='shou3'>&#xe640;</i>&nbsp;&nbsp;<i class="layui-icon shou c_b" id='shou4'>&#x1002;</i>
+            <!-- <span>共<b></b>条</span> -->
+        </div>
+    </div>
+<!-- 保存 弹出框-->
+<div id="search" style="display:none;padding:25px;">
+    <div style="margin:5px 0">
+        <span>$t('工号')<span class='v_h'>审批权限限</span>&nbsp;</span><span><input type="text" value="" id="tWork1"></span>
+    </div>
+    <div style="margin:5px 0">
+        <span>$t('工号姓名')<span class='v_h'>审批限</span>&nbsp;</span><span><input type="text" value="" id="tWork2"></span>
+    </div>
+    <div style="margin:5px 0">
+        <span>$t('审批权限')<span class='v_h'>审批限</span>&nbsp;</span><span><input type="text" value="" id="tWork3"></span>
+    </div>
+    <div style="margin:5px 0">
+        <span>$t('膠管重量最小值')&nbsp;</span><span><input type="text" value="" id="tWork4"></span>
+    </div>
+    <div style="margin:5px 0">
+        <span>$t('膠管重量最大值')&nbsp;</span><span><input type="text" value="" id="tWork5"></span>
+    </div>
+</div>
+<!-- 编辑 弹出框 -->
+<div id="edit" style="display:none;padding:25px;">
+    <div style="margin:5px 0">
+        <span>$t('工号')<span class='v_h'>审批权限限</span>&nbsp;</span><span><input type="text" value="" id="edit1"></span>
+    </div>
+    <div style="margin:5px 0">
+        <span>$t('工号姓名')<span class='v_h'>审批限</span>&nbsp;</span><span><input type="text" value="" id="edit2"></span>
+    </div>
+    <div style="margin:5px 0">
+        <span>$t('审批权限')<span class='v_h'>审批限</span>&nbsp;</span><span><input type="text" value="" id="edit3"></span>
+    </div>
+    <div style="margin:5px 0">
+        <span>$t('膠管重量最小值')&nbsp;</span><span><input type="text" value="" id="edit4"></span>
+    </div>
+    <div style="margin:5px 0">
+        <span>$t('膠管重量最大值')&nbsp;</span><span><input type="text" value="" id="edit5"></span>
+    </div>
+</div>
+
+    <script type="text/javascript" src="plugins/servies.js" ></script>
+    <script type="text/javascript" src="plugins/layui/layuis.all.js"></script>
+    <script type="text/javascript" src="plugins/layui/lay/modules/tables.js" ></script>
+    <script type="text/javascript" src="build/js/jquery.js" ></script>
+    <script src="build/js/di18n.js"></script>
+    <script src="build/js/lang.js"></script>
+    <script>
+        //多语言动态生成
+        var colArr = [ //表头
+              {radio: true, LAY_RadioCHECKED: false}
+              ,{field: 'id', title: '工号',width:200}
+              ,{field: 'name', title: '姓名',width:200}
+              ,{field: 'authFlag', title: '审批权限',unresize: true,width:200}
+              ,{field: 'allowedRangeMin', title: '膠管重量最小值',width:200} 
+              ,{field: 'allowedRangeMax', title: '膠管重量最大值',width:200}
+            ];
+        arrchangeL(colArr);
+    </script>
+    <script>
+            var ta,da,id,a1,a2,a3,a4;
+            $(document).ready(function(){
+                // $('#inp1').val(sessionStorage["loginName"]);
+                // $('#inp2').val(sessionStorage["loginPassword"]);
+
+                layui.use(['laydate','table'], function(){
+                  var laydate = layui.laydate;
+                  var table = layui.table;
+                  table.render({
+                    elem: '#demo'
+                    ,height: 415
+                    ,response: {
+                      statusName: 'status' //数据状态的字段名称，默认：code
+                      ,statusCode: 200 //成功的状态码，默认：0
+                      ,msgName: 'message' //状态信息的字段名称，默认：msg
+                      ,countName: 'total' //数据总数的字段名称，默认：count
+                      ,dataName: 'list' //数据列表的字段名称，默认：data
+                    } 
+                    ,page: true
+                    ,request: {
+                      pageName: 'page' //页码的参数名称，默认：page
+                      ,limitName: 'rows' //每页数据量的参数名，默认：limit
+                    }  
+                    ,url: getAjaxURL('/weftInspectionAuthrization/list') //数据接口
+                    ,cols: [colArr]
+                    ,limit:10 
+                    ,limits:[10,30,50]
+                    ,done: function(res, curr, count){
+                      $('.layui-table-cell')[0].style.zIndex = '-2';
+                      console.log(123)
+                      console.log(res);
+                      console.log(curr);
+                      console.log(count);
+                    }
+                    ,method: 'post'
+                    ,id:'aaa'
+                  });
+
+                  table.on('radio(test)', function(obj){
+                    ta = obj.checked;
+                  //如果触发的是全选，则为：all，如果触发的是单选，则为：one
+                    console.log(ta)
+                    da=obj.data;
+                    console.log(da);
+                    counter = da.counter;
+                    id = da.id;
+                    a2 = da.name,
+                    a3 = da.authFlag,
+                    a4 = da.allowedRangeMin,
+                    a5 = da.allowedRangeMax,
+                    console.log(id)
+                    $('#inp1').val(id)
+                  });
+                  // 新增
+                  $('#shou1').click(function(){
+                      layer.open({
+                        type: 1,
+                        title:strchangeL('新增...'),
+                        btn: [strchangeL('新增'), strchangeL('取消')],
+                        // area: ['400px', '150px'],
+                        content:$('#search'),
+                        yes: function(){
+                            console.log($('#tWork1').val()),
+                            // if($('#tWork1').val()==''||$('#tWork2').val()==""||$('#tWork3').val()==""||$('#tWork4').val()==""||$('#tWork5').val()==""){
+                            //     layer.alert('請填寫完所有行', {
+                            //         title: "提示"
+                            //     });
+                            // }else{
+                                $.ajax({
+                                    url:getAjaxURL('/weftInspectionAuthrization/add'),
+                                    data:{
+                                        id:$('#tWork1').val(),
+                                        name:$('#tWork2').val(),
+                                        authFlag:$('#tWork3').val(),
+                                        allowedRangeMin:$('#tWork4').val(),
+                                        allowedRangeMax:$('#tWork5').val(),
+                                        createduser:sessionStorage.loginName,
+                                        lstupdateuser:sessionStorage.loginName
+                                    },
+                                    method: 'post'
+                                    ,success:function(data){
+                                        console.log(data)
+                                        table.reload('aaa', {
+                                          url: getAjaxURL('/weftInspectionAuthrization/list')
+                                        });
+                                        layer.alert(data.message, {
+                                            title: "提示"
+                                        });
+                                    }
+                                })
+                                $("#search").css('display','none')
+                                layer.closeAll();
+                            // }
+                        },
+                        btn2:function(){
+                            layer.closeAll();
+                            $("#search").css('display','none')
+                        }
+                    })
+                  });
+                  // 删除
+                  $('#shou3').click(function(){
+                      if(ta == true){
+                          layer.open({
+                            type: 1 //此处以iframe举例
+                            ,title: strchangeL('删除')
+                            ,area: ['300px', '200px']
+                            ,content: strchangeL('<span>你确定删除吗？</span>')
+                            ,btn: [strchangeL('删除'), strchangeL('取消')] //只是为了演示
+                            ,yes: function(){
+                                $.ajax({
+                                    url:getAjaxURL('/weftInspectionAuthrization/delete'),
+                                    data:{
+                                        counter:counter
+                                    }
+                                    ,method: 'post'
+                                    ,success:function(data){
+                                        console.log(data)
+                                        table.reload('aaa', {
+                                          url: getAjaxURL('/weftInspectionAuthrization/list')
+                                        });
+                                        layer.alert(data.message, {
+                                            title: strchangeL("提示")
+                                        });
+                                    }
+                                })
+                                layer.closeAll();
+                                $("#edit").css('display','none')
+                            }
+                            ,btn2: function(){
+                                $("#edit").css('display','none')
+                                layer.closeAll();
+                            }
+                          });
+                        // }
+                      }else{
+                          layer.alert(strchangeL('請選擇刪除行'), {
+                            title: "提示"
+                          });
+                      }
+                  });
+                  // 编辑
+                  $('#shou2').click(function(){
+                      if(ta == true){
+                          $('#edit1').val(id)
+                          $('#edit2').val(a2)
+                          $('#edit3').val(a3)
+                          $('#edit4').val(a4)
+                          $('#edit5').val(a5)
+                          layer.open({
+                            type: 1 //此处以iframe举例
+                            ,title: strchangeL('删除')
+                            // ,area: ['300px', '200px']
+                            ,content: $('#edit')
+                            ,btn: [strchangeL('编辑'), strchangeL('取消')] //只是为了演示
+                            ,yes: function(){
+                                $.ajax({
+                                    url:getAjaxURL('/weftInspectionAuthrization/edit'),
+                                    data:{
+                                        counter:counter,
+                                        lstupdateuser:sessionStorage.loginName,
+                                        id:$('#edit1').val(),
+                                        name:$('#edit2').val(),
+                                        authFlag:$('#edit3').val(),
+                                        allowedRangeMin:$('#edit4').val(),
+                                        allowedRangeMax:$('#edit5').val(),
+
+                                    },
+                                    method: 'post',
+                                    success:function(data){
+                                        console.log(data)
+                                        table.reload('aaa', {
+                                          url: getAjaxURL('/weftInspectionAuthrization/list')
+                                        });
+                                        layer.alert(data.message, {
+                                            title: "提示"
+                                        });
+                                        // layer.closeAll();
+                                        $("#edit").css('display','none')
+                                    }
+                                })
+                                layer.closeAll();
+                                $("#edit").css('display','none')
+                            }
+                            ,btn2: function(){
+                                layer.closeAll();
+                                $("#edit").css('display','none')
+                                console.log($('#edit3').val().length)
+                                // if($('#edit3').val().length == 1){
+                            }
+                          });
+                      }else{
+                          layer.alert(strchangeL('请选择编辑行'), {
+                                title: "提示"
+                            });
+                      }
+                  });
+                  // 加载
+                  $(".shou4").click(function(){
+                      table.reload('aaa', {
+                          url: getAjaxURL('/qualityTestPersonMaintenance/getAuthorizationMaintaine')
+                      });
+                  });
+                  // 保存
+                    $("#pass2").click(function(){
+                        if(parseInt($('#inp1').val().length) == 0){
+                            layer.alert(strchangeL('请选择修改行'), {
+                                title: "提示"
+                            });
+                        }else if(parseInt($('#inp2').val().length) == 0){
+                            layer.alert(strchangeL('请输入密码'), {
+                                title: "提示"
+                            });
+                        }else{
+                            $('#inp2').addClass("ys");
+                            $.ajax({
+                                url:getAjaxURL('/weftInspectionAuthrization/modifyPassword'),
+                                method: 'post',
+                                data:{
+                                    id:$('#inp1').val(),
+                                    password:$('#inp2').val(),
+                                    lstupdateuser:sessionStorage.loginName,
+                                },
+                                success:function(data){
+                                    console.log(data)
+                                    // $('#inp1').val('');
+                                    $('#inp2').val('');
+                                    $('#inp2').attr("disabled","disabled");
+                                    table.reload('aaa', {
+                                        url: getAjaxURL('/weftInspectionAuthrization/list')
+                                    });
+                                }
+                            })
+                        }
+                    });
+                  //重载 
+                  $("#shou4").click(function(){
+                      table.reload('aaa', {
+                          url: getAjaxURL('/weftInspectionAuthrization/list')
+                      });
+                  })
+                });
+                // 修改密码
+                $("#pass").click(function(){
+                    if(parseInt($('#inp1').val().length) !== 0){
+                        $('#inp2').removeAttr("disabled");
+                        $('#inp2').removeClass("ys");
+                    }else{
+                        layer.alert('请选择修改行', {
+                            title: "提示"
+                        });
+                    }
+                });
+                // 取消
+                $("#pass3").click(function(){
+                    // $('#inp1').val('');
+                    $('#inp2').val('');
+                    $('#inp2').attr("disabled","disabled");
+                    $('#inp2').addClass("ys");
+                })
+            })
+            
+
+    </script>
+</body>
+</html>
+
+<style scoped>
+    .ys{
+        background: #f5f5f5;
+    }
+    .m{
+        margin:0 15px;
+    }
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    .top{
+        height: 22px;
+        line-height: 22px;
+        font-size: 16px;
+        border-bottom: 1px rgb(26,160,148) solid;
+    }
+    .layui-input{
+        height: 25px;
+    }
+    .v_h{
+        visibility:hidden;
+    }
+    .layui-input-inline{
+        padding: 9px 0;
+        width: 170px!important;
+    }
+    .layui-form-label{
+        width: auto;
+        padding: 9px 15px;
+    }
+    .clearfix:after{
+        content: '';
+        display: table;
+        clear:both;
+        visibility: hidden;
+    }
+    .f{
+        float: left;
+    }
+    .r{
+        color: red;
+    }
+    .layui-form-item{
+        margin-bottom: 0;
+    }
+    .c_b{
+        cursor: pointer;
+    }
+</style>

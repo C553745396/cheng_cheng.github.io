@@ -1,0 +1,1167 @@
+<!-- <!doctype html> -->
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <title>經編織胚工單派工</title>
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <script type="text/javascript" src="plugins/servies.js" ></script>
+        <link rel="stylesheet" href="plugins/layui/css/layui.css" media="all" />
+        <!-- <link rel="stylesheet" href="css/global.css" media="all"> -->
+        <!-- <link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css"> -->
+        <!-- <link rel="stylesheet" href="css/table.css" /> -->
+        <script src="build/js/dependencies/rsvp-3.1.0.min.js"></script>
+        <!-- // <script src="build/js/dependencies/sha-256.min.js"></script> -->
+        <!-- <script type="text/javascript" src="build/js/qz-tray.js"></script> -->
+        <script type="text/javascript" src="build/js/additional/jquery-1.11.3.min.js"></script>
+        <script type="text/javascript" src="build/js/additional/bootstrap.min.js"></script>
+        <!-- // <script type="text/javascript" src="build/js/additional/printer.js"></script> -->
+    </head>
+
+    <body >
+        <div style="margin:0 15px;">
+            <div class="top">
+                <span>$t('經編織胚工單派工')</span>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">$t('預計開機臺數'):</label>
+                <div class="layui-input-inline">
+                  <input type="test" name="password" required lay-verify="required" autocomplete="off" class="layui-input" id="yuji" value="0" style="background:white">
+                </div>
+                <label class="layui-form-label">$t('實際開機臺數'):</label>
+                <div class="layui-input-inline">
+                  <input type="test" name="password" required lay-verify="required" autocomplete="off" class="layui-input" id="Num" value="" disabled>
+                </div>
+                <label class="layui-form-label"><span class="visibi">工共單</span>$t('創建人'):</label>
+                <div class="layui-input-inline">
+                  <input type="test" name="password" required lay-verify="required" autocomplete="off" class="layui-input" id="creationP" value="" disabled>
+                </div>
+                <label class="layui-form-label">$t('工單創建日期'):</label>
+                <div class="layui-inline">
+                  <input type="text" class="layui-input" id="creationD" value="" disabled>
+                </div>
+            </div>
+            <div class="top">
+                <span>$t('工單號碼')</span>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color:white;"><span class="visibi">工單</span></span>$t('工單號碼'):</label>
+                <div class="layui-input-inline">
+                  <input type="test" name="password" required lay-verify="required" autocomplete="off" class="layui-input" id="inp" value="" style="background:white">
+                </div>
+            </div>
+            <!-- input框 -->
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color:white;"><span class="visibi">工單工單</span></span>$t('布號'):</label>
+                <div class="layui-input-inline">
+                  <input type="test" name="password" required lay-verify="required" autocomplete="off" class="layui-input" id="fabric" value="" disabled>
+                </div>
+                <label class="layui-form-label">$t('銷售訂單號碼'):</label>
+                <div class="layui-input-inline">
+                  <input type="test" name="password" required lay-verify="required" autocomplete="off" class="layui-input" id="salesOrder" value="" disabled>
+                </div>
+                <label class="layui-form-label">$t('備胚備胚單號'):</label>
+                <div class="layui-input-inline">
+                  <input type="test" name="password" required lay-verify="required" autocomplete="off" class="layui-input" id="prepareOrder" value="" disabled>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color:white;"><span class="visibi">工單工單</span></span>$t('客戶'):</label>
+                <div class="layui-input-inline">
+                  <input type="test" name="password" required lay-verify="required" autocomplete="off" class="layui-input" id="customer" value="" disabled>
+                </div>
+                <label class="layui-form-label"><span class="visibi">工單工單</span>$t('胚期'):</label>
+                <div class="layui-input-inline">
+                  <input type="test" name="password" required lay-verify="required" autocomplete="off" class="layui-input" id="deliveryDate" value="" disabled>
+                </div>
+                <label class="layui-form-label"><span class="visibi">工</span>$t('工作中心組'):</label>
+                <div class="layui-input-inline">
+                  <input type="test" name="password" required lay-verify="required" autocomplete="off" class="layui-input" id="wcgrp" value="" disabled>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color:white;"><span class="visibi">工單</span></span>$t('織胚數量'):</label>
+                <div class="layui-input-inline">
+                  <input type="test" name="password" required lay-verify="required" autocomplete="off" class="layui-input" id="rederQnty" value="" disabled>
+                </div>
+                <label class="layui-form-label"><span class="visibi">單</span>$t('已織胚數量'):</label>
+                <div class="layui-input-inline">
+                  <input type="test" name="password" required lay-verify="required" autocomplete="off" class="layui-input" id="delieredQnty" value="" disabled>
+                </div>
+                <label class="layui-form-label">$t('剩餘織胚數量'):</label>
+                <div class="layui-input-inline">
+                  <input type="test" name="password" required lay-verify="required" autocomplete="off" class="layui-input" id="openQnty" value="" disabled>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span style="color:white;"><span class="visibi">工1</span></span>GB 1 $t('物料'):</label>
+                <div class="layui-input-inline">
+                  <input type="test" name="password" required lay-verify="required" autocomplete="off" class="layui-input" id="mats1" value="" disabled>
+                </div>
+                <label class="layui-form-label"><span class="visibi">2 2</span>GB 2 $t('物料'):</label>
+                <div class="layui-input-inline">
+                  <input type="test" name="password" required lay-verify="required" autocomplete="off" class="layui-input" id="mats2" value="" disabled>
+                </div>
+                <label class="layui-form-label"><span class="visibi">單2</span>GB 3 $t('物料'):</label>
+                <div class="layui-input-inline">
+                  <input type="test" name="password" required lay-verify="required" autocomplete="off" class="layui-input" id="mats3" value="" disabled>
+                </div>
+                <label class="layui-form-label"><span class="visibi">單2</span>GB 4 $t('物料'):</label>
+                <div class="layui-input-inline">
+                  <input type="test" name="password" required lay-verify="required" autocomplete="off" class="layui-input" id="mats4" value="" disabled>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span class="visibi">單共</span>$t('盤頭描述'):</label>
+                <div class="layui-input-block">
+                    <input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input" id="matDesc" disabled>
+                </div>
+            </div>
+        </div>
+        <!-- 表格 -->
+        
+        <div style="margin:0 15px">
+          <table id="demo" lay-filter="test" lay-data="{id:'test'}"></table>
+          <span id="icon">
+              <i class="layui-icon shou" id='shou1' disabled="disabled">&#xe654;</i>&nbsp;&nbsp;<i class="layui-icon shou" id='shou2' disabled>&#xe642;</i>&nbsp;&nbsp;<i class="layui-icon shou" id='shou3' disabled>&#xe615;</i> 
+          </span>
+        </div>
+        <!-- 表格结束 -->
+        <div style="margin:0 15px;">
+            <div class="layui-form-item">
+                <label class="layui-form-label"><span class="visibi">單共</span>$t('備註信息'):</label>
+                <div class="layui-input-block">
+                    <input type="text" name="title" lay-verify="title" autocomplete="off" class="layui-input" style="background:white">
+                </div>
+            </div>
+        </div>
+        <div style="margin:0 15px;">
+            <button class="layui-btn layui-btn-small" id="keep" class="keep">$t('保存')</button>
+            <button class="layui-btn layui-btn-small" id="stampO">$t('打印領盤頭單')</button>
+            <button class="layui-btn layui-btn-small" id="stampT">$t('打印布票')</button>
+            <button class="layui-btn layui-btn-small" id="stampS">$t('打印機頭紙')</button>
+        </div>
+        <script type="text/javascript" src="plugins/layui/layuis.all.js"></script>
+        <script type="text/javascript" src="plugins/layui/lay/modules/tables.js"></script>
+        <script src="build/js/di18n.js"></script>
+        <script src="build/js/lang.js"></script>
+        <script>
+        
+        </script>
+        <script>
+            //多语言动态生成
+            var colArr = [ //表头
+              {radio: true, LAY_CHECKED: false}
+              ,{field: 'createddate', title: '機頭紙創建日期',unresize: true,width:150}
+              ,{field: 'machJobsheetNum', title: '機頭紙編號',unresize: true,width:130}
+              ,{field: 'machNum', title: '工作中心',unresize: true,width:130}
+              ,{field: 'plannedQty', title: '預計分配數量(KG)',unresize: true,width:150} 
+              ,{field: 'confirmedQnty', title: '報工數量',unresize: true,width:130}
+              ,{field: 'plannedBeamQty1', title: '預計GB1盤頭量(KG)',unresize: true,width:150}
+              ,{field: 'plannedBeamQty2', title: '預計GB2盤頭量(KG)',unresize: true,width:150}
+              ,{field: 'plannedBeamQty3', title: '預計GB3盤頭量(KG)',unresize: true,width:160}
+              ,{field: 'plannedBeamQty4', title: '預計GB4盤頭量(KG)',unresize: true,width:160}
+              ,{field: 'greigeLabel', title: '布票數量(張)',unresize: true,width:160}
+            ];
+            arrchangeL(colArr);
+            // 时间戳改时间格式
+            function timestampToTime(timestamp) {
+                var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+                Y = date.getFullYear() + '-';
+                M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+                D = (date.getDate()+1 < 10 ? '0'+(date.getDate()+1) : date.getDate()+1);
+                // D = date.getDate() + ' ';
+                return Y+M+D;
+            };
+   
+            // 定义tab是在后面新增数据，把刚进入页面获取的的table数据放在tab里面，在增加新增的，再次请求
+            var tab = "";
+            var table;
+            var d,hang,t,dd,local1,local2,local3,loca1,loca2,loca3,loc,loading1,loading3,hdnOrderItem1,hdnOrderItem2,hdnOrderItem3,hdnOrderItem4;
+            var Mat1,Mat2,Mat3,Mat4;
+            var WCGRP,FABRIC,MAT_DESC,FINISHEDQNTY,REMAININGQNTY;
+            var initData;
+            var initOrder;
+            loading1 = null;  //优化加载提示框
+            loading3 = null;  //优化加载提示框
+            //计算预计盘头量的参数
+            var scale1,scale2,scale3,scale4
+
+            $(document).ready(function(){
+                // $("#inp").val("6000002474")
+                var isFirst = true;
+                
+                var data = new Date();
+                var creationData = data.getFullYear()+'-'+(data.getMonth()+1<10?'0'+(data.getMonth()+1):data.getMonth()+1)+'-'+(data.getDate()<10?"0"+data.getDate():data.getDate());
+                document.getElementById("creationD").value = creationData;
+                
+                $("#icon").css("display","none")   //表格下方的增、编、搜隐藏
+                $("#inp").keyup(function(event){
+                    
+                    if(event.keyCode == 13){
+                        //初始化
+                        scale1 = '';
+                        scale2 = '';
+                        scale3 = '';
+                        scale4 = '';
+                        d = '';
+                        hang = '';
+                        t = '';
+                        dd = '';
+                        loading1 = layer.load();   //开启数据加载提示
+                        var inp = $('#inp').val();   //工單號碼
+                        WCGRP = '';
+                        FABRIC = '';
+                        MAT_DESC = '';
+                        FINISHEDQNTY = '';
+                        REMAININGQNTY = '';
+                        hdnOrderItem1='';
+                        hdnOrderItem2='';
+                        hdnOrderItem3='';
+                        hdnOrderItem4='';
+                        // 此请求为获取各input框的数据，在success后还会有有一个table的ajax请求
+                        $.ajax({
+                            url:getAjaxURL('/warpMachineJobSheet/getWarpMachineJobSheetByProdOrd'),
+                            type:'GET',
+                            data:{
+                                ProdOrd:inp
+                            }, 
+                            success:function(data){
+                                console.log(data);
+                                //sessionStorage传值给 打印领头订单 页面
+                                
+                                if(data.status == 200){
+                                    $('#demo').parent().show();
+                                    WCGRP = data.data.wcgrp;
+                                    FABRIC = data.data.FABRIC;
+                                    MAT_DESC = data.data.MAT_DESC;
+                                    FINISHEDQNTY = data.data.DELIVERED_QNTY;
+                                    REMAININGQNTY = data.data.OPEN_QNTY;
+
+                                    initOrder = inp;
+                                    initData = data.data;
+                                    //预计盘头量的参数
+                                    scale1 = data.data.MAT1QNTY;
+                                    scale2 = data.data.MAT2QNTY;
+                                    scale3 = data.data.MAT3QNTY;
+                                    scale4 = data.data.MAT4QNTY;
+                                    console.log('参数');
+                                    console.log(scale1,scale2,scale3,scale4)
+
+                                    hdnOrderItem1 = data.data.ORDER_ITEM1;
+                                    hdnOrderItem2 = data.data.ORDER_ITEM2;
+                                    hdnOrderItem3 = data.data.ORDER_ITEM3;
+                                    hdnOrderItem4 = data.data.ORDER_ITEM4;
+                                    //获取到的所有数据赋值到input框
+
+                                    $("#fabric").val(data.data.FABRIC);
+                                    $("#salesOrder").val(data.data.SALES_ORDER);
+                                    $("#prepareOrder").val(data.data.PREPARE_ORDER);
+
+                                    $("#customer").val(data.data.CUSTOMER);
+                                    $("#deliveryDate").val(data.data.DELIVERY_DATE);
+                                    $("#wcgrp").val(data.data.WCGRP);
+
+                                    $("#rederQnty").val(data.data.ORDER_QNTY);
+                                    $("#delieredQnty").val(data.data.DELIVERED_QNTY);
+                                    $("#openQnty").val(data.data.OPEN_QNTY);
+
+                                    $("#mats1").val(data.data.MAT1);
+                                    $("#mats2").val(data.data.MAT2);
+                                    $("#mats3").val(data.data.MAT3);
+                                    $("#mats4").val(data.data.MAT4);
+                                    $("#matDesc").val(data.data.MAT_DESC);
+
+                                    $('#Num').val(data.data.ACTUAL_MACH_NUM?data.data.ACTUAL_MACH_NUM:'0');
+
+                                    //此接口为ajax获取到数据，在通过layUI的方式渲染到页面。注意“d”就是获取到的所有数据
+                                    $.ajax({
+                                        url:getAjaxURL('/warpMachineJobSheet/getWarpMachineJobSheetGridByProdOrd'),
+                                        type:'GET',
+                                        data:{
+                                            ProdOrd:inp
+                                        },
+                                        cache:false,
+                                        success:function(data){
+                                            d=data.data;
+                                            // tab = d;
+                                            console.log(data)
+                                            // 所有时间戳改时间
+                                            for(var x in d){
+                                                d[x].createddate = timestampToTime(d[x].createddate);
+                                                d[x].moCreateDate = timestampToTime(d[x].moCreateDate);
+                                                d[x].deliveryDate = timestampToTime(d[x].deliveryDate);
+                                                d[x].lstupdatedate = timestampToTime(d[x].lstupdatedate);
+                                                d[x].machJobsheetCreateDate = timestampToTime(d[x].machJobsheetCreateDate);
+                                            };
+
+                                            $("#icon").css("display","block")    //表格下方的增、编、搜显示
+
+                                            layui.use('table', function(){
+                                                table = layui.table;  
+                                                table.render({
+                                                    elem: '#demo'
+                                                    ,height: 315
+                                                    ,response: {
+                                                        statusName: 'status' //数据状态的字段名称，默认：code
+                                                        ,statusCode: 200 //成功的状态码，默认：0
+                                                        ,msgName: 'message' //状态信息的字段名称，默认：msg
+                                                        ,countName: 'length' //数据总数的字段名称，默认：count
+                                                        ,dataName: 'data' //数据列表的字段名称，默认：data
+                                                    }
+                                                    ,data:d
+                                                    ,cols: [colArr]
+                                                    ,done: function (res,curr,count) {
+                                                        $('.layui-table-cell')[0].style.zIndex = '-2';
+                                                    }
+                                                });
+                                                // document.getElementById("Num").value = d.length;  //把获取的行数赋值给开始数量
+                                                layer.close(loading1);  //关闭加载框
+                                               
+                                            });  //layUI。use结束
+                                        }  //success结束
+                                    })  //ajax结束
+                                }else{
+
+                                    $("#fabric").val('');
+                                    $("#salesOrder").val('');
+                                    $("#prepareOrder").val('');
+                                    $("#customer").val('');
+                                    $("#deliveryDate").val('');
+                                    $("#wcgrp").val('');
+                                    $("#rederQnty").val('');
+                                    $("#delieredQnty").val('');
+                                    $("#openQnty").val('');
+                                    $("#mats1").val('');
+                                    $("#mats2").val('');
+                                    $("#mats3").val('');
+                                    $("#mats4").val('');
+                                    $("#matDesc").val('');
+
+                                    d = "";
+                                    $('#demo').parent().hide();
+                                    
+                                    layer.alert(data.message, {title: "提示"});
+                                    layer.close(loading1);  //关闭加载框
+                                }
+                            },
+                            error:function(res){
+                                // console.log(res)
+                                layer.alert(data.message, {title: "提示"});
+                                layer.close(loading1);  //关闭加载框
+                            }
+                        })
+                    };
+                });
+                //最后所有表格数据传到后台  保存----------------------------------------------------
+                $('#keep').click(function(){
+
+                    d.forEach(function(item,idx){
+                       item.actualMachNum = $('#Num').val()
+                    })
+                    loading3 = layer.load();   //开启数据加载提示
+                    $.ajax({
+                        url:getAjaxURL('/warpMachineJobSheet/saveOrUpdateWarpMachineJobSheet'),
+                        type:'POST',
+                        dataType: "json",
+                        data:{
+                            rows:JSON.stringify(d)
+                        },
+                        success:function(data){
+                            console.log(data)
+                            console.log("保存成功-------------------------------")
+                            if(data.status == 200){
+                                layer.alert(data.message, {title: "提示"});
+                            }else{
+                                layer.alert(data.message, {title: "提示"});
+                            }
+                            layer.close(loading3);  //关闭加载框
+                        }
+                    })
+                });
+                // 打印领头订单
+                $('#stampO').click(function(){
+                	if($('#inp').val()==''){
+                		layer.alert('請输入工單號碼:', {
+                            title: "提示"
+                        });
+                        return;
+                	}
+                    if(!t){
+                        layer.alert('請選擇一行', {
+                            title: "提示"
+                        });
+                    }else{
+                        // sessionStorage页面之间传3个值
+                        // local1 = sessionStorage["unitGroup1"] = $('#inp').val();     //工單號碼
+                        // local2 = sessionStorage["unitGroup2"] = loc.machJobsheetNum;
+                        // local3 = sessionStorage["unitGroup3"] = loc.machNum;
+                        // Mat1 = sessionStorage["unitGroup8"] = $("#mats1").val();   //GB1物料号
+                        // Mat2 = sessionStorage["unitGroup9"] = $("#mats2").val();
+                        // Mat3 = sessionStorage["unitGroup10"] = $("#mats3").val();
+                        // Mat4 = sessionStorage["unitGroup11"] = $("#mats4").val(); 
+                        window.open("dispatchingCut.html?loca1="+$('#inp').val()+"&loca2="+loc.machJobsheetNum+"&loca3="+loc.machNum+"&Mat1="+$("#mats1").val()+"&Mat2="+$("#mats2").val()+"&Mat3="+$("#mats3").val()+"&Mat4="+$("#mats4").val()+"&hdnOrderItem1="+hdnOrderItem1+"&hdnOrderItem2="+hdnOrderItem2+"&hdnOrderItem3="+hdnOrderItem3+"&hdnOrderItem4="+hdnOrderItem4);
+                    }
+                });
+
+                //实际开机台数计算
+                function getActualMachNum(){
+                    console.log(d);
+                    var s = 0;
+                    var mn = '';
+                    var actualList = [];
+
+                    if (d.length == 0 || d.length == 1) {
+                        s = d.length
+                    } else {
+                        d.forEach(function(item,idx){
+                           
+                            var testStr=','+actualList.join(",")+","; 
+                            if (testStr.indexOf(","+item.machNum+",") == -1) {
+                                actualList.push(item.machNum);
+                            };
+
+                        })
+
+                        s = actualList.length;
+                    }
+
+                    console.log(s);
+                    $('#Num').val(s);
+                    return s
+                }
+
+                // 对应弹出框 增加一行
+                layui.use(['layer','table','form'], function(){
+                    var layer = layui.layer;
+                    var table = layui.table;
+                    var form = layui.form;
+                    $('#shou1').on('click', function(){ 
+                        $("#tWork").val("");
+                        $("#tNum").val("0");
+                        var total = 0;
+                        var canuse;
+                        // console.log(d)
+                        for(var i = 0;i < d.length;i++){
+                            total += Number(d[i].plannedQty);
+                        }
+                        canuse = Number($("#openQnty").val()) - total;
+                        // console.log($("#openQnty").val());
+                        // console.log(total)
+                        // console.log(canuse)
+                        // 保存弹出框、HTML在body外层，最下面 
+                        layer.open({
+                            btn: ['保存', '取消'],
+                            type: 1,
+                            title:'新增',
+                            area: ['400px', '280px'],
+                            content: $('#k')
+                            ,cancel: function(){ 
+                                $('#k').css('display','none')
+                            }
+                            ,yes: function(index, layero){
+
+                                if (!Number($('#tNum').val()) && $('#tNum').val() !=0 ) {
+                                    layer.alert(strchangeL("请输入有效数字"),{title: "提示"});
+                                    return
+                                }
+
+                                if(Number($("#tNum").val()) > canuse){
+                                    layer.alert('计划数量大于工单数量', {title: "提示"});
+                                    return 
+                                }
+
+                                //判断状态是0还是1   0——>没有值  1——>有值
+                                $.ajax({
+                                    url:getAjaxURL('/warpMachineJobSheet/checkMachineNo'),
+                                    data:{
+                                        MachineNo:$('#tWork').val()
+                                    },
+                                    success:function(data){
+                                        console.log(data)
+                                        if(data.data == 0){
+                                            layer.alert('機臺號碼不存在', {
+                                                title: "提示"
+                                            });
+                                            return false
+                                        
+                                        }else{
+                                            //有值获取K00000000  值
+                                            $.ajax({
+                                                url:getAjaxURL('/warpMachineJobSheet/getMachineJobSheetNo'),
+                                                success:function(data){
+                                                    console.log(data.data)        //k0000  值
+                                                    var datas = new Date();   //当前时间
+                                                    var creationDatas = datas.getFullYear()+'-'+(datas.getMonth()+1<10?'0'+(datas.getMonth()+1):datas.getMonth()+1)+'-'+(datas.getDate()<10?'0'+datas.getDate():datas.getDate());
+                                                    
+                                                    // var 0 = 0;
+                                                    // $(".layui-table tr>td:nth-child(5)").each(function(){
+                                                    //     0 = 0+parseInt($(this).text())
+                                                    // })  //td求和
+                                                    console.log(initData);
+                                                    var tianjia = {
+                                                        createddate:'',
+                                                        machJobsheetNum:'',  //机头纸号
+                                                        machNum:'',        //工作中心 自己填写
+                                                        plannedQty:'',    //预计分配 自己填写
+                                                        confirmedQnty:'0',      //报工数量默认是
+                                                        plannedBeamQty1:0.00,   //计算
+                                                        plannedBeamQty2:0.00,   //计算
+                                                        plannedBeamQty3:0,      //计算
+                                                        plannedBeamQty4:0,      //计算
+                                                        greigeLabel:'0',
+                                                        // 表格不需要的字段
+                                                        // LAY_TABLE_INDEX:d[0].LAY_TABLE_INDEX,
+                                                        actualMachNum:getActualMachNum(),     
+                                                        // actualMachNum:initData.ACTUAL_MACH_NUM,     
+                                                        beamDesc:initData.MAT_DESC,        
+                                                        beamMat1:initData.MAT1,        
+                                                        beamMat2:initData.MAT2,        
+                                                        beamMat3:initData.MAT3,        
+                                                        beamMat4:initData.MAT4,        
+                                                        createduser:'a_test',        
+                                                        // createduser:sessionStorage.loginName,        
+                                                        creator:'a_test',          
+                                                        // creator:sessionStorage.loginName,        
+                                                        customer:initData.CUSTOMER,             
+                                                        deliveryDate:initData.DELIVERY_DATE,         //DELIVERY_DATE 胚期
+                                                        fabricNumber:initData.FABRIC,        
+                                                        finishQnty:initData.DELIVERED_QNTY,          //DELIVERED_QNTY ECC
+                                                        
+                                                        lstupdatedate:creationDatas,        
+                                                        lstupdateuser:'a_test',       
+                                                        //lstupdateuser:sessionStorage.loginName,        
+                                                        machJobsheetCreateDate:creationDatas,        
+                                                        moCreateDate:$('#creationD').val(),            //工单创建日期
+                                                        
+                                                        openQnty:initData.OPEN_QNTY,        //OPEN_QNTY ECC
+                                                        orderQnty:initData.ORDER_QNTY,          //ORDER_QNTY ECC
+                                                        plannedMachNum:$('#yuji').val(),      //预计开机台数，可修改
+                                                        prepareOrder:initData.PREPARE_ORDER,   //PREPARE_ORDER ECC
+                                                        prodOrd:initOrder,        //d[0].prodOrd,   //工单号
+                                                        remarks:initData.remarks?initData.remarks:'',        //REMARKS
+                                                        salesOrder:initData.SALES_ORDER,         //SALES_ORDER
+                                                        wcg:initData.WCGRP         //WCGRP
+                                                    };
+                                                    
+                                                    //计算公式
+                                                    //OrderQnty  織胚數量
+                                                    //PlannedQnty 预计分配数量(自己填的)
+                                                    //hdnMat1Qnty 后台返回(初始回车就有  MAT1QNTY MAT2QNTY MAT3QNTY MAT4QNTY)
+                                                    // postdata["PlannedBeamQty1"] =(PlannedQnty*$("#hdnMat1Qnty").val()/OrderQnty).toFixed(2); 
+
+                                                    tianjia.plannedBeamQty1 = ($('#tNum').val()*scale1/$("#rederQnty").val()).toFixed(2);
+                                                    tianjia.plannedBeamQty2 = ($('#tNum').val()*scale2/$("#rederQnty").val()).toFixed(2);
+                                                    tianjia.plannedBeamQty3 = ($('#tNum').val()*scale3/$("#rederQnty").val()).toFixed(2);
+                                                    tianjia.plannedBeamQty4 = ($('#tNum').val()*scale4/$("#rederQnty").val()).toFixed(2);
+
+                                                    // console.log('///////////////');
+
+                                                    // console.log('预计分配数量');
+                                                    // console.log($('#tNum').val());
+                                                    // console.log('参数');
+                                                    // console.log(scale1);
+                                                    // console.log('织胚数量');
+                                                    // console.log($('#rederQnty').val());
+                                                    // console.log('结果');
+                                                    // console.log(tianjia.plannedBeamQty1);
+
+                                                    // console.log('///////////////');
+
+                                                    // 赋值-->添加到表格
+                                                    tianjia.createddate = creationDatas;
+                                                    tianjia.machJobsheetNum = data.data;
+                                                    tianjia.machNum = $('#tWork').val().toUpperCase();
+                                                    tianjia.plannedQty= $('#tNum').val();
+                                                    //报工数量默认0
+                                                    tianjia.confirmedQnty = '0';
+                                                    // tianjia.plannedBeamQty1=0.00,
+                                                    // tianjia.plannedBeamQty2=0.00,
+                                                    // tianjia.plannedBeamQty3=0,
+                                                    // tianjia.plannedBeamQty4=0,
+                                                    // 布票数量默认0
+                                                    tianjia.greigeLabel = '0';
+                                                    d.push(tianjia)
+                                                    
+                                                    console.log(d)
+                                                    console.log('保存数据到表格-------d')
+                                                    //保存数据到表格中
+                                                    layui.use('table', function(){
+                                                        var table = layui.table;
+                                                        table.render({
+                                                            elem: '#demo'
+                                                            ,height: 315
+                                                            ,response: {
+                                                                statusName: 'status' //数据状态的字段名称，默认：code
+                                                                ,statusCode: 200 //成功的状态码，默认：0
+                                                                ,msgName: 'message' //状态信息的字段名称，默认：msg
+                                                                ,countName: 'length' //数据总数的字段名称，默认：count
+                                                                ,dataName: 'data' //数据列表的字段名称，默认：data
+                                                            }  //数据接口
+                                                            ,data:d
+                                                            ,cols: [colArr]
+                                                            ,done: function (res,curr,count) {
+                                                                $('.layui-table-cell')[0].style.zIndex = '-2';
+                                                                getActualMachNum();
+                                                            }
+                                                        });
+
+                                                    });  //layUI.use结束
+                                                    //清空工作中心和预计分配数量
+                                                    $('#tWork').val("");
+                                                    $('#tNum').val("0");
+                                                },
+                                                
+                                            })
+                                        };
+                                        layer.closeAll();
+                                        $('#k').css('display','none')
+                                    }
+                                })
+                            },
+                            btn2: function(index, layero){
+                                $('#tWork').val("");
+                                $('#tNum').val("0");
+                                layer.closeAll();
+                                $('#k').css('display','none')
+                            }
+                        })
+                    });
+                    // 获取单选框选中的数据
+                    table.on('radio(test)', function(obj){
+                        t = obj.checked;
+                        console.log(obj.data)
+                        loc = obj.data;
+                        hang = obj.data.LAY_TABLE_INDEX;  //获取选中行，第几行
+                    });
+                    // 编辑
+                    $('#shou2').on('click',function(){
+                        if(t == true){
+                            $('#tWork2').val(d[hang].machNum);
+                            $('#tNum2').val(d[hang].plannedQty);
+
+                            var total = 0;
+                            var canuse;
+                            for(var i = 0;i < d.length;i++){
+                                total += Number(d[i].plannedQty);
+                            }
+                            canuse = Number($("#openQnty").val()) - total + Number(d[hang].plannedQty);
+
+                            layer.open({
+                                area: ['400px', '280px']
+                                ,title:'编辑'
+                                ,type:1
+                                ,content: $('#k2')
+                                ,btn: ['提交', '取消']
+                                ,cancel: function(){ 
+                                    $('#k2').css('display','none')
+                                }
+                                ,yes: function(index, layero){
+                                    
+                                    if (!Number($('#tNum2').val()) && $('#tNum2').val() !=0 ) {
+                                        layer.alert(strchangeL("请输入有效数字"),{title: "提示"});
+                                        return
+                                    }
+
+                                    if(Number($("#tNum2").val()) > canuse){
+                                        layer.alert('计划数量大于工单数量', {title: "提示"});
+                                        return 
+                                    }
+                                    // 此处有计算公式 
+                                    // d[hang].machNum = document.getElementById('tWork2').value;
+                                    // d[hang].plannedQty = document.getElementById('tNum2').value;
+                                    d[hang].machNum = $('#tWork2').val().toUpperCase();
+                                    d[hang].plannedQty = $('#tNum2').val().toUpperCase();
+                                    //预计计算
+                                    d[hang].plannedBeamQty1 = ($('#tNum2').val()*scale1/$("#rederQnty").val()).toFixed(2);
+                                    d[hang].plannedBeamQty2 = ($('#tNum2').val()*scale2/$("#rederQnty").val()).toFixed(2);
+                                    d[hang].plannedBeamQty3 = ($('#tNum2').val()*scale3/$("#rederQnty").val()).toFixed(2);
+                                    d[hang].plannedBeamQty4 = ($('#tNum2').val()*scale4/$("#rederQnty").val()).toFixed(2);
+                                    // var sum = 0;
+                                    //   $(".layui-table tr>td:nth-child(5)").each(function(){
+                                    //       sum = sum+parseInt($(this).text())
+                                    //   })  //td求和
+                                    // d[hang].confirmedQnty = sum
+                                    //再次用d-->渲染表格
+                                    
+                                    layui.use(['layer','table','form'], function(){
+                                        var table = layui.table;
+                                        var layer = layui.layer;
+                                        var form = layui.form;
+                                        table.render({
+                                            elem: '#demo'
+                                            ,height: 315
+                                            ,response: {
+                                                statusName: 'status' //数据状态的字段名称，默认：code
+                                                ,statusCode: 200 //成功的状态码，默认：0
+                                                ,msgName: 'message' //状态信息的字段名称，默认：msg
+                                                ,countName: 'length' //数据总数的字段名称，默认：count
+                                                ,dataName: 'data' //数据列表的字段名称，默认：data
+                                            }
+                                            ,data:d
+                                            ,cols: [colArr]
+                                            ,done: function (res,curr,count) {
+                                                $('.layui-table-cell')[0].style.zIndex = '-2';
+                                            }
+                                        });
+                                        var trNum = $(".layui-table").length;   //获取表格行数
+                                        // document.getElementById("Num").value = trNum;  //把获取的行数赋值给开始数量
+                                    });  //layUI。use结束
+
+                                    layer.close(index);
+                                    $('#k2').css('display','none')
+                              }
+                              ,btn2: function(index, layero){
+                                  layer.closeAll();
+                                  $('#k2').css('display','none')
+                              }
+                            });
+                        }else{
+                            layer.alert('请选择编辑行', {
+                                title: "提示"
+                            });
+                        }
+                        
+                    });
+                    // 搜索
+                    $('#shou3').on('click',function(){
+                        layer.open({
+                          area: ['500px', '280px']
+                          ,title:'搜索'
+                          ,type:1
+                          ,content: $('#k3')
+                          ,btn: ['搜尋', '重設']
+                          ,cancel: function(){ 
+                                $('#k3').css('display','none')
+                          }
+                          ,yes: function(index, layero){
+                              console.log(document.getElementById('k32').value)
+                              $.ajax({
+                                  url:getAjaxURL('/warpMachineJobSheet/getWarpMachineJobSheetGridByProdOrd'),
+                                  data:{
+                                      ProdOrd:document.getElementById('inp').value,
+                                      queryName:document.getElementById('k32').value,
+                                      queryCondition:document.getElementById('k33').value,
+                                      queryValue:document.getElementById("k34").value,
+                                  },
+                                  success:function(data){
+                                      console.log('搜索数据----------------------------')
+                                      console.log(data.data.length)
+                                      // document.getElementById("Num").value = data.data.length;
+                                      // console.log(document.getElementById("Num").value)
+                                      if(data.data == ''){
+                                        layer.alert('搜索不到数据', {
+                                            title: "提示"
+                                        });
+                                      }else{
+                                          dd = data.data;
+                                          // 表格时间戳转时间
+                                          for(var x in dd){
+                                                dd[x].createddate = timestampToTime(dd[x].createddate);
+                                            };
+                                          layui.use('table', function(){
+                                          table = layui.table;
+                                          table.render({
+                                            elem: '#demo'
+                                            ,height: 315
+                                            ,response: {
+                                              statusName: 'status' //数据状态的字段名称，默认：code
+                                              ,statusCode: 200 //成功的状态码，默认：0
+                                              ,msgName: 'message' //状态信息的字段名称，默认：msg
+                                              ,countName: 'length' //数据总数的字段名称，默认：count
+                                              ,dataName: 'data' //数据列表的字段名称，默认：data
+                                            }
+                                            ,data:dd
+                                            ,cols: [colArr]
+                                            ,done: function (res,curr,count) {
+                                                $('.layui-table-cell')[0].style.zIndex = '-2';
+                                            }
+                                          });
+                                          // $('.layui-table th[data-field="0"]').css({"visibility":"hidden","background":"red"});
+                                        });  //layUI。use结束
+                                      }
+                                      layer.close(index);
+                                      $("#k34").val("")   //清空搜索框input的值
+                                      $('#k3').css('display','none')
+                                  }
+                              })
+                              
+                          }
+                          ,btn2: function(index, layero){
+                              layer.closeAll();
+                              $('#k3').css('display','none')
+                              $("#k34").val("")   //清空搜索框input的值
+                          }
+                        });
+                    });
+                });
+
+                // 打印布票
+                $('#stampT').click(function(){
+                    console.log(t)
+                    console.log(loc)
+                    if($('#inp').val()==''){
+                    	layer.alert('請输入工單號碼:', {
+                            title: "提示"
+                        });
+                    	return;
+                    };
+                     if(!t){
+                        layer.alert('請選擇一行', {
+                            title: "提示"
+                        });
+                    }else{
+                        // sessionStorage页面之间传3个值
+                        // local1 = sessionStorage["unitGroup1"] = $('#inp').val();    //工单号码
+                        // local2 = sessionStorage["unitGroup2"] = loc.machJobsheetNum;    //机头纸编号
+                        // local3 = sessionStorage["unitGroup3"] = loc.machNum;    //工作中心
+                        
+                        window.open("dispatchingCutT.html?loca1="+$('#inp').val()+"&loca2="+loc.machJobsheetNum+"&loca3="+loc.machNum+"&WCGRP="+WCGRP+"&FABRIC="+FABRIC+"&MAT_DESC="+MAT_DESC);
+                    }
+                });
+                //打印机头纸
+                $('#stampS').click(function(){
+                	if($('#inp').val()==''){
+                		layer.alert('請输入工單號碼:', {
+                            title: "提示"
+                        });
+                        return;
+                        
+                	};
+                    if(!t){
+                        layer.alert('請選擇一行', {
+                            title: "提示"
+                        });
+                    }else{
+                        // sessionStorage页面之间传11个值    
+                        // loc是 获取的所在行的数据
+
+                        // local1 = sessionStorage["unitGroup1"] = $('#inp').val();    //工单号码
+                        // local2 = sessionStorage["unitGroup2"] = loc.machJobsheetNum;  //机头纸编号
+                        // local3 = sessionStorage["unitGroup3"] = loc.machNum;          //工作中心
+                        // Mat1 = sessionStorage["unitGroup8"] = $("#mats1").val();   //GB1物料号
+                        // Mat2 = sessionStorage["unitGroup9"] = $("#mats2").val();   //GB2物料号 
+                        // Mat3 = sessionStorage["unitGroup10"] = $("#mats3").val();   //GB3物料号
+                        // Mat4 = sessionStorage["unitGroup11"] = $("#mats4").val();   //GB4物料号 
+                        
+                        window.open("dispatchingCutS.html?loca1="+$('#inp').val()+"&loca2="+loc.machJobsheetNum+"&loca3="+loc.machNum+"&Mat1="+$("#mats1").val()+"&Mat2="+$("#mats2").val()+"&Mat3="+$("#mats3").val()+"&Mat4="+$("#mats4").val()+"&hdnOrderItem1="+hdnOrderItem1+"&hdnOrderItem2="+hdnOrderItem2+"&hdnOrderItem3="+hdnOrderItem3+"&hdnOrderItem4="+hdnOrderItem4+"&FABRIC="+FABRIC+"&FINISHEDQNTY="+FINISHEDQNTY+"&REMAININGQNTY="+REMAININGQNTY+"&PANNEDQNTY="+loc.plannedQty);
+                    }
+                });
+                // 打印写死的
+                $('.add').click(function(){
+                    layui.use(['table','layer'], function(){
+                        var table = layui.table;
+                        var layer = layui.layer;
+                        layer.open({
+                            type: 1
+                            ,title:"新增记录"
+                            ,content: $('#xianshi')
+                            ,btn: ['提交','取消']
+                            ,area: ['30%', '30%']
+                            ,btnAlign: 'c' //按钮居中
+                            ,yes: function(){
+                              // layer.closeAll();
+                              $('#xianshi').css('display','none')
+                            }
+                            ,btn2:function(){
+                                // layer.closeAll();
+                              $('#xianshi').css('display','none')
+                            }
+                            ,cancel: function(){ 
+                                // layer.closeAll();
+                              $('#xianshi').css('display','none')
+                            }
+                        });
+                    })
+                });
+            })
+        </script>
+        <!-- 打印 -->
+        <script>
+
+        </script>
+
+    </body>
+
+</html>
+
+<!-- 显示 写死的  -->
+<div id="xianshi" style="display:none;padding:25px;">
+    <div style="margin:5px 0">
+        <span>工作1111中心&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span><input type="text" value="" id="tork"></span>
+    </div>
+</div>
+
+
+<!-- 保存 弹出框-->
+<div id="k" style="display:none;padding:25px;">
+    <div style="margin:5px 0">
+        <span>工作中心&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span><input type="text" value="" id="tWork"></span>
+    </div>
+    <div>
+        <span>預計分配數量(KG)</span><span><input type="text" value="0" id="tNum"></span>
+    </div>
+</div>
+<!-- 编辑 -->
+<div id="k2" style="display:none;padding:25px;">
+    <div>
+        <span>工作中心&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span><input type="text" value="" id="tWork2"></span>
+    </div>
+    <div>
+        <span>預計分配數量(KG)</span><span><input type="text" value="0" id="tNum2"></span>
+    </div>
+</div>
+<!-- 搜索框 -->
+<div id="k3" style="display:none;padding:25px;">
+        <div>
+            <div style="margin:0 0 5px 10px;">
+              <select name="interest" lay-filter="aihao" class="bl" id='k31'>
+                <option value="0">所有</option>
+                <option value="1">任一</option>
+              </select>
+            </div>
+        </div>
+    <div>
+        <div class="f">
+            <select name="interest" lay-filter="aihao" class="bl" id='k32'>
+              <option value="CREATEDDATE">機頭紙創建日期</option>
+              <option value="MACH_JOBSHEET_NUM">機頭紙編號</option>
+              <option value="MACH_NUM">工作中心</option>
+              <option value="PLANNED_QTY">預計分配數量(KG)</option>
+              <option value="CONFIRMED_QNTY">報工數量</option>
+              <option value="PLANNED_BEAM_QTY_1">預計GB1盤頭量(KG)</option>
+              <option value="PLANNED_BEAM_QTY_2">預計GB2盤頭量(KG)</option>
+              <option value="PLANNED_BEAM_QTY_3">預計GB3盤頭量(KG)</option>
+              <option value="PLANNED_BEAM_QTY_4">預計GB4盤頭量(KG)</option>
+              <option value="GREIGE_LABEL">布票數量(張)</option>
+            </select>
+        </div>
+        <div class="f">
+            <select name="interest" lay-filter="aihao" class="bl" id='k33'>
+              <option value="eq">等於</option>
+              <option value="bw">開始於</option>
+              <option value="bn">不開始於</option>
+              <option value="ew">結束於</option>
+              <option value="en">不結束於</option>
+              <option value="cn">包含</option>
+              <option value="nc">不包含</option>
+            </select>
+        </div>
+        <div class="f">
+            <input type="text" value="" class="bl" id='k34'>
+        </div>
+    </div>
+    <div>
+        
+    </div>
+</div>
+<!-- 打印 -->
+<script>
+    
+</script>
+<div id="xianshi1" style="display:none;z-index:999;height:200px;width:200px;background:red;position:relative;top:100px;laft:100px">
+    111
+</div>
+
+<script>
+    layui.use('table', function(){
+      var table = layui.table;
+      //第一个打印表格
+      // table.render({
+      //   elem: '#demo11'
+      //   ,height: 315
+      //   ,url: '/demo/table/user/' //数据接口
+      //   ,page: true //开启分页
+      //   ,cols: [[ //表头
+      //     {field: 'id', title: 'GB1盤頭批次',width:120}
+      //     ,{field: 'username', title: '批次重量(KG)',width:120}
+      //     ,{field: 'sex', title: 'Creel No', width:90}
+      //     ,{field: 'city', title: '工作中心',width:90}
+      //   ]]
+      // });
+      //第二个打印表格
+      // table.render({
+      //   elem: '#demo12'
+      //   ,height: 315
+      //   ,url: '/demo/table/user/' //数据接口
+      //   ,page: true //开启分页
+      //   ,cols: [[ //表头
+      //     {field: 'id', title: 'GB2盤頭批次',width:120}
+      //     ,{field: 'username', title: '批次重量(KG)',width:120}
+      //     ,{field: 'sex', title: 'Creel No', width:90}
+      //     ,{field: 'city', title: '工作中心',width:90}
+      //   ]]
+      // });
+      //第三个打印表格
+      // table.render({
+      //   elem: '#demo13'
+      //   ,height: 315
+      //   ,url: '/demo/table/user/' //数据接口
+      //   ,page: true //开启分页
+      //   ,cols: [[ //表头
+      //     {field: 'id', title: 'GB3盤頭批次',width:120}
+      //     ,{field: 'username', title: '批次重量(KG)',width:120}
+      //     ,{field: 'sex', title: 'Creel No', width:90}
+      //     ,{field: 'city', title: '工作中心',width:90}
+      //   ]]
+      // });
+      //第四个打印表格
+      // table.render({
+      //   elem: '#demo14'
+      //   ,height: 315
+      //   ,url: '/demo/table/user/' //数据接口
+      //   ,page: true //开启分页
+      //   ,cols: [[ //表头
+      //     {field: 'id', title: 'GB4盤頭批次',width:120}
+      //     ,{field: 'username', title: '批次重量(KG)',width:120}
+      //     ,{field: 'sex', title: 'Creel No', width:90}
+      //     ,{field: 'city', title: '工作中心',width:90}
+      //   ]]
+      // });
+    });
+</script>
+<style scoped>
+    .bl{
+        border-color: rgb(35,38,46)!important 4px;
+    }
+    #tWork{
+        border-color:rgb(35,38,46)!important;
+    }
+    #tNum{
+        border-color:rgb(35,38,46)!important;
+    }
+    .layui-input{
+        border-color:rgb(35,38,46)!important;
+    }
+    .layui-form{
+        border-color:rgb(35,38,46)!important;
+    }
+    *{
+        margin: 0;
+        padding: 0;
+        background-color: rgb(238,238,238);
+    }
+    .layui-tab-card{
+
+    }
+    .layui-table td,.layui-table th,.layui-table tr,.layui-table{
+        border-color:rgb(35,38,46)!important;
+    }
+    td{
+        padding: 5px;
+        font-size: 12px;
+        text-align: center; 
+        border: 1px  solid!important;
+        z-index: 99;
+    }
+    tr{
+        border: 1px block solid!important;
+    }
+    table{
+        width:20%;
+    }
+    .top{
+        height: 22px;
+        line-height: 22px;
+        font-size: 16px;
+        border-bottom: 1px rgb(26,160,148) solid;
+    }
+    .layui-form-label{
+        /*padding:9px 4px!important;*/
+        width: auto;
+        padding: 0;
+        line-height: 26px;
+    }
+    .layui-input{
+        height: 25px;
+    }
+    .layui-form-item{
+        padding: 4px 0;
+        margin: 0;
+    }
+    .visibi{
+        visibility:hidden;
+    }
+    .c_v{
+        cursor: pointer;
+    }
+    .layui-input-inline{
+        width: 170px!important;
+    }
+    .layui-input-block{
+        margin-left:90px; 
+    }
+    .layui-input{
+        width: 89.5%;
+    }
+    .shou{
+        cursor: pointer;
+       
+    }
+    .f{
+        margin-left:10px; 
+         margin-top: 10px;
+        float: left;
+    }
+    .tdW{
+        white-space:nowrap;
+    }
+    /*table{
+        overflow: hidden;
+    }*/
+    #btn_ice,#btn_cel{
+    	margin-top: 10px;
+    	border:1px solid #87857E;
+    	padding: 2px;
+    	margin-right: 20px;
+    }
+    .top_t{
+    	margin-top: 10px;
+    	display: inline-block;
+    }
+    .layui-btn{
+    	height: 28px;
+    	line-height: 28px;
+    }
+    .demo11 .layui-table-cell{
+        padding: 0!important;
+        margin: 0!important;
+    }
+    .demo11 .layui-table th{
+        padding: 0!important;
+        margin: 0!important;
+    }
+    #ta_stamp2{
+    	width: 100%;
+    	margin-top: 20px;
+    }
+    #ta_stamp2 tr td{
+    	width: 100px;
+    	
+    }
+    #stamp3{width: 97%;}
+    .fl_sp3{
+    	float: left; 
+        margin-left: 10px;
+   		margin-top: 10px;
+   		width: 24%;
+   		}
+   		.fl_sp3 tr td{padding: 26px;}
+   		#fl_sp3{width: 100%; height: 450px;}
+
+    .layui-form-item input{
+        background: rgb(238,238,238);
+    }
+    .red{
+        background-color: red
+    }
+</style>

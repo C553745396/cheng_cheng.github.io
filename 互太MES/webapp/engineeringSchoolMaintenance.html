@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>engineeringSchoolMaintenmain</title>
+	<meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+
+    <link rel="stylesheet" href="plugins/layui/css/layui.css" media="all" />
+    <!--<link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">-->
+</head>
+<body>
+    <div class="tou">$t('機頭紙用紗信息維護')</div>
+    <button class="layui-btn layui-btn-small btn" id="save">$t('保存')</button>
+    
+    <table id="demo" lay-filter="test"></table>
+
+
+</body>
+<script src="plugins/servies.js"></script>
+<script type="text/javascript" src="plugins/layui/layui.js"></script>
+<script type="text/javascript" src="plugins/layui/layui.all.js"></script>
+<script type="text/javascript" src="plugins/layui/lay/modules/table.js"></script>
+<script type="text/javascript" src="build/js/jquery.js" ></script>
+<script src="build/js/di18n.js"></script>
+<script src="build/js/lang.js"></script>
+<script type="text/html" id="switchTpl1">
+  <input type="checkbox" id="bnum_check" disabled lay-skin="primary" {{ d.CHKBOX == '1' ? 'checked' : '' }}>
+  <!-- <input type="text" lay-verify="required|phone|number"> -->
+</script>
+<script>
+    var printParams = {};
+    // console.log(window.location.href.split('?')[1].split('&'))
+    window.location.href.split('?')[1].split('&').forEach(function(item,idx){
+        var k = item.split('=')[0];
+        var v = item.split('=')[1];
+        printParams[k] = v;
+    });
+    console.log(printParams);
+    var colArr1 = [ //表头
+        {field: 'SerialNo', title: '序號', width:80, fixed: 'left', templet: '<div>{{d.LAY_TABLE_INDEX+1}}</div>'}
+        ,{field: 'MATERIAL_NO', title: '物料號', width:150}
+        ,{field: 'MATERIAL_DESC', title: '物料描述', width:200} 
+        ,{field: 'YARN_CLRNO', title: '色号', width: 80}
+        ,{field: 'WEAVE', title: '組織', width: 80}
+        ,{field: 'BATCH_NO', title: '批次', event:'edit',style:'cursor: pointer;', width: 200}
+        ,{field: 'CHKBOX', title: '批次檢查', width: 100, templet: '#switchTpl1'}
+    ]
+    arrchangeL(colArr1);
+    var printList = [];
+    $(document).ready(function(){
+    layui.use(['laydate','table'], function(){
+        var laydate = layui.laydate;
+        var table = layui.table;
+
+        table.render({
+            elem: '#demo'
+            ,height: 315
+            ,method: 'POST'
+            ,url: getAjaxURL('/weftMachineJobSheet/getWeftMaintainYarn') //数据接口
+            ,response: {
+                statusName: 'status' //数据状态的字段名称，默认：code
+                ,statusCode: 200 //成功的状态码，默认：0
+                ,msgName: 'message' //状态信息的字段名称，默认：msg
+                ,countName: 'length' //数据总数的字段名称，默认：count
+                ,dataName: 'data' //数据列表的字段名称，默认：data
+            }  //数据接口
+            ,where:{
+                OrderNo:printParams.OrderNo,
+                MachineNo:printParams.MACHINE_NO,
+                Job_Sheet_No:printParams.JobSheetNo,
+                DataFlag:1
+            }
+            ,cols: [colArr1]
+            ,done: function (res,curr,count) {
+                
+                console.log(res)
+                printList = res.data;
+                // printList = JSON.parse(JSON.stringify(res.data));
+                $('.layui-table-cell')[0].style.zIndex = '-2';
+            }
+        });
+        
+        //监听单元格修改
+        table.on('tool(test)', function(obj){
+            // clickData = obj.data;
+            var params = obj.data;
+            console.log(obj)
+            console.log(params)
+            if(obj.event === 'edit'){
+                 
+                    layer.prompt({
+                        formType: 2
+                        ,title: '修改 物料號 为 ['+ params.MATERIAL_NO+'] 的批次'
+                        ,value: params.BATCH_NO
+                    }, function(value, index){
+                        console.log(123)
+                        if (value == '') {
+                            layer.alert('请输入有效的批次',{title:'提示'})
+                            return
+                        }
+
+                        // if (value == '' || !Number(value) && Number(value) != 0) {
+                        //     layer.alert('请输入有效的批次',{title:'提示'})
+                        //     return
+                        // }
+
+                        if (obj.data.CHKBOX == '1') {
+                            // layer.alert('勾选状态下禁止修改',{title:'提示'})
+                            //Ajax
+                            $.ajax({
+                                type:'POST',
+                                url:getAjaxURL('/weftMachineJobSheet/getComponentBatch'),
+                                data:{
+                                    OrderNo:printParams.OrderNo,
+                                    MATERIAL_NO:params.MATERIAL_NO,
+                                    ITEM_ID:params.ITEM_ID
+                                },
+                                success:function(data){
+                                    if (data.status == 200) {
+                                        if (value == data.data) {
+                                            layer.close(index);
+                                            layer.alert('修改成功',{title:'提示'});
+                                            obj.update({
+                                                BATCH_NO: value
+                                            });
+                                        } else {
+                                            layer.alert('輸入批次不存在',{title:'提示'});
+                                        }
+
+                                    } else {
+                                        layer.alert(data.message,{title:'提示'})
+                                    }
+                                }
+                            })  
+                        }else {
+                            var canEdit = false;
+                            //Ajax
+                            $.ajax({
+                                type:'POST',
+                                url:getAjaxURL('/weftMachineJobSheet/getBatchesMasterdata'),
+                                data:{
+                                    MaterialNo:params.MATERIAL_NO,
+                                    // ProdWtPerRoll:value,
+                                },
+                                success:function(data){
+                                    if (data.status == 200) {
+
+                                        for(var i=0;i<data.data.length;i++){
+                                            if (data.data[i] == value) {
+                                                canEdit = true;
+                                                break
+                                            }
+                                        }
+
+                                        if (canEdit) {
+                                            //刷新
+                                            layer.close(index);
+                                            layer.alert('修改成功',{title:'提示'});
+                                            obj.update({
+                                                BATCH_NO: value
+                                            });
+                                        } else {
+                                            layer.alert('輸入批次不存在',{title:'提示'});
+                                        }
+                                        
+                                    } else {
+                                        layer.alert(data.message,{title:'提示'})
+                                    }
+                                }
+                            })  
+                        }   
+                        
+
+                        //同步更新表格和缓存对应的值
+                        // obj.update({
+                        //   prodWtPerRoll: value
+                        // });
+                    });
+            }
+
+        });
+
+
+        $('#save').click(function(){
+            printList.forEach(function(item,idx){
+                delete item.LAY_TABLE_INDEX;
+            })
+            printList[0].CHKBOX = '1';
+
+            $.ajax({
+                type:'POST',
+                url:getAjaxURL('/weftMachineJobSheet/saveWeftMaintainYarn'),
+                data:{
+                    OrderNo:printParams.OrderNo,
+                    MachineNo:printParams.MACHINE_NO,
+                    Job_Sheet_No:printParams.JobSheetNo,
+                    rows:JSON.stringify(printList)
+                },
+                success:function(data){
+                    if (data.status == 200) {
+                        layer.alert(data.message,{title:'提示'});
+                    } else {
+                        layer.alert(data.message,{title:'提示'})
+                    }
+                }
+
+            })
+
+
+        })
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    })
+    })
+</script>
+</html>
+<style>
+    .tou{
+        padding: 3px 10px;
+        border-bottom: 1px rgb(30,140,195) solid;
+    }
+    .btn{
+        margin: 20px 50px;
+        padding: 0 50px;
+    }
+    .layui-table-click {
+        background-color: #FFF !important;
+    }
+</style>
