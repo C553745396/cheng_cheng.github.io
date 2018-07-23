@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title></title>
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="format-detection" content="telephone=no">
+
+        <link rel="stylesheet" href="plugins/layui/css/layui.css" media="all" />
+        <link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">
+    </head>
+    <body>
+        <div class="m">
+            <div class="top">
+                <span>$t('緯編織胚工單信息')</span>
+            </div>
+            <div style='margin:10px 0;'>
+                <button class="layui-btn layui-btn-small" id="edit">$t('編輯')</button>
+                <button class="layui-btn layui-btn-small">$t('退出')</button>
+            </div>
+            <!-- <div style='margin-bottom:40px;'>
+                <span class='f'>
+                    <label class="layui-form-label">開單日期<span style='color:red;'>*</span></label>
+                    <div class="layui-inline">
+                        <input type="text" value="" id="sdate">&nbsp;至&nbsp;<input type="text" value="" id="edate">
+                    </div>
+                </span>
+                <br>
+                <br>
+                <span class='f'>
+                    <label class="layui-form-label">生產機號</label>
+                    <div class="layui-inline">
+                        <input type="text" value="">
+                    </div>
+                </span>
+                <br>
+                <br>
+                <span class='f'>
+                    <label class="layui-form-label">布<span class="v_d">布號</span>號</label>
+                    <div class="layui-inline">
+                        <input type="text" value="">
+                    </div>
+                </span>
+                <br>
+                <br>
+                <span class='f'>
+                    <label class="layui-form-label">組胚工單號</label>
+                    <div class="layui-inline">
+                        <input type="text" value="">
+                    </div>
+                </span>
+                <br>
+                <br>
+                <span class='f'>
+                    <label class="layui-form-label">顯示完成單</label>
+                    <div class="layui-inline">
+                        <input type="checkbox">
+                    </div>
+                </span>
+            </div> -->
+
+            <table id="demo" lay-filter="test"></table>
+
+           
+            <span id="icon">
+                <i class="layui-icon shou" id='add'>&#xe654;</i>&nbsp;&nbsp;<i class="layui-icon shou" id='editor'>&#xe642;</i>&nbsp;&nbsp;<i class="layui-icon shou" id='search'>&#xe615;</i>&nbsp;&nbsp;<i class="layui-icon shou" id='renovate'>&#x1002;</i>
+            </span>
+        </div>
+    <script src="plugins/servies.js"></script>
+    <script type="text/javascript" src="plugins/layui/layui.all.js"></script>
+    <script type="text/javascript" src="plugins/layui/lay/modules/tables.js" ></script>
+    <script src="build/js/jquery.js"></script>
+    <script src="build/js/di18n.js"></script>
+    <script src="build/js/lang.js"></script>
+    <script>
+        var printParams = {};
+        if (window.location.href.split('?')[1]) {
+            window.location.href.split('?')[1].split('&').forEach(function(item,idx){
+                var k = item.split('=')[0];
+                var v = item.split('=')[1];
+                printParams[k] = v;
+            })
+        }
+        console.log(printParams);
+        
+        var colArr1 = [ //表头
+            {radio: true, LAY_RadioCHECKED: false,width:20},
+            {field: 'id', title: '織胚工單', width:80}
+            ,{field: 'username', title: '布號', width:80}
+            ,{field: 'sex', title: '針寸數', width:80}
+            ,{field: 'city', title: '總針數', width:80} 
+            ,{field: 'sign', title: '顏色', width: 80}
+            ,{field: 'experience', title: '紗支', width: 80}
+            ,{field: 'experience', title: '紗長', width: 80}
+            ,{field: 'experience', title: '紗缸', width: 80}
+            ,{field: 'classify', title: '機號', width: 80}
+            ,{field: 'score', title: '計劃織胚數', width: 80}
+            ,{field: 'classify', title: '累計產量', width: 80}
+            ,{field: 'classify', title: '欠胚數量', width: 80}
+            ,{field: 'classify', title: '胚期', width: 80}
+            ,{field: 'classify', title: '成品期', width: 80}
+        ]
+        arrchangeL(colArr1);
+
+        //默认当前日期与六十天前的日期
+        // var curDate = new Date();
+        // var pdTimeStamp = curDate.getTime() - 24*60*60*1000*60;
+        // var preDate = String(new Date(pdTimeStamp).getFullYear())+'-'+String(new Date(pdTimeStamp).getMonth() + 1)+'-'+String(new Date(pdTimeStamp).getDate());
+        // var createDate = String(new Date().getFullYear())+'-'+String(new Date().getMonth() + 1)+'-'+String(new Date().getDate());
+                   
+
+        $(document).ready(function(){
+            var checkedData = '';
+
+            // $('#sdate').val(preDate); 
+            // $('#edate').val(createDate);
+
+            layui.use(['laydate','table'], function(){
+                var laydate = layui.laydate;
+                var table = layui.table;
+                // laydate.render({
+                //     elem: '#sdate' //
+                // });
+                // laydate.render({
+                //     elem: '#edate' 
+                // });
+                
+            table.render({
+                elem: '#demo'
+                ,height: 315
+                ,id:'aaa'
+                ,url: '/demo/table/user/' //数据接口
+                // ,page: true //开启分页
+                ,response: {
+                    statusName: 'status' //数据状态的字段名称，默认：code
+                    ,statusCode: 200 //成功的状态码，默认：0
+                    ,msgName: 'message' //状态信息的字段名称，默认：msg
+                    ,countName: 'length' //数据总数的字段名称，默认：count
+                    ,dataName: 'data' //数据列表的字段名称，默认：data
+                }  //数据接口
+                // ,where:{
+                //     dateFrom:printParams.dateFrom,
+                //     dateTo:printParams.dateTo,
+                //     MACHINE_NO:printParams.MACHINE_NO,
+                //     aFABRIC_CODE:printParams.aFABRIC_CODE,
+                // }
+                ,cols: [colArr1]
+                ,done: function (res,curr,count) {
+                    layer.close(loading1);
+                    $('.layui-table-cell')[0].style.zIndex = '-2';
+                    layer.close(loading1);
+                    $("#icon").css("display","block");   //表格下方的增、编、搜隐藏
+                    hasTable = true;
+                    checkedData = '';
+                }
+            });
+
+            //radio
+            table.on('radio(test)', function(obj){
+                // ta = obj.checked;
+                //如果触发的是全选，则为：all，如果触发的是单选，则为：one
+                checkedData = JSON.parse(JSON.stringify(obj.data));
+                console.log(checkedData);
+                // console.log(obj.checked); //当前是否选中状态
+                // console.log(obj.data); //选中行的相关数据
+                // name = obj.data.beamNo;
+                // console.log(name)                  
+            }); 
+
+
+            // 新增
+            $("#add").click(function(){
+                checkInMachineNo = false;
+                $('#sdate').val(preDate); 
+                $('#edate').val(createDate);
+
+                layer.open({
+                    area: ['420px', '320px']
+                    ,title:'新增記錄'
+                    ,type:1
+                    ,content: $('#adds')
+                    ,btn: ['提交', '取消']
+                    ,cancel: function(){ 
+                        $('#adds').css('display','none')
+                    }
+                    ,yes: function(index, layero){
+                        layer.closeAll();
+                        $('#adds').css('display','none')
+
+                    }
+                    ,btn2: function(index, layero){
+                        layer.closeAll();
+                        $('#adds').css('display','none')
+                    }
+                });
+            });
+            // 编辑
+            $("#editor").click(function(){
+
+                layer.open({
+                    area: ['400px', '280px']
+                    ,title:'編輯記錄'
+                    ,type:1
+                    ,content: $('#editors')
+                    ,btn: ['提交', '取消']
+                    ,cancel: function(){ 
+                        $('#editors').css('display','none')
+                    }
+                    ,yes: function(index, layero){
+                        layer.closeAll();
+                        $('#editors').css('display','none');
+                    
+                    }
+                    ,btn2: function(index, layero){
+                        layer.closeAll();
+                        $('#editors').css('display','none');
+                    }
+                });
+            });
+            // 搜索 
+            $("#search").click(function(){
+                // console.log(123)
+                layer.open({
+                    area: ['450px', '280px']
+                    ,title:'搜索'
+                    ,type:1
+                    ,content: $('#searchs')
+                    ,btn: ['搜尋', '重設']
+                    ,cancel: function(){ 
+                        $('#searchs').css('display','none')
+                    }
+                    ,yes: function(index, layero){
+                        layer.closeAll();
+                        $('#searchs').css('display','none')
+                        
+                    }
+                    ,btn2: function(index, layero){
+                        layer.closeAll();
+                        $('#searchs').css('display','none')
+                    }
+                });
+            });
+            // 刷新   
+            $('#renovate').click(function(){
+                table.reload('aaa', {
+                    url:getAjaxURL('/weftMachineJobSheet/getWeftMachineJobSheetGridData'),
+                });
+                checkedData = '';
+            })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            $('#edit').click(function(){
+
+                window.open('weftShiftTableEdit.html');
+            })
+
+
+
+
+
+
+
+            })
+        })
+    </script>
+    <script>
+        function timestampToTime(timestamp) {
+            var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+            Y = date.getFullYear() + '-';
+            M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+            D = date.getDate() + ' ';
+            return Y+M+D;
+        }
+
+        function closeit(a){
+            return a.CLOSE_FLAG === '0'? 'checked':'false'
+            // return a === '0'? '已關閉':'已開啟'
+        }
+
+    </script>       
+    </body>
+</html>
+<!-- 新增 -->
+<div id="adds" class="pad dis">
+    <label for="">開單日期&nbsp;&nbsp;</label><input type="text" style="width:100px;">至<input type="text" style="width:100px;"><br><br>
+    <label for="">生產機號<span class="v_d">量</span>&nbsp;&nbsp;</label><input type="text"><br><br>
+    <label for="">布號<span class="v_d">gg量</span>&nbsp;</label><input type="text"><br><br>
+    <label for="">織胚工單</label><input type="text"><br><br>
+    <label for="">顯示完成單<span class="v_d">量</span>&nbsp;&nbsp;</label><input type="checkbox">
+</div>
+<!-- 编辑 -->
+<div id="editors" class="pad dis">
+    <label for="">生產機號<span class="v_d">量</span>&nbsp;&nbsp;</label><input type="text"><br><br>
+    <label for="">分配數量<span class="v_d">量</span>&nbsp;&nbsp;</label><input type="text"><br><br>
+    <label for="">轉數/kg<span class="v_d">gg量</span>&nbsp;</label><input type="text"><br><br>
+    <label for="">機頭紙備註</label>&nbsp;&nbsp;<input type="text"><br><br>
+    <label for="">布票備註<span class="v_d">量</span>&nbsp;&nbsp;</label><input type="text">
+</div>
+<!-- 搜索 -->
+<div id="searchs" class="pad dis">
+    <div>
+        <select name="" id="sk">
+            <option value="JOB_SHEET_NO">機頭紙號</option>
+            <option value="PRODUCTION_ORDER_NO">工單號碼</option>
+            <option value="MACHINE_NO">生產機號</option>
+            <option value="QUANTITY_ALLOTTED">分配數量</option>
+            <option value="QUANTITY_COMPLETED">完成數量</option>
+            <option value="CREATED_BY">創建者</option>
+            <option value="CREATED_DATE">創建日期</option>
+            <option value="MODIFIED_BY">修改者</option>
+            <option value="MODIFIED_DATE">修改日期</option>
+            <option value="ROTATION_FREQ_PER_POUND">轉數/kg</option>
+            <option value="MCHN_JOB_SHEET_NOTE">機頭紙備註</option>
+            <option value="GREIGE_BARCODE_LABEL_NOTE">布票備註</option>
+            <option value="CLOSE_FLAG">關閉</option>
+        </select>
+        <select name="" id="sc">
+            <option value="cn">等於</option>
+            <option value="eq">不等於</option>
+            <option value="bw">開始於</option>
+            <option value="bn">不開始於</option>
+            <option value="ew">結束於</option>
+            <option value="en">不結束於</option>
+            <option value="cn">包含</option>
+            <option value="nc">不包含</option>
+            <option value="">is null</option>
+            <option value="">is not null</option>
+            <option value="">在其中</option>
+            <option value="">不在其中</option>
+        </select>
+        <input type="text" id="sv">
+    </div>
+</div>
+<style scoped>
+    .f .layui-form-label{
+        width: 80px;
+        display: inline-block;
+        text-align: left;
+    }
+    .layui-form-checkbox{
+        height:20px;
+        line-height: 20px;
+        padding-right: 18px;
+    }
+    .layui-form-checkbox i{
+        font-size:14px;
+        width: 20px;
+    }
+    .layui-form-radio span{
+        display: none!important;
+    }
+    .layui-form-radio{
+        margin:0;
+        padding:0;
+    }
+    .layui-form-radio i{
+        margin:0;
+    }
+    #icon{
+        display: none;
+    }
+    .m{
+        margin:0 15px;
+    }
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    .top{
+        height: 22px;
+        line-height: 22px;
+        font-size: 16px;
+        border-bottom: 1px rgb(26,160,148) solid;
+    }
+    .layui-input{
+        height: 25px;
+    }
+    .v_d{
+        visibility:hidden;
+    }
+    .layui-input-inline{
+        padding: 9px 0;
+        width: 170px!important;
+    }
+    .layui-form-label{
+        width: auto;
+        padding: 0 5px;
+    }
+    .clearfix:after{
+        content: '';
+        display: table;
+        clear:both;
+        visibility: hidden;
+    }
+    .f{
+        float: left;
+    }
+    .r{
+        color: red;
+    }
+    .shou{
+        cursor: pointer;
+    }
+    .pad{
+        padding: 20px;
+    }
+    .dis{
+        display: none;
+    }
+</style>

@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>胚布質檢報工</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="plugins/layui/css/layui.css" media="all" />
+    <!--<link rel="stylesheet" href="css/global.css" media="all">-->
+    <!--<link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">-->
+    
+</head>
+<body>
+	
+	<!--描述：F4执行-->
+	
+		<div class="top" >
+            <span>$t('胚布質檢報工')</span>
+        </div>
+        <!-- <div class="m" id="impt" style="display: none;">-->
+    <div id="OperatorLogin">
+        
+        <div class="top1">
+            <span>F4-$t('执行')</span>
+           <!-- <button class="layui-btn layui-btn-xm">F4执行</button>-->
+        </div>
+        <div class="layui-form-item">
+                <label class="layui-form-label">$t('驗布工號')(S)</label>
+                <div class="layui-input-inline">
+                  <input type="test" name="password" required lay-verify="required" autocomplete="off" class="layui-input" id="txtOperator" value="">
+                  <!--<input type="test" name="password" required lay-verify="required" autocomplete="off" class="layui-input" id="txtOperator" value="ADMIN">-->
+                </div>
+        </div>
+        <div class="layui-form-item">
+                <label class="layui-form-label">$t('驗布機號')(X)</label>
+                <div class="layui-input-inline">
+                  <input type="test" name="password" required lay-verify="required" autocomplete="off" class="layui-input" id="txtMachineID" value="">
+                  <!--<input type="test" name="password" required lay-verify="required" autocomplete="off" class="layui-input" id="txtMachineID" value="A102FYN">-->
+                </div>
+                <button class="layui-btn layui-btn-small" id="searchYanzheng">Sure</button>
+		</div>
+	</div>
+	
+	
+	<!--描述：F8-执行  F2-返回-->
+    <!--<div style="display: none;">-->
+    <div id="UserAuthorization">
+        <div class="top1">
+            <!--<button class="layui-btn layui-btn-xm">F8执行</button>
+            <button class="layui-btn layui-btn-xm">F2返回</button>-->
+            <span>F8$t('执行')</span>&nbsp;&nbsp;&nbsp;
+            <span>F2-$t('返回')</span>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">$t('審批用戶')(G)</label>
+            <div class="layui-input-inline  item">
+              <input type="test" required lay-verify="required" class="textbox" id="txtUsername" accesskey="G">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">$t('審批密碼')(V)</label>
+            <div class="layui-input-inline  item">
+              <input type="test" name="password" required lay-verify="required" type="password" class="textbox" id="txtPassword" accesskey="V">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">$t('審批項目')(W)</label>
+            <div class="layui-input-inline">
+                <select id="txtApproval" accesskey="W"  style="width:102%;height: 22px;" >
+					<option value="1">$t('品質異常審批')</option>
+					<option value="2">$t('機頭紙解鎖')</option>
+				</select>
+            </div>
+        </div>
+	</div>
+    
+    
+    
+    <!--描述：F5-鎖匹號  F9-審批簽名  F12-完成驗布  F2-返回-->
+<!--<div id="table_page" style="display: none;"> -->   
+<div id="WeftInspectionConf">
+		<div class="top1">
+            <!--<button class="layui-btn layui-btn-xm">F5鎖匹號</button>
+            <button class="layui-btn layui-btn-sm">F9審批簽名</button>
+            <button class="layui-btn layui-btn-sm">F12完成驗布</button>
+            <button class="layui-btn layui-btn-sm">F2返回</button>-->
+            <span>F6$t('鎖匹號')</span>&nbsp;&nbsp;&nbsp;
+            <span>F9$t('審批簽名')</span>&nbsp;&nbsp;&nbsp;
+            <span>F12$t('完成驗布')</span>&nbsp;&nbsp;&nbsp;
+            <span>F2$t('返回')</span>
+        </div>
+	<table width="100%" border="0" cellpadding="4" cellspacing="0">
+		
+		<!--第一行-->
+		
+		<tr class="t_content">
+		    <td><label class="layui-form-label">$t('胚布批次')(Q)</label></td>
+		    <td class="layui-input-inline">
+		      <input type="text" lay-verify="required" class="textbox" id="txtRollBatchNo" value="" size="20%" maxlength="10" accesskey="Q">
+		       <!--<input type="text" lay-verify="required" class="textbox" id="txtRollBatchNo" value="6002108319" size="20%" maxlength="10" accesskey="Q">-->
+		    </td>
+		    <td><label class="layui-form-label">$t('工單號碼')</label></td>
+		    <td class="layui-input-inline">
+		      <input type="text" lay-verify="required" class="txtFieldDisable" id="txtorderNo" tabIndex="-1"  size="20%" value="" readonly="true">
+		    </td>
+		    <td><label class="layui-form-label">$t('顏色')</label></td>
+		    <td class="layui-input-inline">
+		      <input type="text" lay-verify="required" class="txtFieldDisable" id="txtColor" tabIndex="-1" size="20%" readonly="true">
+		    </td>
+		    <td><label class="layui-form-label">$t('生產機號')</label></td>
+		    <td class="layui-input-inline">
+		      <input type="text" lay-verify="required" class="txtFieldDisable" id="txtMachineNo" tabIndex="-1" size="20%" readonly="true">
+		    </td>
+		</tr>
+		
+		<!--第二行-->
+		
+		<tr class="t_content">
+		    <td><label class="layui-form-label">$t('筒管重量')(N)</label></td>
+		    <td class="layui-input-inline">
+		      <input type="text" lay-verify="required" class="txtFieldDisable" id="txtTubeWeight"  tabIndex="-1" size="20%" accesskey="N" readonly="true">
+		    </td>
+		    <td><label class="layui-form-label">$t('物料号')</label></td>
+		    <td class="layui-input-inline">
+		      <input type="text" lay-verify="required" class="txtFieldDisable" id="txtFabric"  tabIndex="-1" size="20%" readonly="true">
+		    </td>
+		    <td><label class="layui-form-label">$t('胚布開邊')</label></td>
+		    <td class="layui-input-inline">
+		      <input type="text" lay-verify="required" class="txtFieldDisable" id="txtCuttingGreige" tabIndex="-1" size="20%" readonly="true">
+		    </td>
+		    <td><label class="layui-form-label">$t('驗布機號')</label></td>
+		    <td class="layui-input-inline">
+		      <input type="text" lay-verify="required" class="txtFieldDisable" id="txtGreigeCheckMachine" tabIndex="-1" size="20%" readonly="true">
+		    </td>
+		</tr>
+		
+		<!--第三行-->
+		
+		<tr class="t_content">
+		    <td><label class="layui-form-label">$t('審批狀態')</label></td>
+		    <td class="layui-input-inline">
+		      <input type="checkbox" id="txtAuditStatus" disabled>
+		    </td>
+		    <td><label class="layui-form-label">$t('尺寸')</label></td>
+		    <td class="layui-input-inline">
+		      <input type="text" lay-verify="required" class="txtFieldDisable" id="txtSize" tabIndex="-1" size="20%" readonly="true">
+		    </td>
+		    <td >&nbsp;</td>
+			<td >&nbsp;</td>
+		    <td><label class="layui-form-label">$t('驗布員')</label></td>
+		    <td class="layui-input-inline">
+		      <input type="text" lay-verify="required" class="txtFieldDisable" id="txtGreigeCheckPerson" tabIndex="-1" size="20%" readonly="true">
+		    </td>
+		</tr>
+		<!--添加空格-->
+		<tr>
+		<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+		</tr>
+		<!--第四行-->
+		
+		<tr class="t_content">
+		    <td><label class="layui-form-label">CPI$t('標準')</label></td>
+		    <td class="layui-input-inline">
+		      <input type="text" lay-verify="required" class="txtFieldDisable" id="txtCPIStandard" tabIndex="-1" size="20%" readonly="true">
+		    </td>
+		    <td><label class="layui-form-label">$t('CPI左')(1)</label></td>
+		    <td class="layui-input-inline">
+		      <input type="text" lay-verify="required" class="textbox" id="txtCPILeft" size="20%" accesskey="1">
+		    </td>
+		    <td><label class="layui-form-label">CPI$t('中')(2)</label></td>
+		    <td class="layui-input-inline">
+		      <input type="text" lay-verify="required" class="textbox" id="txtCPIMiddle" size="20%" accesskey="2">
+		    </td>
+		    <td><label class="layui-form-label">CPI$t('右')(3)</label></td>
+		    <td class="layui-input-inline">
+		      <input type="text" lay-verify="required" class="textbox" id="txtCPIRight" size="20%" accesskey="3">
+		    </td>
+		</tr>
+		
+		<!--第五行-->
+		
+		<tr class="t_content">
+		    <td><label class="layui-form-label">WPI$t('邊5標準')</label></td>
+		    <td class="layui-input-inline">
+		      <input type="text" lay-verify="required" class="txtFieldDisable" id="txtWPIStandardL5" tabIndex="-1" size="20%" readonly="true">
+		    </td>
+		    <td><label class="layui-form-label">WPI$t('左')5</label></td>
+		    <td class="layui-input-inline">
+		      <input type="text" lay-verify="required" class="textbox" id="txtWPIL5" size="20%"  accesskey="7">
+		    </td>
+		    <td><label class="layui-form-label">WPI$t('右')5</label></td>
+		    <td class="layui-input-inline">
+		      <input type="text" lay-verify="required" class="textbox" id="txtWPIR5" size="20%"  accesskey="7">
+		    </td>
+		    <td >&nbsp;</td>
+			<td >&nbsp;</td>
+		</tr>
+		
+		<!--第六行-->
+		
+		<tr class="t_content">
+		    <td><label class="layui-form-label">WPI$t('邊10標準')</label></td>
+		    <td class="layui-input-inline">
+		      <input type="text" lay-verify="required" class="txtFieldDisable" id="txtWPIStandardR10" tabIndex="-1" size="20%" readonly="true">
+		    </td>
+		    <td><label class="layui-form-label">WPI$t('左')10</label></td>
+		    <td class="layui-input-inline">
+		      <input type="text" lay-verify="required" class="textbox" id="txtWPIL10" size="20%" accesskey="9">
+		    </td>
+		    <td><label class="layui-form-label">WPI$t('右')10</label></td>
+		    <td class="layui-input-inline">
+		      <input type="text" lay-verify="required" class="textbox" id="txtWPIR10" size="20%" accesskey="9">
+		    </td>
+		    <td >&nbsp;</td>
+			<td >&nbsp;</td>
+		</tr>
+		
+		<!--第七行-->
+		
+		<tr class="t_content">
+		    <td><label class="layui-form-label">WPI$t('中標準')</label></td>
+		    <td class="layui-input-inline">
+		      <input type="text" lay-verify="required" class="txtFieldDisable" id="txtWPIStandard" tabIndex="-1" size="20%" readonly="true">
+		    </td>
+		    <td><label class="layui-form-label">WPI$t('中')</label></td>
+		    <td class="layui-input-inline">
+		      <input type="text" lay-verify="required" class="textbox" id="txtWPIMiddle" size="20%" accesskey="8">
+		    </td>
+		</tr>
+		
+		<!--第八行-->
+		
+		<tr class="t_content">
+		    <td><label class="layui-form-label">$t('封度標準')</label></td>
+		    <td class="layui-input-inline">
+		      <input type="text" lay-verify="required" class="txtFieldDisable" id="txtStandardWidth" tabIndex="-1" size="20%" readonly="true">
+		    </td>
+		    <td><label class="layui-form-label">$t('封度')(F)</label></td>
+		    <td class="layui-input-inline">
+		      <input type="text" lay-verify="required" class="textbox" id="txtWidth" size="20%" accesskey="F">
+		    </td>
+		    <td >&nbsp;</td>
+			<td >&nbsp;</td>
+			<td><label class="layui-form-label">$t('間距')(J)</label></td>
+		    <td class="layui-input-inline">
+		      <input type="text" lay-verify="required" class="txtFieldDisable" id="txtDistance" size="20%" accesskey="J">
+		    </td>
+		</tr>
+		<!--添加空格-->
+		<tr>
+		<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+		</tr>
+		
+		<!--第九行-->
+		
+		<tr class="t_content">
+		    <td><label class="layui-form-label">$t('駁口個數')(A)</label></td>
+		    <td class="layui-input-inline">
+		      <input type="text" lay-verify="required" class="textbox" id="txtDefectNo" size="20%" accesskey="A" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')">
+		    </td>
+		    <td><label class="layui-form-label">$t('剪布長度')(B)</label></td>
+		    <td class="layui-input-inline">
+		      <input type="text" lay-verify="required" class="textbox" id="txtCuttedGreigeLength"  size="20%"  accesskey="B">
+		    </td>
+		    <td><label class="layui-form-label">$t('剪布重量')(C)</label></td>
+		    <td class="layui-input-inline">
+		      <input type="text" lay-verify="required" class="textbox" id="txtCuttedGreigeWeight"  size="20%"  accesskey="C">
+		    </td>
+		    <td >&nbsp;</td>
+			<td >&nbsp;</td>
+		</tr>
+		
+		<!--第十行-->	
+		
+		<tr class="t_content">
+		    <td><label class="layui-form-label">$t('胚布級別')(E)</label></td>
+		    <td class="layui-input-block">
+		     	<select id="txtGreigeClass" accesskey="E" style="width: 85%;">
+					<option value="A">A</option>
+					<option value="B">B</option>
+					<option value="C">C</option>
+				</select>
+		    </td>
+		    <td><label class="layui-form-label">$t('質量原因')(T)</label></td>
+		    <td class="layui-input-inline">
+		     	<select  id="txtQualityReason" accesskey="T" class="txtFieldDis" style="width: 102%;">
+		     		<option value=""></option>
+					<option value=""></option>
+					<option value=""></option>
+		     	</select>
+		    </td>
+		    <td><label class="layui-form-label">$t('胚布長度')(Y)</label></td>
+		    <td class="layui-input-inline">
+		      <input type="text" lay-verify="required" class="textbox" id="txtGreigeLength"  size="20%"  accesskey="Y">
+		    </td>
+		    <td >&nbsp;</td>
+			<td >&nbsp;</td>
+		</tr>
+		
+		<!--第十一行-->
+		
+		<tr class="t_content">
+		    <td><label class="layui-form-label">$t('實測尺寸')(M)</label></td>
+		    <td class="layui-input-inline">
+		      <input type="text" lay-verify="required" class="txtFieldDisable" id="txtGreigeSize" size="20%"  accesskey="M">
+		    </td>
+		    <td><label class="layui-form-label">$t('落胚要求')</label></td>
+		    <td class="layui-input-inline">
+		      <input type="text" lay-verify="required" class="txtFieldDisable" id="txtFlatMachineNo" size="20%"  tabIndex="-1" readonly="true">
+		    </td>
+		    <td><label class="layui-form-label">$t('胚布重量')(P)</label></td>
+		    <td class="layui-input-inline">
+		      <input type="text" lay-verify="required" class="textbox" id="txtGreigeWeight"   size="20%"  accesskey="P">
+		    </td>
+		    <td ><label class="layui-form-label">$t('验胚备注')(U)</label></td>
+			<td >
+				<input type="text" lay-verify="required" class="textbox" id="txtGreigeRemark"  maxlength="12"  size="20%"  accesskey="U">
+			</td>
+		</tr>
+		
+		<!--第十二行-->
+		
+		<tr class="t_content">
+			<td >&nbsp;</td>
+			<td >&nbsp;</td>
+			<td >&nbsp;</td>
+			<td >&nbsp;</td>
+		    <td><label class="layui-form-label">$t('胚布淨重')</label></td>
+		    <td class="layui-input-inline">
+		      <input type="text" lay-verify="required" class="txtFieldDisable" id="txtNetWeight" value="0" tabIndex="-1" size="20%" readonly="true">
+		    </td>
+		    <td><label class="layui-form-label"><input type="button" value="$t('完成验布')" onclick="saveData()"/></label></td>
+		    <td>&nbsp;</td>
+		</tr>
+	</table>
+</div>
+<!--隐藏域-->
+<input type="hidden" id="hdnUser" value="a_test"/>
+<!--<input type="hidden" id="hdnRoles" value="'SAP_XMII_User','PT_XMII_WarpKnittingShiftReport_Admin','Everyone','PT_XMII_WEFTMACHINEJOBSHEET_POWERUSER','PT_MENU_XMII_YARN_10'"/>-->
+<!--<input type="hidden" id="hdnLang" value="zh"/>-->
+<input type="hidden" id="hdnPlant"/>
+<input type="hidden" id="Operator" value="{Operator}"/>
+<input type="hidden" id="MachineNo" value="{MachineNo}"/>
+<input type="hidden" id="hdnConfirmStatus"/>
+<input type="hidden" id="hdnRollLockStatus"/>
+<input type="hidden" id="hdnLockedBy"/>
+<input type="hidden" id="hdnCuttingGreigeStatus"/>
+<input type="hidden" id="hdnMatGrp"/>
+<input type="hidden" id="hdnMchnLockStatus"/>
+<input type="hidden" id="hdnGreigeChkMachine"/>
+<input type="hidden" id="hdnGreigeChkPerson"/>
+<input type="hidden" id="hdnApprover"/>
+<input type="hidden" id="hdnDateTime"/>
+<input type="hidden" id="wpiL5Tol"/>
+<input type="hidden" id="wpiL10Tol"/>
+<input type="hidden" id="wpiTol"/>
+<input type="hidden" id="status2"/>
+<input type="hidden" id="ApprovalFlag"/>
+<script src="plugins/servies.js"></script>
+<script type="text/javascript" src="build/js/jquery.js" ></script>
+<script type="text/javascript" src="plugins/layui/layuis.all.js"></script>
+<script src="build/js/di18n.js"></script>
+<script src="build/js/lang.js"></script>
+<script type="text/javascript" src="build/js/weftEditor.js" ></script>
+
+    <script>
+		layui.use('table', function(){
+			var table = layui.table;
+			window.onload=function(){
+				$('#txtUsername').val(sessionStorage.loginName);
+			    console.log(sessionStorage.loginName)
+			    
+			    //登录页
+				clickYes();
+				
+				//内容页
+				t_content();
+			}
+		})
+	</script>
+</body>
+
+</html>
+<style scoped>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    .top{
+        height: 22px;
+        line-height: 22px;
+        font-size: 16px;
+        border-bottom: 1px rgb(26,160,148) solid;
+    }
+    .layui-input{
+        height: 25px;
+    }
+    .v_d{
+        visibility:hidden;
+    }
+    .layui-input-inline{
+        padding: 9px 0;
+        width: 170px!important;
+    }
+    .layui-form-label{
+        width: auto;
+        padding: 9px 15px;
+    }
+    .item{
+    	padding-left:4px ;
+    }
+    .clearfix:after{
+        content: '';
+        display: table;
+        clear:both;
+        visibility: hidden;
+    }
+    .f{
+        float: left;
+    }
+    .r{
+        color: red;
+    }
+    .layui-form-item{
+        margin-bottom: 0;
+    }
+    .top1{
+    	height: 30px;
+    	line-height: 30px;
+        font-size: 16px;
+        border-bottom: 1px rgb(26,160,148) solid;
+    }
+    .layui-btn-small{
+    	margin-top: 6px;
+    }
+    .textbox {
+		border: 1px solid rgb(131, 131, 143);
+		color: #000000;
+		background-color: #ffffff;
+		type: text;
+		padding-left: 3px;
+		margin-left: 0px;
+	}
+	.txtFieldDisable {
+		background-color: rgb(235, 235, 228);
+		color: #000000;
+		border: 1px solid rgb(131, 131, 143);
+		padding-left: 3px;
+		margin-left: 0px;
+	}
+	
+</style>

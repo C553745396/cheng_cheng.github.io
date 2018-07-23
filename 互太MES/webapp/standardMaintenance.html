@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>纬编胚布质检标准维护</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+	<script type="text/javascript" src="plugins/servies.js" ></script>
+    <link rel="stylesheet" href="plugins/layui/css/layui.css" media="all" />
+    <!-- <link rel="stylesheet" href="css/global.css" media="all"> -->
+    <!--<link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">-->
+</head>
+<body>
+    <div class="m">
+        <div class="top">
+            <span>$t("检验标准维护界面")</span>
+        </div>
+        <div class="layui-form-item">
+                <label class="layui-form-label">$t('物料号')   </label>
+                <div class="layui-input-inline">
+                  <input type="test" name="password" required lay-verify="required" autocomplete="off" class="layui-input" id="password">
+                </div>
+                <button class="layui-btn layui-btn-small" id="show_data">$t("全部顯示")</button>
+                <button class="layui-btn layui-btn-small" id="data_ation">$t("数据同步")</button>
+        </div>
+        <table class="layui-table" lay-data="{height:315}" lay-filter="test" id="demo">
+       <!-- <table id="demo" lay-filter="test"></table>-->
+          <!--<thead>
+            <tr>
+              <th lay-data="{field:'id', width:80, sort: true}">ID</th>
+              <th lay-data="{field:'username', width:80}">用户名</th>
+              <th lay-data="{field:'sex', width:80, sort: true}">性别</th>
+              <th lay-data="{field:'city'}">城市</th>
+              <th lay-data="{field:'sign'}">签名</th>
+              <th lay-data="{field:'experience', sort: true}">积分</th>
+              <th lay-data="{field:'score', sort: true}">评分</th>
+              <th lay-data="{field:'classify'}">职业</th>
+              <th lay-data="{field:'wealth', sort: true}">财富</th>
+            </tr>
+          </thead>-->
+        </table>
+        <i class="layui-icon shou" id='shou1'>&#xe654;</i>&nbsp;&nbsp;<i class="layui-icon shou" id="shou2">&#xe642;</i>&nbsp;&nbsp;<i class="layui-icon shou" id="shou3">&#xe640;</i>&nbsp;&nbsp;<i class="layui-icon shou" id='shou4'>&#x1002;</i> 
+        
+       
+    </div>
+    
+    <form id="upload" enctype="multipart/form-data" method="post"> 
+		 <input type="file" name="file" id="pic"/> 
+		 <input type="hidden" name="username" id="username"/>
+		 <input type="button" value="upload excel" onclick="uploadPic();"/> 
+	</form>  
+    
+    
+    
+    
+    <!--<div class="layui-upload" id="file">
+	  <button type="button" class="layui-btn layui-btn-normal" id="upfile">选择多文件</button> 
+	  
+	  <button type="button" class="layui-btn" id="uploadbt">开始上传</button>（數據量大的時候，建議分開多幾個文件上傳，單個文件最大行數是15000行。）
+	  <input type="file" id="upfile" /><input type="button"  id="uploadbt" value="upload excel">
+	  （數據量大的時候，建議分開多幾個文件上傳，單個文件最大行數是15000行。）
+	</div> -->
+   	
+	<span id="result" style="font-size:20px;color:green;font-weight:900;"></span>$t('共上傳')  <span id="ResultNum" style="font-size:20px;color:green;font-weight:900;">0</span>  $t('條記錄')
+<!--弹新增-->
+        <div id="pup">
+        	<span>$t('已确认')<br/><input type="checkbox" value="" id="va0"></span>
+        	<span>$t('WPI改善')<br/><input type="checkbox" value="" id="va1"></span><br/>
+        	<span>$t('物料号')<br/><input type="text" value="" id="va2"></span>
+        	<span>$t('机型')<br/><input type="text" value="" id="va3"></span><br />
+        	<span>$t('模数')<br/><input type="text" value="" id="va4"></span>
+        	<span>$t('总针数')<br/><input type="text" value="" id="va5"></span><br />
+        	<span>$t('标准CPI')<br/><input type="text" value="" id="va6"></span>
+        	<span>$t('CPI容差')<br/><input type="text" value="" id="va7"></span><br />
+        	<span>$t('标准WPI边5')<input type="text" value="" id="va8"></span>
+        	<span>$t('标准WPI边5容差')(%)<input type="text" value="" id="va9"></span><br />
+        	<span>$t('标准WPI边10')<input type="text" value="" id="va10"></span>
+        	<span>$t('标准WPI边10容差')(%)<input type="text" value="" id="va11"></span><br />
+        	<span>$t('标准WPI中')<input type="text" value="" id="va12"></span>
+        	<span>$t('标准WPI中容差')(%)<input type="text" value="" id="va13"></span><br />
+        	<span>$t('标准封度')<input type="text" value="" id="va14"></span>
+        	<span>$t('封度容差')<input type="text" value="" id="va15"></span>
+        </div>
+
+	<!--弹编辑-->
+        <div id="edit">
+        	<span>$t('已确认')<br/><input type="checkbox" value="" id="va0_1"></span>
+        	<span>$t('WPI改善')<br/><input type="checkbox" value="" id="va1_1"></span><br/>
+        	<span>$t('物料号')<br/><input type="text" value="" id="va2_1"></span>
+        	<span>$t('机型')<br/><input type="text" value="" id="va3_1"></span><br />
+        	<span>$t('模数')<br/><input type="text" value="" id="va4_1"></span>
+        	<span>$t('总针数')<br/><input type="text" value="" id="va5_1"></span><br />
+        	<span>$t('标准CPI')<br/><input type="text" value="" id="va6_1"></span>
+        	<span>$t('CPI容差')<br/><input type="text" value="" id="va7_1"></span><br />
+        	<span>$t('标准WPI边5')<input type="text" value="" id="va8_1"></span>
+        	<span>$t('标准WPI边5容差')(%)<input type="text" value="" id="va9_1"></span><br />
+        	<span>$t('标准WPI边10')<input type="text" value="" id="va10_1"></span>
+        	<span>$t('标准WPI边10容差')(%)<input type="text" value="" id="va11_1"></span><br />
+        	<span>$t('标准WPI中')<input type="text" value="" id="va12_1"></span>
+        	<span>$t('标准WPI中容差')(%)<input type="text" value="" id="va13_1"></span><br />
+        	<span>$t('标准封度')<input type="text" value="" id="va14_1"></span>
+        	<span>$t('封度容差')<input type="text" value="" id="va15_1"></span>
+        </div>		
+    	
+    
+    <script type="text/javascript" src="plugins/layui/layuis.all.js"></script>
+    <script type="text/javascript" src="plugins/layui/lay/modules/tables.js" ></script>
+    <script type="text/javascript" src="build/js/jquery.js" ></script>
+    <script src="build/js/di18n.js"></script>
+    <script src="build/js/lang.js"></script>
+    <script type="text/html" id="checkboxTpl">
+	  <input type="checkbox" name="confirmed" value="" class="input1">
+	</script>
+	<script type="text/html" id="checkboxTp2">
+	  <input type="checkbox" name="stus2" value="" >
+	</script>
+	
+	
+        <script>
+        	function closeit(a,type){
+        		if(type==1){
+        			return a.confirmed === '1'? 'checked':'false'
+        		}else{
+        			return a.stus2 === '1'? 'checked':'false'
+        		}
+		            
+		            // return a === '0'? '已關閉':'已開啟'
+		    }
+        	
+			var ta;	  
+			var tb;
+			var tc;
+			var td=0;
+			var ExistFlag=0;
+			var data;
+        layui.use(['table','upload'], function(){
+        	  var upload = layui.upload;
+              var table = layui.table;
+              form = layui.form;
+                
+              var colArr=[//表头
+              	 		  {radio:true, sort: true,}
+
+//						  ,{field:'confirmed', title:'已确认', width:50, templet: '#checkboxTpl', unresize: true,}
+//					      ,{field:'stus2', title:'WPI改善', width:50, templet: '#checkboxTp2', unresize: true,}
+//					      	,{field:'confirmed', title: '已确认', width: 50
+//						      ,templet: '<div><input type="checkbox" disabled {{closeit(d,1)}}></div>'
+//						    }
+					        ,{field:'confirmed', title: '已<br/>确认', width: 50
+						      ,templet: '<div><input type="checkbox"  {{closeit(d,1)}}></div>'
+						    }
+					      	,{field:'stus2', title: 'WPI<br/>改善', width: 50
+						      ,templet: '<div><input type="checkbox"  {{closeit(d)}}></div>'
+						    }
+					      
+//					      ,{field: 'id', title: '有化纖標識', width:70, checkbox:true, fixed: 'left'}
+					      ,{field: 'fabricNo', title: '物料<br/>号', width:50,}
+					      ,{field: 'machineType', title: '机<br/>型', width:40,}
+					      ,{field: 'modelnum', title: '模<br/>数', width:40,} 
+					      ,{field: 'needletotalnum', title: '总针<br/>数', width: 50,}
+					      ,{field: 'cpiStd', title: '标准<br/>CPI', width: 50, }
+					      ,{field: 'cpiwpiTolerence', title: 'CPI<br/>容差', width: 50, }
+					      ,{field: 'wpiStdL5', title: '标准<br/>WPI边5', width:80}
+					      ,{field: 'wpiStdL5Tol', title: '标准WPI<br/>边5容差(%)', width: 100, }
+					      ,{field: 'wpiStdL10', title: '标准<br/>WPI边10', width: 80, }
+					      ,{field: 'wpiStdL10Tol', title: '标准WPI<br/>边10容差(%)', width: 100, }
+					      ,{field: 'wpiStd', title: '标准<br/>WPI中', width: 50, }
+					      ,{field: 'wpiStdTol', title: '标准WPI<br/>中容差(%)', width: 100, }
+					      ,{field: 'widthStd', title: '标准<br/>封度', width: 60,}
+					      ,{field: 'widthTolerence', title: '封度<br/>容差', width: 60, }
+					      ,{field: 'user', title: '编辑<br/>人', width: 50, }
+					      ,{field: 'date', title: '编辑<br/>日期', width: 60, }
+              ];
+               arrchangeL(colArr);
+              var show_data=document.getElementById('show_data');
+	              show_data.onclick=function(){
+	              	td=1;
+	              	 table.render({
+					    elem: '#demo'
+					    ,height: 315
+					    ,url:getAjaxURL('/qualityInspectionStandard/getQualityInspectionStandard')//数据接口
+					    ,page: true //开启分页
+					    ,method:'POST'
+					    ,limit:10
+					    ,limits:[10,20,50,100]
+					    ,response: {
+	                      statusName: 'status' //数据状态的字段名称，默认：code
+	                      ,statusCode: 200 //成功的状态码，默认：0
+	                      ,msgName: 'message' //状态信息的字段名称，默认：msg
+	                      ,countName: 'total' //数据总数的字段名称，默认：count
+	                      ,dataName: 'list' //
+	                    }
+					    ,request: {
+		                    pageName: 'page' //页码的参数名称，默认：page
+		                    ,limitName: 'rows' //每页数据量的参数名，默认：limit
+		                } 					    
+		                ,cols:[colArr] //表头
+					    ,id:'idTest11'
+					    ,done: function(res, curr, count){
+							
+							$('.layui-table-cell')[0].style.zIndex = '-2';
+						}
+					  });
+					  form.on('checkbox(lockDemo)', function(obj){
+					    layer.tips(this.value + ' ' + this.name + '：'+ obj.elem.checked, obj.othis);
+					  });
+	              }
+	        
+	        
+	        //物料号输入框onkeydown事件 
+	        var Apassword=document.getElementById('password');
+	        var Ava2=document.getElementById('va2');
+//	        console.log(Ava2)
+			Apassword.onkeydown=function(event){
+				if(event.keyCode == 13){
+					var Fabric_no=$("#password").val()
+					table.render({
+					    elem: '#demo'
+					    ,height: 315
+					    ,method:'POST'
+					    ,limit:10
+					    ,limits:[10,20,50,100]
+					    ,url:getAjaxURL('/qualityInspectionStandard/getQualityInspectionStandard')  //数据接口
+					    ,page: true //开启分页
+					    ,response: {
+	                      statusName: 'status' //数据状态的字段名称，默认：code
+	                      ,statusCode: 200 //成功的状态码，默认：0
+	                      ,msgName: 'message' //状态信息的字段名称，默认：msg
+	                      ,countName: 'total' //数据总数的字段名称，默认：count
+	                      ,dataName: 'list' //
+	                    }
+					    ,request: {
+		                    pageName: 'page' //页码的参数名称，默认：page
+		                    ,limitName: 'rows' //每页数据量的参数名，默认：limit
+		                } 
+					    ,cols: [colArr] //表头
+//					    ,done: function(res, curr, count){
+//							$("[data-field='id']").css('display','none');
+//						}
+					    ,id:'idTest11'
+					    ,done: function(res, curr, count){
+							
+							$('.layui-table-cell')[0].style.zIndex = '-2';
+						}
+//					   
+					  });
+															                                
+                        table.reload('idTest11',{										                                
+	                        where: {
+	                         	fabric_no:Fabric_no,
+	          				}
+                        }); 
+          				 
+                         
+					
+					
+					
+				}
+			}
+	      //数据同步
+	      var data_ation=document.getElementById('data_ation');
+	      data_ation.onclick=function(){
+	      	if(td==0){
+	      		layer.alert("无数据",{title: strchangeL("提示")});
+	      		return;
+	      	};
+//	      	var Fabric_no=$("#password").val()
+	      	$.ajax({
+	      		type:"post",
+	      		url:getAjaxURL('/qualityInspectionStandard/btnSyncdata'),
+	      		async:true,
+	      		data:{
+	      			fabricNo:tc
+	      			//fabricNo:Fabric_no
+	      		},
+	      		success:function(data){
+	      			//alert(data)
+	      			layer.alert(data.message,{title: strchangeL("提示")});
+	      			console.log(data)
+	      		}
+	      	});
+	      }
+	              
+	     //新增         
+	      var shou1=document.getElementById('shou1');        
+	           shou1.onclick=function(){
+//	           	
+//	           			if($('#va0').checked==true){ // 判断已确认是否被选中
+//	           				$('#va0').attr('checked',true)
+//	           			}else{
+//	           				$('#va0').attr('checked',false)
+//	           			}
+//	           			if($('#va1')){ // 判断wpi 是否被选择
+//	           				$('#va1').attr('checked',true)
+//	           			}else{
+//	           				$('#va1').attr('checked',false)
+//	           			}
+//	           			console.log($('#va0')+'--------------=======')
+//	           	
+	           	
+	           	
+	           			layer.open({
+						  	btn: [strchangeL('提交'), strchangeL('取消')],
+	                    	type: 1,
+	                    	title:strchangeL('新增記錄'),
+	                    	area: ['800px', '400px'],
+	                    	content:$('#pup'),
+	                    	yes: function(){
+	                    		
+	                    		
+	//                       	//已确认
+                    			var Ava0=document.getElementById('va0').checked?1:0;
+                    			console.log(Ava0)
+                    			
+                    			//有化纖標識
+                    			var Ava1=document.getElementById('va1').checked?1:0;
+                    			//物料号
+                    			var Ava2=document.getElementById('va2').value;
+                    			//机型
+                    			var Ava3=document.getElementById('va3').value;
+                    			//模数
+                    			var Ava4=document.getElementById('va4').value;
+                    			//总针数
+								var Ava5=document.getElementById('va5').value;
+								//标准CPI
+								var Ava6=document.getElementById('va6').value;
+								//CPI容差
+								var Ava7=document.getElementById('va7').value;
+								//标准WPI边5
+								var Ava8=document.getElementById('va8').value;
+								//标准WPI边5容差(%)
+								var Ava9=document.getElementById('va9').value;
+								//标准WPI边10
+                    			var Ava10=document.getElementById('va10').value;
+                    			//标准WPI边10容差(%)
+                    			var Ava11=document.getElementById('va11').value;
+                    			//标准WPI中
+                    			var Ava12=document.getElementById('va12').value;
+                    			//标准WPI中容差(%)
+								var Ava13=document.getElementById('va13').value;
+								//标准封度
+                    			var Ava14=document.getElementById('va14').value;
+                    			//封度容差
+								var Ava15=document.getElementById('va15').value;
+								var roe=data;
+								
+	                    			$.ajax({
+	                    				type:"post",
+	                    				url:getAjaxURL('/qualityInspectionStandard/stdCount'),
+	                    				async:false,
+	                    				data:{
+	                    					fabricNo:Ava2,
+	                    					machineType:Ava3,
+	                    					modelNum:Ava4,
+	                    					needleTotalNum:Ava5
+	                    				},
+	                    				success:function(data){
+	                    					console.log(data)
+	                    					if(data.status !=200){
+	                    						alert(data.message)
+	                    					}else{
+	                    						if(data.data>0){
+	                    					layer.alert(Ava2+","+Ava3+","+Ava4+","+Ava5+" 已經存在! ");
+	                    					ExistFlag=1
+	                    						}
+	                    					}
+	                    				}
+	                    			});
+	                    			
+	                    		
+								if (ExistFlag==1){ExistFlag=0;return false;}
+                    			$.ajax({
+                    				type:"POST",
+                    			url:getAjaxURL('/qualityInspectionStandard/insertQualityInspectionStandard'),
+                    				data:{
+                    					confirmed:Ava0,//已确认
+                    					stus2:Ava1,//有化纖標識
+                    					fabricNo:Ava2,//物料号
+                    					machine_type:Ava3,//机型
+                    					modelnum:Ava4,//模数
+                    					needletotalnum:Ava5,//总针数
+                    					cpi_std:Ava6,//标准CPI
+                    					cpiwpi_tolerence:Ava7,//CPI容差
+                    					wpi_std_l5:Ava8,//标准WPI边5
+                    					wpi_std_l5_tol:Ava9,//标准WPI边5容差(%)
+                    					wpi_std_l10:Ava10,//标准WPI边10
+                    					wpi_std_l10_tol:Ava11,//标准WPI边10容差(%)
+                    					wpi_std:Ava12,//标准WPI中
+                    					wpi_std_tol:Ava13,//标准WPI中容差(%)
+                    					width_std:Ava14,//标准封度
+                    					width_tolerence:Ava15//封度容差
+                    				},
+                    				success:function(data){
+                    					alert(1)
+                    					layer.closeAll();
+                    					console.log(data)
+                    					empty()
+                    					$("#pup").css('display','none')
+                    					if (Ava0=='checked') 
+										{
+											layer.alert(strchangeL("请选中参数为空"),{title: strchangeL("提示")});
+										} else if(Ava1=='checked')
+										{
+											layer.alert(strchangeL("请选中参数为空"),{title: strchangeL("提示")});
+										}else if(Ava2=='')
+										{
+											layer.alert(strchangeL("无法获取物料号参数"),{title: strchangeL("提示")});
+											
+										}else if(Ava3=='')
+										{
+											layer.alert(strchangeL("无法获取机型参数"),{title: strchangeL("提示")});
+										}else if(Ava4=='')
+										{
+											layer.alert(strchangeL("无法获取模数参数"),{title: strchangeL("提示")});
+										}else if(Ava5=='')
+										{
+											layer.alert(strchangeL("无法获取总针数参数"),{title: strchangeL("提示")});
+										}else if(Ava6=='')
+										{
+											layer.alert(strchangeL("无法获取标准CPI参数"),{title: strchangeL("提示")});
+										}else if(Ava7=='')
+										{
+											layer.alert(strchangeL("无法获取CPI容差参数"),{title: strchangeL("提示")});
+										}else if(Ava8=='')
+										{
+											layer.alert(strchangeL("无法获取标准WPI边5参数"),{title: strchangeL("提示")});
+										}else if(Ava9=='')
+										{
+											layer.alert(strchangeL("无法获取标准WPI边5容差参数"),{title: strchangeL("提示")});
+										}else if(Ava10=='')
+										{
+											layer.alert(strchangeL("无法获取标准WPI边10参数"),{title: strchangeL("提示")});
+										}else if(Ava11=='')
+										{
+											layer.alert(strchangeL("无法获取标准WPI边10容差参数"),{title: strchangeL("提示")});
+										}else if(Ava12=='')
+										{
+											layer.alert("无法获取标准WPI中参数",{title: strchangeL("提示")});
+										}else if(Ava13=='')
+										{
+											layer.alert(strchangeL("无法获取标准WPI中容差参数"),{title: strchangeL("提示")});
+										}else if(Ava14=='')
+										{
+											layer.alert(strchangeL("无法获取标准封度参数"),{title: strchangeL("提示")});
+										}else if(Ava15=='')
+										{
+											layer.alert(strchangeL("无法获取封度容差参数"),{title: strchangeL("提示")});
+										}else{
+											//alert(data.message)
+											 layer.alert(data.message,{title: strchangeL("提示")});
+											table.reload('idTest11', {
+													url:getAjaxURL('/qualityInspectionStandard/getQualityInspectionStandard')
+											});
+										};
+										
+                    				}
+                    			});
+                    		}, 
+                    		btn2:function(){
+                    			
+								empty();
+	                       		 $("#pup").css('display','none')
+	                        	layer.closeAll();
+//                  		if($('#va0_1').checked==1){
+//	           					alert($('#va0_1').checked==true)
+//		           				document.getElementById('va0_1').checked=checked;
+//		           			}else{
+//		           				document.getElementById('va0_1').checked='';
+//		           			}
+                    			
+                    		}
+						});
+	           }
+	           
+	           //清空新增数据
+	           			function empty(){
+	           					//已确认
+                    			document.getElementById('va0').checked='';
+                    			//有化纖標識
+                    			document.getElementById('va1').checked='';
+                    			//物料号
+                    			document.getElementById('va2').value='';
+                    			//机型
+                    			document.getElementById('va3').value='';
+                    			//模数
+                    			document.getElementById('va4').value='';
+                    			//总针数
+								document.getElementById('va5').value='';
+								//标准CPI
+								document.getElementById('va6').value='';
+								//CPI容差
+								document.getElementById('va7').value='';
+								//标准WPI边5
+								document.getElementById('va8').value='';
+								//标准WPI边5容差(%)
+								document.getElementById('va9').value='';
+								//标准WPI边10
+                    			document.getElementById('va10').value='';
+                    			//标准WPI边10容差(%)
+                    			document.getElementById('va11').value='';
+                    			//标准WPI中
+                    			document.getElementById('va12').value='';
+                    			//标准WPI中容差(%)
+								document.getElementById('va13').value='';
+								//标准封度
+                    			document.getElementById('va14').value='';
+                    			//封度容差
+								document.getElementById('va15').value='';
+	           			}
+	           					
+	           
+	           //获取table行
+			
+				table.on('radio(test)', function(obj){
+					//当前是否选中状态
+					console.log(obj)
+					ta = obj.checked;
+                  //如果触发的是全选，则为：all，如果触发的是单选，则为：one
+                  	console.log(ta+"----------------");
+                  	
+                  	data=obj.data;
+                  	console.log(obj.data);
+                  	tc=obj.data.fabricNo;
+                  	tb=obj.data;
+					console.log(tc)
+					
+					
+				});
+	        //编辑   
+	           var shou2=document.getElementById('shou2');
+	          
+	           shou2.onclick=function(){
+	           	
+	           	if(ta==true){
+	           		
+           			var parent_tr = $('.layui-form-radioed').eq(0).parents('tr')
+           			var tr_index = parent_tr.attr('data-index')
+	           			
+					var radio_1 = parent_tr.find('td').eq(1).find('.layui-form-checkbox').hasClass('layui-form-checked')
+					var radio_2 = parent_tr.find('td').eq(2).find('.layui-form-checkbox').hasClass('layui-form-checked')
+	           			console.log(radio_1+"-----"+radio_2)
+	           			if(radio_1){ // 判断已确认是否被选中
+	           				$('#va0_1').attr('checked',true)
+	           			}else{
+	           				$('#va0_1').attr('checked',false)
+	           			}
+	           			if(radio_2){ // 判断wpi 是否被选择
+	           				$('#va1_1').attr('checked',true)
+	           			}else{
+	           				$('#va1_1').attr('checked',false)
+	           			}
+	           			console.log(radio_1+'--------------=======')
+	           		
+//	           			if($('#va0_1').checked==true){
+//	           				alert($('#va0_1').checked==true)
+//	           				document.getElementById('va0_1').checked=checked;
+//	           			}else{
+//	           				document.getElementById('va0_1').checked='';
+//	           			}
+//	           					//已确认
+//                  			document.getElementById('va0_1').checkbox=data.confirmed;
+//                  			//有化纖標識
+//                  			document.getElementById('va1_1').checkbox=data.stus2;
+                    			//物料号1111
+                    			document.getElementById('va2_1').value=data.fabricNo;
+                    			//机型1111
+                    			document.getElementById('va3_1').value=data.machineType;
+                    			//模数1111
+                    			document.getElementById('va4_1').value=data.modelnum;
+                    			//总针数1111
+								document.getElementById('va5_1').value=data.needletotalnum;
+								//标准CPI
+								document.getElementById('va6_1').value=data.cpiStd;
+								//CPI容差
+								document.getElementById('va7_1').value=data.cpiwpiTolerence;
+								//标准WPI边5
+								document.getElementById('va8_1').value=data.wpiStdL5;
+								//标准WPI边5容差(%)
+								document.getElementById('va9_1').value=data.wpiStdL5Tol;
+								//标准WPI边10
+                    			document.getElementById('va10_1').value=data.wpiStdL10;
+                    			//标准WPI边10容差(%)
+                    			document.getElementById('va11_1').value=data.wpiStdL10Tol;
+                    			//标准WPI中
+                    			document.getElementById('va12_1').value=data.wpiStd;
+                    			//标准WPI中容差(%)
+								document.getElementById('va13_1').value=data.wpiStdTol;
+								//标准封度
+                    			document.getElementById('va14_1').value=data.widthStd;
+                    			//封度容差
+								document.getElementById('va15_1').value=data.widthTolerence;
+	           			layer.open({
+						  	btn: [strchangeL('提交'), strchangeL('取消')],
+	                    	type: 1,
+	                    	title:strchangeL('编辑記錄'),
+	                    	area: ['800px', '400px'],
+	                    	content:$('#edit'),
+	                    	yes: function(){
+	                    		
+	//                       	//已确认
+                    			var Ava0=document.getElementById('va0_1').checked?1:0;
+                    			
+                    			//有化纖標識
+                    			var Ava1=document.getElementById('va1_1').checked?1:0;
+                    			//物料号
+                    			var Ava2=document.getElementById('va2_1').value;
+                    			//机型
+                    			var Ava3=document.getElementById('va3_1').value;
+                    			//模数
+                    			var Ava4=document.getElementById('va4_1').value;
+                    			//总针数
+								var Ava5=document.getElementById('va5_1').value;
+								//标准CPI
+								var Ava6=document.getElementById('va6_1').value;
+								//CPI容差
+								var Ava7=document.getElementById('va7_1').value;
+								//标准WPI边5
+								var Ava8=document.getElementById('va8_1').value;
+								//标准WPI边5容差(%)
+								var Ava9=document.getElementById('va9_1').value;
+								//标准WPI边10
+                    			var Ava10=document.getElementById('va10_1').value;
+                    			//标准WPI边10容差(%)
+                    			var Ava11=document.getElementById('va11_1').value;
+                    			//标准WPI中
+                    			var Ava12=document.getElementById('va12_1').value;
+                    			//标准WPI中容差(%)
+								var Ava13=document.getElementById('va13_1').value;
+								//标准封度
+                    			var Ava14=document.getElementById('va14_1').value;
+                    			//封度容差
+								var Ava15=document.getElementById('va15_1').value;
+								var roe=data;
+								if(data.fabricNo !=Ava2 ||data.machineType !=Ava3 ||data.modelnum !=Ava4){
+									//layer.alert(data.fabricNo)
+	                    			$.ajax({
+	                    				type:"post",
+	                    				url:getAjaxURL('/qualityInspectionStandard/stdCount'),
+	                    				async:false,
+	                    				data:{
+	                    					fabricNo:Ava2,
+	                    					machineType:Ava3,
+	                    					modelNum:Ava4,
+	                    					needleTotalNum:Ava5,
+	                    					id:roe.id
+	                    				},
+	                    				success:function(data){
+	                    					console.log(data)
+	                    					if(data.status !=200){
+	                    						layer.alert(data.message)
+	                    					}else{
+	                    						if(data.data>0){
+	                    					layer.alert(Ava2+","+Ava3+","+Ava4+","+Ava5+" 已經存在! ");
+	                    					ExistFlag=1
+	                    						}
+	                    					};
+	                    					
+	                    					
+	                    				}
+	                    			});
+	                    			
+	                    		}
+								if (ExistFlag==1){ExistFlag=0;return false;}
+                    			$.ajax({
+                    				type:"post",
+                    			url:getAjaxURL('/qualityInspectionStandard/updateQualityInspectionStandard'),
+                    				data:{
+                    					confirmed:Ava0,//已确认
+                    					stus2:Ava1,//有化纖標識
+                    					fabricNo:Ava2,//物料号
+                    					machine_type:Ava3,//机型
+                    					modelnum:Ava4,//模数
+                    					needletotalnum:Ava5,//总针数
+                    					
+                    					modifyBeforeFabricNo:Ava2,//获取修改前物料号
+                    					modifyBeforeMachineType:Ava3,//修改前机型
+                    					modifyBeforeModelnum:Ava4,//修改前模数
+                    					modifyBeforeNeedletotalnum:Ava5,//修改前总针数
+                    					
+                    					cpi_std:Ava6,//标准CPI
+                    					cpiwpi_tolerence:Ava7,//CPI容差
+                    					wpi_std_l5:Ava8,//标准WPI边5
+                    					wpi_std_l5_tol:Ava9,//标准WPI边5容差(%)
+                    					wpi_std_l10:Ava10,//标准WPI边10
+                    					wpi_std_l10_tol:Ava11,//标准WPI边10容差(%)
+                    					wpi_std:Ava12,//标准WPI中
+                    					wpi_std_tol:Ava13,//标准WPI中容差(%)
+                    					width_std:Ava14,//标准封度
+                    					width_tolerence:Ava15,//封度容差
+                    					id:roe.id
+                    				},
+                    				success:function(data){
+                    					console.log(data)
+                    					$("#edit").css('display','none')
+                    					
+                    					layer.closeAll();
+                    					if(data.status == 400){
+	                    						layer.alert(data.message)
+	                    				}else if(data.status == 200){
+	                    					layer.alert(data.message)
+	                    				}
+                    					table.reload('idTest11', {
+											url:getAjaxURL('/qualityInspectionStandard/getQualityInspectionStandard')
+										});
+										
+                    				}
+                    			});
+                    		}, 
+                    		btn2:function(){
+                    			//alert(1)
+	                       		$("#edit").css('display','none')
+	                        	layer.closeAll();
+                    			
+                    		}
+						});
+					}else{
+						//alert("请选中再编辑")
+						layer.alert(strchangeL("请选中再编辑"),{title: strchangeL("提示")});
+					}
+	           }
+	            //删除
+	             var shou3=document.getElementById('shou3');
+	             shou3.onclick=function(){
+	             
+			  	  if(tb!== ''){
+				  	  layer.open({
+					  	  area: ['200px', '150px']
+		                  ,title:strchangeL('删除')
+		                  ,type:1
+		                  ,content: strchangeL('你确定删除吗')
+						  ,btn: [strchangeL('删除'), strchangeL('取消')]
+						  ,yes: function(){
+//						   layer.closeAll();
+								console.log(tb)
+					  	  	  $.ajax({
+					  	  	  	  type:"post",
+						      	  url:getAjaxURL('/qualityInspectionStandard/delQualityInspectionStandard'),
+						      	  data:{
+	                                  fabricNo:tb.fabricNo,
+	                                  machine_type:tb.machineType,
+	                                  modelnum:tb.modelnum,
+	                                  needletotalnum:tb.needletotalnum
+						      	  },
+						      	  success:function(data){
+						      	  	layer.closeAll();
+						      	  	layer.alert(strchangeL("删除成功"),{title: strchangeL("提示")});
+	                                  table.reload('idTest11', {
+										url:getAjaxURL('/qualityInspectionStandard/getQualityInspectionStandard')
+									  });
+									  tb= '';
+									  
+						      	  }
+						      })
+						  }
+						  ,btn2: function(){
+						  	layer.closeAll();
+						  }
+					  });
+				  }else{
+			  	  	 // alert('请选择删除行')
+			  	  	  layer.alert(strchangeL('请选择删除行'),{title: strchangeL("提示")});
+			  	  }
+			  
+	            };
+	            //刷新
+	             var shou4=document.getElementById('shou4');
+	             shou4.onclick=function(){
+	             	table.render({
+					    elem: '#demo'
+					    ,height: 315
+					    ,method:'POST'
+					    ,limit:10
+					    ,limits:[10,20,50,100]
+					    ,url:getAjaxURL('/qualityInspectionStandard/getQualityInspectionStandard')  //数据接口
+					    ,page: true //开启分页
+					    ,response: {
+	                      statusName: 'status' //数据状态的字段名称，默认：code
+	                      ,statusCode: 200 //成功的状态码，默认：0
+	                      ,msgName: 'message' //状态信息的字段名称，默认：msg
+	                      ,countName: 'total' //数据总数的字段名称，默认：count
+	                      ,dataName: 'list' //
+	                    }
+					    ,request: {
+		                    pageName: 'page' //页码的参数名称，默认：page
+		                    ,limitName: 'rows' //每页数据量的参数名，默认：limit
+		                } 	
+					    ,cols:[colArr] //表头
+					    ,id:'idTest11'
+					    ,done: function (res,curr,count) {
+								$('.layui-table-cell')[0].style.zIndex = '-2';
+			             }
+					  });
+					  form.on('checkbox(lockDemo)', function(obj){
+					    layer.tips(this.value + ' ' + this.name + '：'+ obj.elem.checked, obj.othis);
+					  });
+	             }
+	            
+	         	//物料号输入框筛选事件   
+	           	
+	            //选完文件后不自动上传
+	       });
+		function uploadPic() { 
+				 document.getElementById('username').value=sessionStorage.loginName;		
+				  var form = document.getElementById('upload'), 
+				    formData = new FormData(form); 
+				    var CurrentDate=new Date();
+                    
+					$("#result").html(strchangeL("上傳中。。。。。。"));
+					var acount=0;
+					
+						$.ajax({ 
+						   url:getAjaxURL('/qualityInspectionStandard/uploadExcel'), 
+						   type:"post", 
+						   data:formData, 
+						   processData:false, 
+						   contentType:false, 
+						   success:function(xml) {
+						   	console.log(xml)
+						   	console.log(xml.totals)
+						    document.getElementById("ResultNum").innerHTML = xml.totals;
+								if($(xml).find("FatalError").text()!=""){
+									chkError=$(xml).find("FatalError").text();
+									layer.alert(strchangeL("第"+String(i-1)+"条有重复，本条插入失败，確定繼續提交。"),{title: strchangeL("提示")});
+								}else{
+									acount=acount+1;
+								}
+								
+								if(xml.status == 400){
+									layer.alert(xml.message)
+								}else if(xml.status == 200){
+									layer.alert(xml.message)
+								}
+								
+								$("#pic").val(""); 
+						   	 	$(".showUrl").html(xml); 
+						    	$(".showPic").attr("src",xml);
+							},
+
+						   error:function(xhr){ 
+						    chkError=xhr;
+						    console.log(xhr)
+						   } 
+				  
+				  }) 
+					
+				 $("#result").html(strchangeL("上傳完畢。")); 
+			  
+			}	
+    </script>
+    
+</body>
+</html>
+<style scoped>
+    .m{
+        margin:0 15px;
+    }
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    .top{
+        height: 22px;
+        line-height: 22px;
+        font-size: 16px;
+        border-bottom: 1px rgb(26,160,148) solid;
+    }
+    .layui-input{
+        height: 25px;
+    }
+    .v_d{
+        visibility:hidden;
+    }
+    .layui-input-inline{
+        padding: 9px 0;
+        width: 170px!important;
+    }
+    .layui-form-label{
+        width: auto;
+        padding: 9px 15px;
+    }
+    .clearfix:after{
+        content: '';
+        display: table;
+        clear:both;
+        visibility: hidden;
+    }
+    .f{
+        float: left;
+    }
+    .r{
+        color: red;
+    }
+    .layui-form-item{
+        margin-bottom: 0;
+    }
+    .layui-border-box, .layui-border-box *{font-size: 12px; text-align: center;}
+    .layui-table-view .layui-table td{text-align: center;}
+    #pup{padding-left: 5%;display: none;}
+    #pup span{width: 40%;display: inline-block;}
+    #pup input{ width: 80%;}
+    #pup span{margin-left: 5%;margin-bottom: 2%;}
+    .layui-table-cell{padding: 0px;}
+    #edit{padding-left: 5%;display: none;}
+    #edit span{width: 40%;display: inline-block;}
+    #edit input{ width: 80%;}
+    #edit span{margin-left: 5%;margin-bottom: 2%;}
+  .upload{margin-top: 20px;margin-left: 20px;}
+  .layui-form-radio i{padding-left: 14px;}
+  #uploadbt{line-height: 20px;}
+  .layui-form-checkbox{height: 22px;padding-right: 20px;border-radius: 50%;}
+    .layui-form-checkbox i{top:-4px;left: -6px;}
+    .layui-form-checkbox i{font-size: 12px;}
+    #result{margin-left: 10px;}
+    .layui-form-radio{margin: 0px;}
+    #upload{margin: 10px;}
+    #edit #va0_1{width: 20px;height: 20px;margin-top: 10px;}
+    #edit #va1_1{width: 20px;height: 20px;margin-top: 10px;}
+    #pup .FormElement{width: 20px;height: 20px;margin-top: 10px;}
+    .layui-layer-setwin .layui-layer-close1{display: none;}
+    #pup #va0,#pup #va1 {
+    width: 20px;
+    height: 20px;
+    margin-top: 10px;
+	}
+	.layui-form-checkbox{border:1.5px solid #c2c2c2}
+	/*头部样式*/
+	thead .layui-table-cell{
+        height:40px;
+        line-height:20px;
+        
+    }
+    
+</style>

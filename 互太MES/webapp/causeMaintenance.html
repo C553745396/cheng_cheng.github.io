@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>緯編質量維護</title>
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="plugins/layui/css/layui.css" media="all" />
+	<!--<link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/font-awesome.4.6.0.css">-->
+</head>
+<body>
+	<div class="m">
+		<div class="top">
+	    	<span>$t("緯編質量維護")</span>
+	    </div>
+        <table class="layui-table" lay-data="{height:315,  page:true, id:'test'}" lay-filter="test" id="tab1_c">
+		  
+		</table>
+		<!-- <div style="margin:0 15px"> -->
+          <!-- <table id="demo" lay-filter="test" lay-data="{id:'test'}"></table> -->
+          <i class="layui-icon shou c_p" id='shou1'>&#xe654;</i>&nbsp;&nbsp;<i class="layui-icon shou c_p" id='shou2'>&#x1002;</i>&nbsp;&nbsp; <i class="layui-icon shou c_p" id="edit">&#xe642;</i>&nbsp;&nbsp;<i class="layui-icon shou c_p" id="delete">&#xe640;</i>
+        <!-- </div> -->
+         <!--弹新增-->
+        <div id="et1">
+        	<span>$t("代碼")<input type="text" value="" id="bv11"></span>
+        	<span class="sp">$t("描述")<input type="text" value="" id="bv22"></span><br />
+        </div>
+        <!--弹编辑-->
+        <div id="et">
+        	<span>$t("代碼")<input type="text" value="" id="bv1"></span>
+        	<span class="sp">$t("描述")<input type="text" value="" id="bv2"></span><br />
+        </div>
+	</div>
+		<script type="text/javascript" src="plugins/servies.js" ></script>
+		<script type="text/javascript" src="plugins/layui/layuis.all.js"></script>
+        <script type="text/javascript" src="plugins/layui/lay/modules/tables.js" ></script>
+        <script type="text/javascript" src="build/js/jquery.js" ></script>
+        <script src="build/js/di18n.js"></script>
+    	<script src="build/js/lang.js"></script>
+		<script>
+			//sessionStorage.loginName
+//			  var Ashow1=document.getElementById('shou1');
+			  var tb;
+			  var tc;
+			  var ta;
+			layui.use('table', function(){
+			  var table = layui.table;
+//			   var Aedit=document.getElementById('edit');
+			 
+			  //执行一个laydate实例
+			 
+//				function refresh(){
+				 	table.render({
+					    elem: '#tab1_c'
+					    ,height: 300
+					    ,url:getAjaxURL("/weftInspectionReasonMaintain/list") //数据接口
+					    ,page: true //开启分页
+					    ,method:'POST'
+					    ,limit:10
+					    ,limits:[10,20,50,100]
+					    ,response: {
+		                      statusName: 'status' //数据状态的字段名称，默认：code
+		                      ,statusCode: 200 //成功的状态码，默认：0
+		                      ,msgName: 'message' //状态信息的字段名称，默认：msg
+		                      ,countName: 'total' //数据总数的字段名称，默认：count
+		                      ,dataName: 'list' //
+		                    }
+					    ,request: {
+		                    pageName: 'page' //页码的参数名称，默认：page
+		                    ,limitName: 'rows' //每页数据量的参数名，默认：limit
+		                } 
+					    ,cols: [[ //表头
+//					      {checkbox:true, fixed: 'left',sort: true}
+						   {radio: true, LAY_RadioCHECKED: false}
+//					      ,{field: 'rid', title: 'id',unresize: true,width:120}
+					      ,{field: 'rcode', title: '代碼',unresize: true,width:120}
+		                  ,{field: 'rmark', title: '描述',unresize: true,width:120}
+		                   
+					    ]]
+					    ,done: function(res, curr, count){
+							$("[data-field='rid']").css('display','none');
+							
+							$('.layui-table-cell')[0].style.zIndex = '-2';
+						}
+					    ,id:'idTest11'
+					  });
+//				};
+//			 refresh()
+			   
+			   //新增
+			   $('#shou1').click(function(){
+			   	
+				   	layer.open({
+							btn: [strchangeL('提交'), strchangeL('取消')],
+						    type: 1,
+		                    title:strchangeL('新增'),
+		                    area: ['400px', '280px'],
+		                    content:$('#et1'),
+		               	yes: function(){
+	                      	
+								//ID
+								var Ava0=document.getElementById('bv11').value;
+								//盘头编号	
+								var Ava1=document.getElementById('bv22').value;
+								
+								empty();//调用新增清空value方法
+								$.ajax({
+									type:'post',
+									url:getAjaxURL('/weftInspectionReasonMaintain/save'),
+									data:{
+										rcode:Ava0,
+										rmark:Ava1,
+										createduser:sessionStorage.loginName,
+										lstupdateuser:sessionStorage.loginName
+									},
+									success:function(data){
+										$('#et1').css("display",'none');
+										layer.closeAll();
+										console.log(data)
+										console.log(data.status)
+										if(data.status==500){
+											layer.alert(strchangeL("新增")+":"+data.message,{title: strchangeL("提示")})
+										}else if(data.status==200){
+											layer.alert(strchangeL("新增")+":"+data.message,{title: strchangeL("提示")})
+										};
+										if (Ava0=='') 
+										{
+			//								alert("无法获取盤頭編號")
+											layer.alert(strchangeL("无法获取盤頭編號"),{title: strchangeL("提示")})
+										} else if(Ava1=='')
+										{
+											//alert("无法获取盤頭條號")
+											layer.alert(strchangeL("无法获取盤頭條號"),{title: strchangeL("提示")})
+										}else{
+	
+											table.reload('idTest11', {
+											url:getAjaxURL('/weftInspectionReasonMaintain/list')
+										 	});
+										 	
+										};
+										
+										
+									}
+									
+								})
+								
+	                    },
+						btn2:function(){
+							//alert(1)
+	                         $("#et1").css('display','none')
+	                         layer.closeAll();
+						
+						},
+					});
+					
+				//清空新增value值	
+					function empty(){
+						$('#bv11').val('');
+						$('#bv22').val('');
+						
+						
+					}
+				
+			
+			   
+			})
+			 
+			   //获取table行
+			
+				table.on('radio(test)', function(obj){
+					//当前是否选中状态
+					ta = obj.checked;
+                  //如果触发的是全选，则为：all，如果触发的是单选，则为：one
+                  	console.log(ta);
+                  	
+                  	data=obj.data;
+                  	console.log(obj.data);
+                  	 
+                  	tb=obj.data;
+                  	
+                  	tc=obj.data.rid;
+                  	console.log(tc)
+//                	document.getElementById('bv1').value=data.beamNo;
+
+				});
+			   //编辑
+			   $('#edit').click(function(){
+			   		if(ta==true){
+			  			document.getElementById('bv1').value=data.rcode;
+						document.getElementById('bv2').value=data.rmark;
+					layer.open({
+						    btn: [strchangeL('提交'), strchangeL('取消')],
+		                    type: 1,
+		                    title:strchangeL('编辑'),
+		                    area: ['400px', '280px'],
+		                    content:$('#et'),
+		                    yes: function(){
+								 	//ID
+								var Ava0=document.getElementById('bv1').value;
+								//盘头编号	
+								var Ava1=document.getElementById('bv2').value;
+		                    	$.ajax({
+			                    	type:'post',    								
+			                    	url:getAjaxURL('/weftInspectionReasonMaintain/save'),
+			                    	data:{
+			                    		rid:tb.rid,
+			                    		rcode:Ava0,
+										rmark:Ava1,
+										lstupdateuser:sessionStorage.loginName
+			                    	},
+			                    	success:function(data){
+			                    		$('#et').css("display",'none');
+									  	layer.closeAll();
+			                    		console.log(data);
+			                    		if(data.status==500){
+											layer.alert(strchangeL("编辑")+":"+data.message,{title: strchangeL("提示")})
+										}else if(data.status==200){
+											layer.alert(strchangeL("编辑")+":"+data.message,{title: strchangeL("提示")})
+										}
+//			                    		if(data.status==200){
+//			                    			alert(1)
+//			                    		}
+											table.reload('idTest11', {
+										url:getAjaxURL('/weftInspectionReasonMaintain/list')
+									  });
+									  
+			                    	}
+		                    	})
+		                    },
+		                    btn2:function(){
+		//                       alert(1)
+		                         $("#et").css('display','none')
+		                         layer.closeAll();
+		                   
+		                    }
+						});
+					}else{
+			  			//alert("请选中再编辑")
+			  			layer.alert(strchangeL("请选中再编辑"),{title: strchangeL("提示")})
+			  		}
+				   
+			   })
+			  	
+			   
+			   //刷新
+			   $('#shou2').click(function(){
+				   	table.reload('idTest11', {
+						url:getAjaxURL("/weftInspectionReasonMaintain/list")
+					});
+			   })
+			  
+			   
+			   //删除
+			   
+			   $('#delete').click(function(){
+			   		
+			   	if(ta==true){
+			   		layer.open({
+			   			  area: ['200px', '150px']
+		                  ,title:strchangeL('删除')
+		                  ,type:1
+		                  ,content: strchangeL('你确定删除吗')
+						  ,btn: [strchangeL('删除'), strchangeL('取消')]
+						  ,yes: function(){
+							   console.log(tc)
+							  	$.ajax({
+							  		type:'post', 
+							  		url:getAjaxURL("/weftInspectionReasonMaintain/delete"),
+							  		data:{
+							  			rid:tc
+							  		},
+							  		success:function(data){
+							  			
+							  			console.log(data);
+							  			console.log(data.status);
+							  			if(data.status!=200){
+							  				layer.alert(data.message)
+							  			}else{
+							  				layer.closeAll();
+							  				layer.alert(data.message)
+							  				 
+							  				table.reload('idTest11', {
+											url:getAjaxURL('/weftInspectionReasonMaintain/list')
+										  });
+							  			}
+							  			 
+	//						  			tc="";
+//							window.location.reload(getAjaxURL_1("/weftInspectionReasonMaintain/list"))
+							  		}
+							  	});
+						  }
+						  ,btn2:function(){
+						  	layer.closeAll();
+						  }
+			   		})
+			   	}else{
+			   			layer.alert(strchangeL("请选择删除行"),{title: strchangeL("提示")});
+			   	}
+			   
+			   })
+			  
+			});
+				
+    </script>
+</body>
+</html>
+<style scoped>
+    .c_p{
+    	cursor: pointer;
+    }
+	.m{
+		margin:0 15px;
+	}
+	*{
+    	margin: 0;
+    	padding: 0;
+    }
+	.top{
+		height: 22px;
+		line-height: 22px;
+		font-size: 16px;
+		border-bottom: 1px rgb(26,160,148) solid;
+	}
+	.layui-input{
+		height: 25px;
+	}
+	.v_d{
+		visibility:hidden;
+	}
+	.layui-input-inline{
+		padding: 9px 0;
+		width: 170px!important;
+	}
+	.layui-form-label{
+		width: auto;
+		padding: 9px 15px;
+	}
+	.clearfix:after{
+		content: '';
+		display: table;
+		clear:both;
+		visibility: hidden;
+	}
+	.f{
+		float: left;
+	}
+	.r{
+		color: red;
+	}
+	.layui-form-item{
+        margin-bottom: 0;
+	}
+	#et{padding-left: 5%;display: none;}
+    #et span{width: 40%;display: inline-block;}
+    #et input{ width: 80%;}
+    #et span{margin-left: 5%;margin-bottom: 2%;}
+    #et .sp{margin-left: 10%;}
+    #et1{padding-left: 5%;display: none;}
+    #et1 span{width: 40%;display: inline-block;}
+    #et1 input{ width: 80%;}
+    #et1 span{margin-left: 5%;margin-bottom: 2%;}
+    #et1 .sp{margin-left: 10%;}
+    .layui-form-radio{margin: 0px 10px 0px 0px;width: 30px;z-index: 999999;}
+    .layui-form-radio i{margin-right: -20px !important;}
+    /*.layui-table-view .layui-table td, .layui-table-view .layui-table th{z-index: 9999;}*/
+    .layui-form-radio{margin: 0;z-index: 9999;}
+    .layui-form-checkbox, .layui-form-checkbox *, .layui-form-radio, .layui-form-radio *, .layui-form-switch{z-index: 11;}
+    .layui-form-radio span font font{visibility: hidden !important;}
+    .layui-layer-setwin .layui-layer-close1{display: none;}
+</style>
